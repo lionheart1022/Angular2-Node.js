@@ -1,0 +1,567 @@
+<div class="dashboard">
+  <div class="row">
+    <div class="col-12 col-xl-7">
+      <app-home-targets></app-home-targets>
+    </div>
+    <div class="col-12 col-xl-5">
+      <app-home-users></app-home-users>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 col-xl-7">
+      <div class="row">
+        <div style="padding-left: 0"
+             class="col-12 col-xl-4">
+          <app-home-user-statistic></app-home-user-statistic>
+        </div>
+        <div class="col-12 col-xl-4">
+          <app-home-success-profiles></app-home-success-profiles>
+        </div>
+        <div style="padding-right: 0"
+             class="col-12 col-xl-4">
+          <app-home-sentiment-monitor></app-home-sentiment-monitor>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-xl-5">
+      <div class="row">
+        <div style="padding-left: 0"
+             class="col-12 col-xl-6">
+          <app-home-monthly-statistics></app-home-monthly-statistics>
+        </div>
+        <div style="padding-right: 0"
+             class="col-12 col-xl-6">
+          <app-home-timeline></app-home-timeline>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="modal-edit"
+       tabindex="-1"
+       role="dialog"
+       aria-labelledby="exampleModalLabel"
+       aria-hidden="true"
+       class="modal fade">
+    <div role="document"
+         class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 id="modal-edit"
+              class="modal-title">Edit</h5>
+          <button type="button"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                  class="close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-edit">
+            <label>Username</label>
+            <input type="text"
+                   placeholder="Username"
+                   value="Omertex"
+                   class="input__regular">
+            <label>Password</label>
+            <input type="password"
+                   placeholder="Password"
+                   value="omertex"
+                   class="input__regular">
+            <div class="modal-edit__checkboxes">
+              <div class="checkbox">
+                <input type="checkbox"
+                       id="admin">
+                <label for="admin">Administrators</label>
+              </div>
+              <div class="checkbox">
+                <input type="checkbox"
+                       id="user">
+                <label for="user">Regular Users</label>
+              </div>
+            </div>
+            <div class="modal-edit__buttons">
+              <button class="button__regular_cancel">back to list</button>
+              <button class="button__regular_accept">save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="modal-audit"
+       tabindex="-1"
+       role="dialog"
+       aria-labelledby="exampleModalLabel"
+       aria-hidden="true"
+       class="modal fade">
+    <div role="document"
+         class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 id="modal-audit"
+              class="modal-title">Audit Trails: Omertex</h5>
+          <button type="button"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                  class="close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-audit">
+            <table>
+              <thead>
+                <tr>
+                  <th>Nr</th>
+                  <th>Name</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>User type</th>
+                  <th>Activity</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Omertex</td>
+                  <td>2017/09/26</td>
+                  <td>11:00:35</td>
+                  <td>User</td>
+                  <td class="activity">
+                    <a href="javascript:void(0)"
+                       data-toggle="modal"
+                       data-target="#modal-view-target">viewtarget</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Omertex</td>
+                  <td>2017/09/26</td>
+                  <td>11:00:35</td>
+                  <td>User</td>
+                  <td class="activity">
+                    <a href="javascript:void(0)"
+                       data-toggle="modal"
+                       data-target="#modal-view-target">viewtarget</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Omertex</td>
+                  <td>2017/09/26</td>
+                  <td>11:00:35</td>
+                  <td>User</td>
+                  <td class="activity">
+                    <a href="javascript:void(0)"
+                       data-toggle="modal"
+                       data-target="#modal-view-target">viewtarget</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>Omertex</td>
+                  <td>2017/09/26</td>
+                  <td>11:00:35</td>
+                  <td>User</td>
+                  <td class="activity">
+                    <a href="javascript:void(0)"
+                       data-toggle="modal"
+                       data-target="#modal-view-target">viewtarget</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>Omertex</td>
+                  <td>2017/09/26</td>
+                  <td>11:00:35</td>
+                  <td>User</td>
+                  <td class="activity">
+                    <a href="javascript:void(0)"
+                       data-toggle="modal"
+                       data-target="#modal-view-target">viewtarget</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>Omertex</td>
+                  <td>2017/09/26</td>
+                  <td>11:00:35</td>
+                  <td>User</td>
+                  <td class="activity">
+                    <a href="javascript:void(0)"
+                       data-toggle="modal"
+                       data-target="#modal-view-target">viewtarget</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>7</td>
+                  <td>Omertex</td>
+                  <td>2017/09/26</td>
+                  <td>11:00:35</td>
+                  <td>User</td>
+                  <td class="activity">
+                    <a href="javascript:void(0)"
+                       data-toggle="modal"
+                       data-target="#modal-view-target">viewtarget</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>8</td>
+                  <td>Omertex</td>
+                  <td>2017/09/26</td>
+                  <td>11:00:35</td>
+                  <td>User</td>
+                  <td class="activity">
+                    <a href="javascript:void(0)"
+                       data-toggle="modal"
+                       data-target="#modal-view-target">viewtarget</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>9</td>
+                  <td>Omertex</td>
+                  <td>2017/09/26</td>
+                  <td>11:00:35</td>
+                  <td>User</td>
+                  <td class="activity">
+                    <a href="javascript:void(0)"
+                       data-toggle="modal"
+                       data-target="#modal-view-target">viewtarget</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>10</td>
+                  <td>Omertex</td>
+                  <td>2017/09/26</td>
+                  <td>11:00:35</td>
+                  <td>User</td>
+                  <td class="activity">
+                    <a href="javascript:void(0)"
+                       data-toggle="modal"
+                       data-target="#modal-view-target">viewtarget</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>11</td>
+                  <td>Omertex</td>
+                  <td>2017/09/26</td>
+                  <td>11:00:35</td>
+                  <td>User</td>
+                  <td class="activity">
+                    <a href="javascript:void(0)"
+                       data-toggle="modal"
+                       data-target="#modal-view-target">viewtarget</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>12</td>
+                  <td>Omertex</td>
+                  <td>2017/09/26</td>
+                  <td>11:00:35</td>
+                  <td>User</td>
+                  <td class="activity">
+                    <a href="javascript:void(0)"
+                       data-toggle="modal"
+                       data-target="#modal-view-target">viewtarget</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>13</td>
+                  <td>Omertex</td>
+                  <td>2017/09/26</td>
+                  <td>11:00:35</td>
+                  <td>User</td>
+                  <td class="activity">
+                    <a href="javascript:void(0)"
+                       data-toggle="modal"
+                       data-target="#modal-view-target">viewtarget</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>14</td>
+                  <td>Omertex</td>
+                  <td>2017/09/26</td>
+                  <td>11:00:35</td>
+                  <td>User</td>
+                  <td class="activity">
+                    <a href="javascript:void(0)"
+                       data-toggle="modal"
+                       data-target="#modal-view-target">viewtarget</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>15</td>
+                  <td>Omertex</td>
+                  <td>2017/09/26</td>
+                  <td>11:00:35</td>
+                  <td>User</td>
+                  <td class="activity">
+                    <a href="javascript:void(0)"
+                       data-toggle="modal"
+                       data-target="#modal-view-target">viewtarget</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>16</td>
+                  <td>Omertex</td>
+                  <td>2017/09/26</td>
+                  <td>11:00:35</td>
+                  <td>User</td>
+                  <td class="activity">
+                    <a href="javascript:void(0)"
+                       data-toggle="modal"
+                       data-target="#modal-view-target">viewtarget</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="modal-audit__container">
+              <div class="modal-audit__item">
+                <div class="widget">
+                  <div class="widget__header">
+                    <div class="name">Omertex</div>
+                    <div class="date">2017/09/26</div>
+                    <div class="time">11:12:00</div>
+                  </div>
+                  <div class="widget__content">
+                    <div class="label">User</div>
+                    <div class="activity">
+                      <a href="javascript:void(0)"
+                         data-toggle="modal"
+                         data-target="#modal-view-target">viewtarget</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-audit__item">
+                <div class="widget">
+                  <div class="widget__header">
+                    <div class="name">Omertex</div>
+                    <div class="date">2017/09/26</div>
+                    <div class="time">11:12:00</div>
+                  </div>
+                  <div class="widget__content">
+                    <div class="label">User</div>
+                    <div class="activity">
+                      <a href="javascript:void(0)"
+                         data-toggle="modal"
+                         data-target="#modal-view-target">viewtarget</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-audit__item">
+                <div class="widget">
+                  <div class="widget__header">
+                    <div class="name">Omertex</div>
+                    <div class="date">2017/09/26</div>
+                    <div class="time">11:12:00</div>
+                  </div>
+                  <div class="widget__content">
+                    <div class="label">User</div>
+                    <div class="activity">
+                      <a href="javascript:void(0)"
+                         data-toggle="modal"
+                         data-target="#modal-view-target">viewtarget</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-audit__item">
+                <div class="widget">
+                  <div class="widget__header">
+                    <div class="name">Omertex</div>
+                    <div class="date">2017/09/26</div>
+                    <div class="time">11:12:00</div>
+                  </div>
+                  <div class="widget__content">
+                    <div class="label">User</div>
+                    <div class="activity">
+                      <a href="javascript:void(0)"
+                         data-toggle="modal"
+                         data-target="#modal-view-target">viewtarget</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-audit__footer">
+              <div class="modal-audit__pagination">
+                <div class="pagination">
+                  <a href="javascript:void(0)"
+                     class="pagination__prev">
+                    < Prev</a>
+                      <a href="javascript:void(0)"
+                         class="pagination__page active">1</a>
+                      <a href="javascript:void(0)"
+                         class="pagination__page">2</a>
+                      <a href="javascript:void(0)"
+                         class="pagination__page">3</a>
+                      <a href="javascript:void(0)"
+                         class="pagination__page">4</a>
+                      <a href="javascript:void(0)"
+                         class="pagination__page">5</a>
+                      <a href="javascript:void(0)"
+                         class="pagination__next">Next ></a>
+                </div>
+              </div>
+              <button class="button__regular_accept">OK</button>
+            </div>
+          </div>
+          <div id="modal-view-target"
+               tabindex="-1"
+               role="dialog"
+               aria-labelledby="exampleModalLabel"
+               aria-hidden="true"
+               class="modal fade">
+            <div role="document"
+                 class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 id="modal-view-target"
+                      class="modal-title">Omertex</h5>
+                  <button type="button"
+                          data-dismiss="modal"
+                          aria-label="Close"
+                          class="close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="modal-view-target">
+                    <div class="modal-view-target__textarea">
+                      <textarea class="textarea__regular"></textarea>
+                    </div>
+                    <div class="modal-view-target__footer">
+                      <button class="button__regular_accept">OK</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="modal-cases"
+       tabindex="-1"
+       role="dialog"
+       aria-labelledby="exampleModalLabel"
+       aria-hidden="true"
+       class="modal fade">
+    <div role="document"
+         class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 id="modal-cases"
+              class="modal-title">Omertex</h5>
+          <button type="button"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                  class="close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-cases">
+            <div class="modal-cases__dropdown">
+              <div class="dropdown">
+                <div class="dropdown__selected">
+                  <input type="text"
+                         readonly
+                         value="Lorem Ipsum"
+                         class="dropdown__input">
+                  <span style="background-image: url('img/arrow.png')"
+                        class="dropdown__arrow"></span>
+                </div>
+                <ul class="dropdown__list">
+                  <li class="dropdown__item">Lorem Ipsum</li>
+                  <li class="dropdown__item">Cases Lorem</li>
+                  <li class="dropdown__item">Cases john</li>
+                  <li class="dropdown__item">LoaderLorem</li>
+                  <li class="dropdown__item">AddCases</li>
+                  <li class="dropdown__item">Ipsum</li>
+                  <li class="dropdown__item">New cases</li>
+                  <li class="dropdown__item">Lorem</li>
+                </ul>
+              </div>
+              <button style="background-image: url('img/add_case.png')"
+                      class="modal-cases__add"></button>
+            </div>
+            <div class="modal-cases__selected-values"></div>
+            <div class="modal-cases__buttons">
+              <button class="button__regular_cancel">back to list</button>
+              <button class="button__regular_accept">add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!------------------------------ OLD DESIGN ---------------------------------------->
+
+<!--<div class="charts">-->
+<!--<div class="row">-->
+<!--<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">-->
+<!--<div class="row">-->
+<!--<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 pie-chart">-->
+<!--<canvas-->
+<!--baseChart-->
+<!--[data]="doughnutChartData"-->
+<!--[labels]="doughnutChartLabels"-->
+<!--[chartType]="doughnutChartType"-->
+<!--(chartHover)="chartHovered($event)"-->
+<!--(chartClick)="chartClicked($event)"-->
+<!--&gt;</canvas>-->
+<!--</div>-->
+<!--<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 pie-chart">-->
+<!--<canvas-->
+<!--baseChart-->
+<!--[data]="lineChartData"-->
+<!--[labels]="lineChartLabels"-->
+<!--[options]="lineChartOptions"-->
+<!--[chartType]="lineChartType"-->
+<!--(chartHover)="chartHovered($event)"-->
+<!--(chartClick)="chartClicked($event)"-->
+<!--&gt;</canvas>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="row">-->
+<!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pie-chart">-->
+<!--<canvas-->
+<!--baseChart-->
+<!--[datasets]="barChartData"-->
+<!--[labels]="barChartLabels"-->
+<!--[options]="barChartOptions"-->
+<!--[legend]="barChartLegend"-->
+<!--[chartType]="barChartType"-->
+<!--(chartHover)="chartHovered($event)"-->
+<!--(chartClick)="chartClicked($event)"-->
+<!--&gt;</canvas>-->
+<!--</div>-->
+<!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pie-chart">-->
+<!--<canvas-->
+<!--baseChart-->
+<!--[data]="pieChartData"-->
+<!--[labels]="pieChartLabels"-->
+<!--[chartType]="pieChartType"-->
+<!--(chartHover)="chartHovered($event)"-->
+<!--(chartClick)="chartClicked($event)"-->
+<!--&gt;</canvas>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 map-chart">-->
+<!--<div-->
+<!--id="map_chart"-->
+<!--[chartData]="map_ChartData"-->
+<!--[chartOptions]="map_ChartOptions"-->
+<!--chartType="GeoChart"-->
+<!--GoogleChart-->
+<!--&gt;</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->

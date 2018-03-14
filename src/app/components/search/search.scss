@@ -1,0 +1,20 @@
+.open-target-profile {
+  &__title {
+    text-overflow: ellipsis;
+    width: 100%;
+    max-width: 160px;
+    overflow: hidden;
+    margin-bottom: 25px;
+    white-space: nowrap;
+    display: inline-block;
+    padding: 0;
+  }
+}
+
+.open-target-img {
+  img {
+    height: 100%;
+    width: 100%;
+    background-size: contain;
+  }
+}

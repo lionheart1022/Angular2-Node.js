@@ -1,0 +1,72 @@
+<div class="col-10 q-content">
+  <div class="query__search">
+    <app-filter (onApplyFilter)="onApplyFilter($event)"></app-filter>
+  </div>
+
+
+  <div class="searching__row row">
+    <div class="main_search col-6">
+      <input
+        placeholder="Search"
+        [(ngModel)]="searchString"
+        [disabled]="activated"
+        (keyup.enter)="search()"
+        class="input__regular">
+      <button
+        type="button"
+        class="button__regular_accept"
+        (click)="search()"
+        [disabled]="activated">Search</button>
+    </div>
+    <div [hidden]="!activated" class="preloader_space col-6">
+      <div class='preloader full-width'>
+        <div class='preloader-dotline'>
+          <div class='dot'></div>
+          <div class='dot'></div>
+          <div class='dot'></div>
+          <div class='dot'></div>
+          <div class='dot'></div>
+          <div class='dot'></div>
+          <div class='dot'></div>
+          <div class='dot'></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div [hidden]="!searchBlock" class="search__result">
+    <h2>Search Results</h2>
+    <div class="devider"></div>
+    <div class="targets_search_res">
+
+      <div
+        *ngFor="let weapon of weapons | limitTo: 12; let ind = index"
+        (click)="openInModal(+ind, weapon)"
+        class="search_res_item">
+        <div class="open-target__section">
+          <div class="open-target__section__profile">
+            <div class="open-target-profile">
+              <div class="open-target-profile__content">
+                <div class="open-target-img">
+                  <img [src]="weapon.product_photo" alt="" />
+                </div>
+                <a
+                  href="javascript:void(0)"
+                  class="open-target-profile__title">{{weapon.product_name}}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="errorMessage" [ngClass]="'error'"> {{errorMessage}} </div>
+
+    </div>
+  </div>
+</div>
+
+<app-query-dialog></app-query-dialog>
+<!-- <app-dialog></app-dialog> -->
+
+<weapon-details></weapon-details>

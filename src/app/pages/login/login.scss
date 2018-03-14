@@ -1,0 +1,29 @@
+@import "src/styles/variables.scss";
+
+.login-wrapper{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: $dark-background;
+  opacity: 0.9;
+  z-index: 10000;
+  form{
+    width: 40%;
+    margin: 5vw auto;
+    border-radius: 10px;
+    background-color: #535355;
+    padding: 40px;
+    color: $white;
+    .form-group{
+      margin-bottom: 25px;
+      .text-danger {
+        color: $red;
+      }
+      &.button-block{
+        text-align: center;
+      }
+    }
+  }
+}

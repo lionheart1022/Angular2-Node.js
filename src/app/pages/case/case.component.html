@@ -1,0 +1,55 @@
+<div class="case__container">
+  <app-case-search></app-case-search>
+  <div class="case__wrapper">
+    <div class="row">
+      <div class="col-12 col-xl-3">
+        <ul class="row case__tabs">
+          <li class="case__tab active col-6">Active cases</li>
+          <li class="case__tab col-6">Archived cases</li>
+        </ul>
+      </div>
+    </div>
+    <div *ngIf="cases.length" class="case__content">
+      <div
+        *ngFor="let case of cases"
+        class="case__item">
+        <div class="case-item__element">
+          <div class="case-item__header">
+            <button
+              (click)="openConfirmModale(case['id'])"
+              style="background-image: url('img/archive.png')"
+              class="buttons__archive"></button>
+          </div>
+          <div class="case-item__content">
+            <a (click)="showMore(case['id'])" class="case-item__name">{{case.name}}</a>
+            <table class="table__case">
+              <tbody>
+              <tr>
+                <td class="table__case_head">Targets</td>
+                <td class="table__case_cell">
+                  <p>{{case.targets.length}}</p>
+                  <a (click)="showMore(case['id'])">view all</a>
+                </td>
+              </tr>
+              <tr>
+                <td class="table__case_head">Case number</td>
+                <td class="table__case_cell">&nbsp;&nbsp; #{{('0000'+case.id).slice(-5)}}</td>
+              </tr>
+              <tr>
+                <td class="table__case_head">Case type</td>
+                <td class="table__case_cell">{{case.caseType}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<confirm-modal
+  [openModalConfirm]="openModalConfirm"
+  [eventButton]="eventButton"
+  (deleteEv)="deleteCase($event)"
+> Delete case "{{currentCase?.name}}" ?
+</confirm-modal>

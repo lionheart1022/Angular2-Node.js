@@ -1,0 +1,34 @@
+.mat-select-value {
+  color: $white;
+}
+
+.mat-input-placeholder {
+  color: $white;
+  opacity: .4;
+}
+
+.mat-select-arrow {
+  color: $primary-blue;
+}
+
+.mat-form-field-underline {
+  background-color: $primary-blue;
+}
+
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+  color: $primary-blue;
+}
+
+.mat-fab.mat-primary, .mat-mini-fab.mat-primary, .mat-raised-button.mat-primary {
+  background-color: $primary-blue;
+}
+
+// Paginator
+.mat-paginator {
+  background-color: $dark-background;
+  color: $white;
+
+  .mat-paginator-decrement, .mat-paginator-increment {
+    border-color: $white !important;
+  }
+}

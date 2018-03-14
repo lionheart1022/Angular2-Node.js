@@ -1,0 +1,371 @@
+<div class="content">
+  <div class="wrapper">
+    <div class="header">
+      <div class="header__mobile-menu">
+        <div class="header__button-menu">
+          <button class="buttons__menu"></button>
+          <div class="header__title">
+            <p>Cases</p>
+          </div>
+        </div>
+        <div class="header__buttons">
+          <div class="header__buttons_item">
+            <button class="buttons__search"></button>
+          </div>
+          <div class="header__buttons_item">
+            <div class="header__notifications">
+              <button style="background-image: url('img/bell.png')"
+                      title="Notifications"
+                      class="bell">
+                <div class="count">
+                  <span>5</span>
+                </div>
+              </button>
+              <div class="notifications">
+                <ul class="notifications__list">
+                  <li class="notifications__item">
+                    <div class="notification">
+                      <div class="notification__img">
+                        <img src="img/locked.png"
+                             alt="">
+                      </div>
+                      <div class="notification__info">
+                        <p class="notification__message">Avatars Locked</p>
+                        <p class="notification__extension">Click for solution</p>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="notifications__item">
+                    <div class="notification">
+                      <div class="notification__img">
+                        <img src="img/success.png"
+                             alt="">
+                      </div>
+                      <div class="notification__info">
+                        <p class="notification__message">Updates pushed successfully</p>
+                        <p class="notification__extension">20 mins ago</p>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="notifications__item">
+                    <div class="notification">
+                      <div class="notification__img">
+                        <img src="img/new_request.png"
+                             alt="">
+                      </div>
+                      <div class="notification__info">
+                        <p class="notification__message">New user requested to join</p>
+                        <p class="notification__extension">11 hours ago</p>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="notifications__item">
+                    <div class="notification">
+                      <div class="notification__img">
+                        <img src="img/reminder.png"
+                             alt="">
+                      </div>
+                      <div class="notification__info">
+                        <p class="notification__message">Upcoming event reminder</p>
+                        <p class="notification__extension">2 days left</p>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="header__buttons_item">
+            <button class="buttons__more-menu icon_more-menu"></button>
+            <div class="more-menu__container"></div>
+            <div class="more-menu">
+              <ul class="more-menu__list">
+                <li style="background-image: url('img/add_cases.png')"
+                    class="more-menu__item">
+                  <a href="javascript:void(0)">Add Case</a>
+                </li>
+                <li style="background-image: url('img/import_mobile.png')"
+                    class="more-menu__item">
+                  <a href="javascript:void(0)">Import</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mobile-menu">
+        <div class="mobile-menu__container"></div>
+        <div class="mobile-menu__content">
+          <div class="mobile-menu__user-block">
+            <div class="user">
+              <img src="img/user.png"
+                   alt=""
+                   class="user__logo">
+              <a href="javascript:void(0)"
+                 class="name">John Doe</a>
+            </div>
+            <div class="logout">
+              <button class="buttons__logout"></button>
+            </div>
+          </div>
+          <div class="mobile-menu__user-menu">
+            <div class="user-menu">
+              <ul class="user-menu__list">
+                <li class="user-menu__item">
+                  <span style="background-image: url('img/star.png')"
+                        class="img"></span>
+                  <a href="ui_user-management.html">User Management</a>
+                </li>
+                <li class="user-menu__item">
+                  <span style="background-image: url('img/avatars.png')"
+                        class="img"></span>
+                  <a href="ui_avatars.html">Avatars</a>
+                </li>
+                <li class="user-menu__item">
+                  <span style="background-image: url('img/audit-trail.png')"
+                        class="img"></span>
+                  <a href="ui_audit-trail.html">Audit Trail</a>
+                </li>
+                <li class="user-menu__item">
+                  <label class="switch">
+                    <input type="checkbox"
+                           id="color-scheme">
+                    <span class="slider"></span>
+                  </label>
+                  <a>Color Scheme</a>
+                </li>
+                <li class="user-menu__item">
+                  <span style="background-image: url('img/logout_white.png')"
+                        class="img"></span>
+                  <a>Logout</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="mobile-menu__nav-menu">
+            <ul class="nav-menu">
+
+              <li class="nav-menu__item"
+                  [class.active]="isActive('home')">
+                <i class="icon"></i>
+                <a [routerLink]="['/home']">Home</a>
+              </li>
+
+              <li class="nav-menu__item"
+                  [class.active]="isActive('cases')">
+                <i class="icon"></i>
+                <a [routerLink]="['/cases']">Cases</a>
+              </li>
+
+              <li class="nav-menu__item"
+                  [class.active]="isActive('targets')">
+                <i class="icon"></i>
+                <a [routerLink]="['/targets']">Targets</a>
+              </li>
+
+              <li class="nav-menu__item"
+                  [class.active]="isActive('query')">
+                <i class="icon"></i>
+                <a [routerLink]="['/query']">Query</a>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="header__menu">
+        <div class="col-1">
+          <div class="header__logo">
+            <div class="logo">
+              <a [routerLink]="['/home']">
+                <img src="img/BLER_Logo_white.png">
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-1"></div>
+        <div class="col-5">
+          <div class="header__nav-menu">
+            <ul class="nav-menu">
+              <li class="nav-menu__item"
+                  [class.active]="isActive('home')">
+                <i class="icon"></i>
+                <a [routerLink]="['/home']">Home</a>
+              </li>
+
+              <li class="nav-menu__item"
+                  [class.active]="isActive('cases')">
+                <i class="icon"></i>
+                <a [routerLink]="['/cases']">Cases</a>
+              </li>
+
+              <li class="nav-menu__item"
+                  [class.active]="isActive('targets')">
+                <i class="icon"></i>
+                <a [routerLink]="['/targets']">Targets</a>
+              </li>
+
+              <li class="nav-menu__item"
+                  [class.active]="isActive('query')">
+                <i class="icon"></i>
+                <a [routerLink]="['/query']">Query</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-3">
+          <div *ngIf="currentPageName === 'cases'"
+               class="header__page-menu">
+            <button title="Import"
+                    class="buttons__import"></button>
+            <button (click)="openCreateCaseDialog()"
+                    title="Add Case"
+                    class="buttons__header-add-case"></button>
+          </div>
+          <div *ngIf="currentPageName === 'targets'"
+               class="header__page-menu">
+            <button title="Export"
+                    class="buttons__export"></button>
+            <button title="Merge"
+                    class="buttons__merge"></button>
+            <button style="background-image: url('img/delete_header.png')"
+                    title="Delete"
+                    class="buttons__header-delete"></button>
+          </div>
+          <div *ngIf="currentPageName === 'query'"
+               class="header__page-menu">
+            <button data-toggle="modal"
+                    data-target="#modal-scan"
+                    class="buttons__scan"></button>
+            <button data-toggle="modal"
+                    data-target="#modal-define-alert"
+                    class="buttons__define-alert"></button>
+            <button data-toggle="modal"
+                    data-target="#modal-view-alerts"
+                    class="buttons__view-alerts"></button>
+          </div>
+        </div>
+        <div class="col-2">
+          <div class="row">
+            <div class="col-3">
+              <div class="header__notifications">
+                <button style="background-image: url('img/bell.png')"
+                        title="Notifications"
+                        class="bell">
+                  <div class="count">
+                    <span>5</span>
+                  </div>
+                </button>
+                <div class="notifications">
+                  <ul class="notifications__list">
+                    <li class="notifications__item">
+                      <div class="notification">
+                        <div class="notification__img">
+                          <img src="img/locked.png"
+                               alt="">
+                        </div>
+                        <div class="notification__info">
+                          <p class="notification__message">Avatars Locked</p>
+                          <p class="notification__extension">Click for solution</p>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="notifications__item">
+                      <div class="notification">
+                        <div class="notification__img">
+                          <img src="img/success.png"
+                               alt="">
+                        </div>
+                        <div class="notification__info">
+                          <p class="notification__message">Updates pushed successfully</p>
+                          <p class="notification__extension">20 mins ago</p>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="notifications__item">
+                      <div class="notification">
+                        <div class="notification__img">
+                          <img src="img/new_request.png"
+                               alt="">
+                        </div>
+                        <div class="notification__info">
+                          <p class="notification__message">New user requested to join</p>
+                          <p class="notification__extension">11 hours ago</p>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="notifications__item">
+                      <div class="notification">
+                        <div class="notification__img">
+                          <img src="img/reminder.png"
+                               alt="">
+                        </div>
+                        <div class="notification__info">
+                          <p class="notification__message">Upcoming event reminder</p>
+                          <p class="notification__extension">2 days left</p>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-9">
+              <div class="header__user-menu">
+                <div style="background-image: url('img/user.png')"
+                     class="img"></div>
+                <a [title]="username"
+                   class="name">{{username}}</a>
+                <div class="user-menu">
+                  <ul class="user-menu__list">
+                    <li class="user-menu__item">
+                      <span style="background-image: url('img/star.png')"
+                            class="img"></span>
+                      <a [routerLink]="['/user-management']">User Management</a>
+                    </li>
+                    <li class="user-menu__item">
+                      <span style="background-image: url('img/avatars.png')"
+                            class="img"></span>
+                      <a [routerLink]="['/avatars']">Avatars</a>
+                    </li>
+                    <li class="user-menu__item">
+                      <span style="background-image: url('img/audit-trail.png')"
+                            class="img"></span>
+                      <a [routerLink]="['/audit-trail']">Audit Trail</a>
+                    </li>
+                    <li class="user-menu__item">
+                      <label class="switch">
+                        <input type="checkbox"
+                               id="color-scheme">
+                        <span class="slider"></span>
+                      </label>
+                      <a>Color Scheme</a>
+                    </li>
+                    <li class="user-menu__item">
+                      <span style="background-image: url('img/logout_white.png')"
+                            class="img"></span>
+                      <a (click)="logout()">Logout</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <router-outlet></router-outlet>
+      <app-footer></app-footer>
+    </div>
+  </div>
+</div>
+
+<confirm-modal [openModalConfirm]="openModalConfirm"
+               [eventButton]="eventButton"
+               (deleteEv)="deleteCase($event)"> Delete case "{{currentCase?.name}}" ?
+</confirm-modal>
+
+<dialog-create-case [openModalCreate]="showCreateCaseDialog"
+                    (visibleChange)="changeVisiblesCreateCaseDialog()"
+                    (successAdd)="successAddCase($event)"></dialog-create-case>

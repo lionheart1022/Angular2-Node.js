@@ -1,0 +1,10 @@
+<div [@dialog] *ngIf="openModalConfirm" class="dialog dialog_create_case">
+    <div class="confirm-detail-header">
+        <div class="weapon-detail-icons case_header">
+            <ng-content></ng-content>
+        </div>
+    </div>
+    <button  (click)="close()" aria-label="Close" class="dialog__close-btn btn">Cancel</button>
+    <button (click)="deleteItem()" aria-label="Close" class="dialog__save-btn btn">{{eventButton}}</button>
+</div>
+<div *ngIf="openModalConfirm" class="overlay" (click)="close()"></div>

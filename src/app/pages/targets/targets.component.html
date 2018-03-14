@@ -1,0 +1,43 @@
+<div class="targets">
+  <app-targets-search (onSearch)="search($event)"></app-targets-search>
+  <div class="targets__merge">
+    <div class="merge-targets">
+      <h4>Merge targets</h4>
+      <div class="merge-targets__container">
+        <div class="merge-targets__from">
+          <input type="text" placeholder="From" class="input__regular">
+        </div>
+        <div class="merge-targets__to">
+          <input type="text" placeholder="To" class="input__regular">
+        </div>
+        <div class="merge-targets__buttons">
+          <button class="button__regular_accept">ok</button>
+          <button class="button__regular_cancel">cancel</button>
+        </div>
+      </div>
+      <div class="checkbox">
+        <input type="checkbox" id="merge">
+        <label for="merge">Delete the donor target after the merge</label>
+      </div>
+    </div>
+  </div>
+  <div class="targets__delete">
+    <button class="button__regular_accept">delete 3 targets</button>
+  </div>
+  <div class="targets__container">
+    <div class="targets__grid"></div>
+    <div
+      *ngFor="let target of targets | paginate: { id: 'server', itemsPerPage: pageSize, currentPage: pageNum, totalItems: length }"
+      class="targets__grid-element">
+      <app-target
+        (onDelete)="deleteTargetById($event)"
+        [target]="target"></app-target>
+    </div>
+  </div>
+  <div class="pagination">
+    <pagination-controls
+      previousLabel="Prev"
+      (pageChange)="onPage($event)"
+      id="server"></pagination-controls>
+  </div>
+</div>

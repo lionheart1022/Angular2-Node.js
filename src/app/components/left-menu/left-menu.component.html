@@ -1,0 +1,14 @@
+<div class="left_menu">
+  <h4>Categories</h4>
+  <ul>
+    <li
+      class="categories-item"
+      *ngFor="let item of subcategories"
+      [class.active]="item.name === selectedSubcategory"
+      (click)="selectItem(item.name)">
+      <a [routerLink]="[item.url]">
+        {{item.name}}
+      </a>
+    </li>
+  </ul>
+</div>

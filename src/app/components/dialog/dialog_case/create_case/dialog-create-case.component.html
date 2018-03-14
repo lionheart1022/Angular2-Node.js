@@ -1,0 +1,24 @@
+<div [@dialog] *ngIf="openModalCreate" class="dialog dialog_create_case">
+    <div class="weapon-detail-header">
+        <div class="weapon-detail-icons case_header">
+            Create case
+        </div>
+    </div>
+    <div class="example-container">
+        <div class="fields-container">
+            <mat-form-field>
+                <input matInput [(ngModel)]="name" placeholder="Name">
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-select matInput [(ngModel)]="type"  placeholder="Select case type">
+                    <mat-option value="TERROR">TERROR</mat-option>
+                    <mat-option value="TERROR">TERROR</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+  <button *ngIf="closable" (click)="save()" aria-label="Close" class="dialog__save-btn">Save</button>
+  <button *ngIf="closable" (click)="close()" aria-label="Close" class="dialog__close-btn">X</button>
+</div>
+<div *ngIf="openModalCreate" class="overlay" (click)="close()"></div>

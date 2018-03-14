@@ -1,0 +1,150 @@
+@import "../../../../styles/dialog.scss";
+
+.dialog__close-btn{
+  background: transparent;
+  border: none;
+}
+
+.dialogVendor{
+  height: 699px;
+  top: calc((100% - 742px) / 2);
+  background-color: $light;
+  color: $black;
+  padding: 12px;
+  .content, .carouselItem{
+    background: #ccc;
+  }
+
+  .termsAndConditionsProfile{
+    .content{
+      height: 80px;
+      overflow-y: scroll;
+    }
+  }
+
+  .publicRGPKeyProfile{
+    h5{
+      height: 150px;
+      overflow-y: scroll;
+    }
+  }
+  .vendorListings{
+    overflow: hidden;
+  }
+  .listingsCarousel{
+    width:200%;
+    position: relative;
+    left: -286px;
+  }
+  .previewItemVendor{
+    top: 431px;
+    font-size: 20px;
+    left: 0px;
+    z-index: 9;
+  }
+  .nextItemVendor{
+    top: 444px;
+    font-size: 20px;
+    right: 0px;
+    z-index: 9;
+  }
+  .carouselItem{
+    display: inline-block;
+    width: 24%;
+    margin-left: 6px;
+    padding: 0 17px 6px 12px;
+    .nameCarouselItem{
+      font-size: 10px;
+    }
+    .content{
+      display: flex;
+      justify-content: space-between;
+      .imgCarouselItem{
+        height: 100px;
+        width: 100px;
+        background-image: url('/images/example.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+    }
+    .bottomButtonsCarouselitem{
+      .escrow{
+        position: absolute;
+        bottom: 20px;
+        margin-left: 87px;
+        font-size: 12px;
+        background: #5ed680;
+      }
+      .orderBC{
+        position: absolute;
+        bottom: 20px;
+        font-size: 15px;
+        background: #e81818;
+        color: #fff;
+        margin-left: 207px;
+      }
+    }
+  }
+}
+
+.vendorList li {
+  float: none;
+  margin-left: 0;
+  width: 70%;
+  height: auto;
+  span{
+    font-weight: bold;
+  }
+}
+
+.gradient-icon{
+  background: #faef92; /* Old browsers */
+  background: -moz-linear-gradient(top, #faef92 0%, #ef8402 98%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #faef92 0%,#ef8402 98%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #faef92 0%,#ef8402 98%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#faef92', endColorstr='#ef8402',GradientType=0 ); /* IE6-9 */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: initial; /* reset Font Awesome's display:inline-block */
+
+}
+
+.ratingTable{
+  width: 100%;
+  margin-top: 25px;
+  thead{
+    background: #1448f1;
+    color: $light;
+    th{
+      text-align: center;
+    }
+  }
+  td{
+    text-align: center;
+    max-height: 72px;
+  }
+}
+
+.ratingList{
+  font-size:17px;
+  min-height:336px;
+  max-height:336px;
+  tbody{
+    min-height:336px;
+    max-height:336px;
+    td{
+      div{
+        overflow:auto;
+        max-height:30px;
+      }
+    }
+  }
+}
+.ratingsTableNavigate{
+  text-align: center;
+  color: #313035;
+  a{
+    color: #313035;
+  }
+}
+

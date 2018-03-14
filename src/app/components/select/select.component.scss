@@ -1,0 +1,8 @@
+.dropdown {
+  &__item {
+    &--active {
+      background-color: #3994db;
+      color: #fff;
+    }
+  }
+}

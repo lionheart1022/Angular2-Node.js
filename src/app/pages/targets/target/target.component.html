@@ -1,0 +1,44 @@
+<div class="target-item">
+  <div class="target-item__container">
+    <div class="target-item__header">
+      <div class="target-item__header-menu">
+        <div class="target-item__checkbox">
+          <div class="checkbox">
+            <input type="checkbox"
+                   id="target_0">
+            <label for="target_0"></label>
+          </div>
+        </div>
+        <div class="target-item__status green"></div>
+        <div class="target-item__graphic"></div>
+      </div>
+      <button (click)="delete()"
+              style="background-image: url('img/close.png')"
+              class="buttons__close"></button>
+    </div>
+    <div class="target-item__content">
+      <div (click)="navigateToTarget()"
+           class="target-item__avatar">
+        <img [src]="targetData.product_photo || '/img/default-no-image.png'"
+             [alt]="target.targetName">
+      </div>
+      <div class="target-item__name">
+        <a href="ui_open-target.html">{{target.targetName}}</a>
+      </div>
+      <table class="target-item__info">
+        <tr>
+          <td class="head">Vendor:</td>
+          <td class="cell phone">{{targetData?.vendor}}</td>
+        </tr>
+        <tr>
+          <td class="head">Ships From:</td>
+          <td class="cell">{{targetData?.ships_from}}</td>
+        </tr>
+        <tr>
+          <td class="head">Ships To:</td>
+          <td class="cell">{{targetData?.ships_to}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

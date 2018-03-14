@@ -1,0 +1,21 @@
+<div (click)="toggle(); $event.stopPropagation()"
+     class="dropdown">
+  <div *ngIf="placeholder"
+       class="dd_name">{{placeholder}}</div>
+  <div class="dropdown__selected">
+    <input type="text"
+           readonly
+           [value]="currentOption?.name"
+           class="dropdown__input">
+    <span style="background-image: url('img/arrow.png')"
+          class="dropdown__arrow">
+    </span>
+  </div>
+  <ul *ngIf="show"
+      class="dropdown__list">
+    <li *ngFor="let option of options"
+        (click)="onSelectOption(option); $event.stopPropagation()"
+        [ngClass]="{'dropdown__item--active': currentOption.id === option.id}"
+        class="dropdown__item">{{option.name}}</li>
+  </ul>
+</div>

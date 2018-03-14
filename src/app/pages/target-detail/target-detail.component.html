@@ -1,0 +1,94 @@
+<div class="open-target">
+
+  <div *ngIf="targetData" class="row open-target__section">
+    <div class="open-target__section__profile">
+      <div class="open-target-profile">
+        <div class="open-target-profile__content">
+          <div class="open-target-img">
+            <img
+              [src]="targetData.product_photo"
+              [alt]="targetData.product_name" />
+          </div>
+          <div class="open-target-profile__title">CC TO BTC - VIDEO PROOF GET 2+ BTC DAILY</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="open-target__section__personal-informations">
+      <div class="open-target-personal-informations">
+        <div class="open-target-personal-informations__header">
+          <div class="open-target-personal-informations__title">Personal informations</div>
+        </div>
+        <table class="open-target-personal-informations__info">
+          <tr>
+            <td class="head">Vendor:</td>
+            <td class="cell"><a href="#profiledetails">{{targetData.vendor}}</a></td>
+          </tr>
+          <tr>
+            <td class="head">Price:</td>
+            <td class="cell">{{targetData.product_price}}</td>
+          </tr>
+          <tr>
+            <td class="head">Ships to:</td>
+            <td class="cell">{{targetData.ships_to}}</td>
+          </tr>
+          <tr>
+            <td class="head">Ships from:</td>
+            <td class="cell">{{targetData.ships_from}}</td>
+          </tr>
+          <tr>
+            <td class="head">Escrow:</td>
+            <td class="cell">{{targetData.escrow}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="open-target__section__friends-photos">
+      <div class="open-target-friends-photos">
+        <div class="tabs">
+          <input id="tab1" type="radio" name="tabs" checked>
+          <label for="tab1">Terms and conditions</label>
+          <input id="tab2" type="radio" name="tabs">
+          <label for="tab2">Product description</label>
+          <section id="content-tab1">
+            <p>
+              {{targetData.terms_and_conditions}}
+            </p>
+          </section>
+          <section id="content-tab2">
+            <p>
+              {{targetData.vendor_info.terms_and_conditions}}
+            </p>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 open-target__section">
+      <div id="open-target__map-location" class="widget widget__open-target">
+        <div class="widget__header widget__open-target__header">
+          <div class="widget__title widget__open-target__title">Map location</div>
+          <div class="widget__buttons">
+            <button style="background-image: url('img/refresh.png')" class="buttons__refresh deg0"></button>
+            <button style="background-image: url('img/arrow.png')" class="buttons__hide deg0"></button>
+          </div>
+        </div>
+        <div class="widget__content widget__open-target__content">
+          <div id="map"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="targetData" class="row">
+    <div class="col-12 open-target__section">
+      <app-profile-full-details
+        [info]="targetData.vendor_info"
+        class="widget widget__open-target"></app-profile-full-details>
+    </div>
+  </div>
+
+</div>

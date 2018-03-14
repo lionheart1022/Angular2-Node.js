@@ -1,0 +1,75 @@
+// @import "../../../styles/variables.scss";
+
+// .filter {
+//   color: $white;
+//   background: $dark-background;
+//   padding: 0 30px;
+
+//   &__fieldset {
+//     position: relative;
+//     border: 2px solid $light-grey;
+//     border-radius: 10px;
+//     padding: 35px 30px;
+//   }
+
+//   &__legend {
+//     position: absolute;
+//     left: 3%;
+//     top: -12px;
+//     background-color: $dark-background;
+//     padding: 0 5px;
+//   }
+
+//   &__numbers {
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+//   }
+
+//   &__dash {
+//     display: inline-block;
+//     vertical-align: middle;
+//     width: 15px;
+//     height: 2px;
+//     background-color: $white;
+//   }
+
+//   &__row {
+//     display: flex;
+//     flex-wrap: wrap;
+//     justify-content: space-between;
+//     align-items: center;
+//     margin-bottom: 20px;
+//   }
+
+//   &__column {
+//     width: 23%;
+//   }
+
+//   &__footer {
+//     display: flex;
+//     justify-content: flex-end;
+//   }
+
+//   &__input {
+//     &--number {
+//       width: 40%;
+//     }
+//   }
+// }
+
+// @media(max-width: $screen-sm) {
+//   .filter {
+//     &__column {
+//       width: 48%;
+//     }
+//   }
+// }
+
+// @media(max-width: $screen-xs) {
+//   .filter {
+//     &__column {
+//       width: 100%;
+//     }
+//   }
+// }

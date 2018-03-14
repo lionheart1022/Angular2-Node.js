@@ -1,0 +1,55 @@
+// @import "../../../styles/variables";
+
+// .navbar-fixed-top{
+//   width: 30%;
+//   bottom: 0;
+//   margin-bottom: 0;
+//   color: $light;
+//   background-color: $light-background;
+//   ul.sidebar-nav{
+//     margin-top: 111px;
+//     li.sidebar-item{
+//       padding: 20px 10px;
+//       font-weight: bold;
+//       &.active{
+//         color: $primary-blue;
+//       }
+//       ul.categories{
+//         list-style: none;
+//         padding-left: 0;
+//         li{
+//           padding: 10px 15px;
+//           margin: 5px 0;
+//           border-radius: $radius;
+//           a{
+//             display: block;
+//             color: $white;
+//             font-size: 16px;
+//             &:visited, &:focus{
+//               text-decoration: none;
+//             }
+//           }
+//           &.active{
+//             background-color: $grey;
+//               a {
+//                 color: #0288d1;
+//               }
+//             font-weight: bold;
+//           }
+//           &:hover{
+//             background-color: $grey;
+//             font-weight: bold;
+//             cursor: pointer;
+//             a{
+//               text-decoration: none;
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
+// .query-wrapper {
+//   display: flex;
+// }

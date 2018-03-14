@@ -1,0 +1,44 @@
+@import "src/styles/variables.scss";
+
+  .weapon-detail-block{
+    background-color: $grey;
+    padding: 10px;
+    max-height: calc(100vh - 168px);
+    overflow: auto;
+    margin: 7px 10px;
+    background-color: #535355;
+    width: calc(100% - 16px);
+    .weapon-detail-content{
+      a{
+        color:#0288d1;
+        &:hover{
+          cursor:default;
+          color: $light-blue
+        }
+      }
+      padding:20px;
+      .detail-info{
+        margin:1.5vw 0 0;
+        font-size:24px;
+        span{
+          font-weight:bold;
+        }
+      }
+      .weapon-detail-image{
+        height: auto;
+        min-height: 250px;
+        width: 262px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        margin: 1.5vw -3vW;
+      }
+    }
+  }
+.termsAndConditionsProfile{
+  .content{
+    height: 150px;
+    overflow-y: scroll;
+  }
+}
+

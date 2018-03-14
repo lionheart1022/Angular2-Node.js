@@ -1,0 +1,40 @@
+<div id="open-target__full-details" class="widget widget__open-target">
+  <div class="widget__header widget__open-target__header">
+    <div class="widget__title widget__open-target__title" id="profiledetails">Profile full details</div>
+    <div class="widget__buttons">
+      <button style="background-image: url('img/refresh.png')" class="buttons__refresh deg0"></button>
+      <button style="background-image: url('img/arrow.png')" class="buttons__hide deg0"></button>
+    </div>
+  </div>
+  <div class="widget__content widget__open-target__content">
+    <div class="open-target-full-details">
+
+      <div class="open-target-full-details__tabs full-details-tabs-slider">
+        <a
+          [routerLink]="['vendor-information']"
+          routerLinkActive="button__active"
+          class="open-target-full-details__tab button__inactive">Vendor informations</a>
+        <a
+          [routerLink]="['terms-and-conditions']"
+          routerLinkActive="button__active"
+          class="open-target-full-details__tab button__inactive">Terms and conditions</a>
+        <a
+          [routerLink]="['rgp-key']"
+          routerLinkActive="button__active"
+          class="open-target-full-details__tab button__inactive">Public RGP key</a>
+        <a
+          [routerLink]="['listings-from-username']"
+          routerLinkActive="button__active"
+          class="open-target-full-details__tab button__inactive">Listings from UserName</a>
+        <a
+          [routerLink]="['ratings']"
+          routerLinkActive="button__active"
+          class="open-target-full-details__tab button__inactive">Ratings</a>
+      </div>
+
+      <div class="open-target-full-details__tabs__container">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

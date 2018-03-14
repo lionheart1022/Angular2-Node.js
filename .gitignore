@@ -1,0 +1,15 @@
+node_modules/
+dist
+src/ngfactory/
+lib/
+.DS_Store
+npm-debug.log
+testing
+reports/
+docs/
+coverage/
+.vscode
+.idea
+
+package-lock.json
+yarn.lock

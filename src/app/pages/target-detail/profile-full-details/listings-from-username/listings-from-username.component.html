@@ -1,0 +1,30 @@
+<div class="open-target-tab" *ngIf="info">
+  <div class="open-target-full-details__search">
+    <div class="open-target-full-details__search__grid search-result-slider">
+
+      <div *ngFor="let listing of info.listings">
+        <div class="target_listing_grid-element">
+          <div class="listing-item">
+            <div class="listing-item-img">
+              <img src="img/btc_hand.jpg" alt="">
+            </div>
+            <div class="listing-item-info">
+              <p class="name">{{listing.product_name}}</p>
+              <p class="price">฿ 0.1358</p>
+              <div class="listing-item-buttons">
+                <button class="listing-button__yes">Yes</button>
+                <button class="listing-button__order">Order</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="open-target-full-details__search__footer">
+      <div class="open-target-full-details__search__button">
+        <button class="button__regular_accept">get search result</button>
+      </div>
+    </div>
+  </div>
+</div>

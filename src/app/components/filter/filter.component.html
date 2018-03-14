@@ -1,0 +1,146 @@
+<form (ngSubmit)="onSubmit()"
+      class="quick_filter">
+  <h4>Quick Filter</h4>
+  <div class="form_row">
+    <div class="form_row_item">
+      <app-select placeholder="Ship Form"></app-select>
+    </div>
+    <div class="form_row_item">
+      <app-select placeholder="Ship To"></app-select>
+    </div>
+    <div class="form_row_item">
+      <app-select placeholder="Escrow"></app-select>
+    </div>
+    <div class="form_row_item">
+      <app-select placeholder="Category"></app-select>
+    </div>
+  </div>
+  <div class="form_row">
+    <div class="form_row_item">
+      <app-select placeholder="Price"></app-select>
+    </div>
+    <div class="form_row_item numbers">
+      <div class="dropdown">
+        <div class="dd_name">From</div>
+        <div class="dropdown__selected number">
+          <input type="number"
+                 size="3"
+                 name="start"
+                 value="0">
+        </div>
+      </div>
+      <div class="text-devider">-</div>
+      <div class="dropdown">
+        <div class="dd_name">To</div>
+        <div class="dropdown__selected number">
+          <input type="number"
+                 size="3"
+                 name="end"
+                 value="20">
+        </div>
+      </div>
+    </div>
+    <div class="form_row_item">
+      <app-select placeholder="Sort By"></app-select>
+    </div>
+    <div class="form_row_item">
+      <app-select placeholder="Vendor"></app-select>
+    </div>
+  </div>
+  <div class="search__button">
+    <button class="button__regular_accept">Apply Filter</button>
+  </div>
+</form>
+
+
+
+
+<!-- <form
+  (ngSubmit)="onSubmit()"
+  class="quick_filter">
+  <div class="filter__fieldset">
+    <h4>Quick Filter</h4>
+    <div class="form_row">
+      <mat-form-field class="form_row_item">
+        <mat-select
+          [(ngModel)]="filterData.shipsFrom"
+          [ngModelOptions]="{standalone: true}"
+          placeholder="Ship from"
+        >
+          <mat-option
+            *ngFor="let select of shipFrom"
+            [value]="select.value"
+          >
+            {{ select.viewValue }}
+            </mat-option>
+            </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="form_row_item">
+        <mat-select
+          [(ngModel)]="filterData.shippingTo"
+          [ngModelOptions]="{standalone: true}"
+          placeholder="Ship to"
+        >
+          <mat-option
+            *ngFor="let select of shipTo"
+            [value]="select.value"
+          >
+            {{ select.viewValue }}
+            </mat-option>
+            </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="form_row_item">
+        <mat-select
+          [(ngModel)]="filterData.escrow"
+          [ngModelOptions]="{standalone: true}"
+          placeholder="Escrow">
+          <mat-option
+            *ngFor="let select of escRows"
+            [value]="select.value">
+            {{ select.viewValue }}
+            </mat-option>
+            </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="form_row_item">
+        <mat-select
+          [(ngModel)]="filterData.category"
+          [ngModelOptions]="{standalone: true}"
+          placeholder="Category"
+        >
+          <mat-option
+            *ngFor="let select of categories"
+            [value]="select.value">
+            {{ select.viewValue }}
+            </mat-option>
+            </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="form_row">
+      <mat-form-field class="form_row_item">
+        <mat-select
+          [(ngModel)]="filterData.vendorSelect"
+          [ngModelOptions]="{standalone: true}"
+          placeholder="Vender"
+        >
+          <mat-option
+            *ngFor="let select of vender"
+            [value]="select.value"
+          >
+            {{ select.viewValue }}
+            </mat-option>
+            </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="filter__footer">
+      <button
+        mat-raised-button
+        color="primary"
+      >Apply Filter</button>
+    </div>
+  </div>
+  </form> -->

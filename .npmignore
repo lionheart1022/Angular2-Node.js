@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.DS_Store/
+npm-debug.log
+reports/
+public/
+aot/
+config/
+docs/
+e2e/
+*.json
+*.yml
+src/**/*
+!package.json
+src/styles/**/*
+yarn.lock

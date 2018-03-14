@@ -1,0 +1,154 @@
+<div [@dialog] *ngIf="openModal" class="dialog dialogVendor">
+    <div class="case-block-content vendorList">
+        <ul>
+            <li>
+                <span>Username:</span>&nbsp;&nbsp; {{currentVendor.username}}&nbsp;<a>({{currentVendor.ratings.length}})</a> <a>({{averageRating.toFixed(2)}}<i class="fa fa-star gradient-icon" aria-hidden="true"></i>)</a>
+            </li>
+            <li>
+                <span>FE enabled:</span>&nbsp;&nbsp; {{currentVendor.fe_enabled}}&nbsp;
+            </li>
+            <li>
+                <span>Join date:</span>&nbsp;&nbsp; {{currentVendor.join_date}}&nbsp;
+            </li>
+            <li>
+                <span>Last active:</span>&nbsp;&nbsp;{{currentVendor.last_active}}
+            </li>
+        </ul>
+    </div>
+    <mat-tab-group>
+        <mat-tab label="Profile">
+            <div class="termsAndConditionsProfile">
+                <h3>Terms and conditions</h3>
+                <p class="content">
+                    {{currentVendor.terms_and_conditions}}
+                </p>
+            </div>
+            <div class="publicRGPKeyProfile">
+                <h3>Public RGP key</h3>
+                <h5 class="content">
+                    {{currentVendor.pgp_key}}
+                </h5>
+            </div>
+            <div class="arrow_gallery previewItemVendor" (click)="previewCarouselItem()" *ngIf="preview">
+                <i class="fa fa-arrow-circle-left fa-lg" aria-hidden="true"></i>
+            </div>
+            <div class="arrow_gallery nextItemVendor" (click)="nextCarouselItem()" *ngIf="next">
+                <i class="fa fa-arrow-circle-right fa-lg" aria-hidden="true"></i>
+            </div>
+            <div class="vendorListings">
+                <p >Listings from UserName</p>
+                <div class="listingsCarousel">
+                    <div class="carouselItem carouselItem0" >
+                        <p class="nameCarouselItem">{{carouselItem0?.product_name}}</p>
+                        <div class="content">
+                             <div class="imgCarouselItem"></div>
+
+
+                            <div class="priceCarouselItem"> <div class="bitcoinCurrency"></div> 0.1358</div>
+                        </div>
+                        <div class="bottomButtonsCarouselitem">
+                            <span class="escrow">{{carouselItem0?.escrow}}</span>
+                            <span class="orderBC">Order</span>
+                        </div>
+                    </div>
+                    <div class="carouselItem carouselItem1">
+                        <p class="nameCarouselItem">{{carouselItem1?.product_name}}</p>
+                        <div class="content">
+                             <div class="imgCarouselItem"></div>
+
+                            <div class="priceCarouselItem"> <div class="bitcoinCurrency"></div> 0.1358</div>
+
+                        </div>
+                        <div class="bottomButtonsCarouselitem">
+                            <span class="escrow">{{carouselItem1?.escrow}}</span>
+                            <span class="orderBC">Order</span>
+                        </div>
+                    </div>
+                    <div class="carouselItem carouselItem2">
+                        <p class="nameCarouselItem">{{carouselItem2?.product_name}}</p>
+                        <div class="content">
+                             <div class="imgCarouselItem"></div>
+
+                            <div class="priceCarouselItem"> <div class="bitcoinCurrency"></div> 0.1358</div>
+
+                        </div>
+                        <div class="bottomButtonsCarouselitem">
+                            <span class="escrow">{{carouselItem2?.escrow}}</span>
+                            <span class="orderBC">Order</span>
+                        </div>
+                    </div>
+                    <div class="carouselItem carouselItem2">
+                        <p class="nameCarouselItem">{{carouselItem3?.product_name}}</p>
+                        <div class="content">
+                             <div class="imgCarouselItem"></div>
+
+                            <div class="priceCarouselItem"> <div class="bitcoinCurrency"></div> 0.1358</div>
+
+                        </div>
+                        <div class="bottomButtonsCarouselitem">
+                            <span class="escrow">{{carouselItem3?.escrow}}</span>
+                            <span class="orderBC">Order</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Ratings">
+            <table class="ratingTable">
+                <thead>
+                    <th>Age</th>
+                    <th>1 stars</th>
+                    <th>2 stars</th>
+                    <th>3 stars</th>
+                    <th>4 stars</th>
+                    <th>5 stars</th>
+                    <th>Rating</th>
+                </thead>
+                <tbody>
+                <tr *ngFor="let rating of currentVendor['ratings_summary']">
+                    <td>
+                        {{rating['age']}}
+
+                    </td>
+                    <td>
+                        {{rating['1 Star Count']}}
+                    </td>
+                    <td>
+                        {{rating['2 Star Count']}}
+                    </td>
+                    <td>
+                        {{rating['3 Star Count']}}
+
+                    </td>
+                    <td>
+                        {{rating['4 Star Count']}}
+
+                    </td>
+                    <td>
+                        {{rating['5 Star Count']}}
+
+                    </td>
+                    <td>
+                        ({{rating['rating']}}<i class="fa fa-star gradient-icon" aria-hidden="true"></i>)
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <table class="ratingTable ratingList" *ngIf="itemsRatingsTable">
+                <tbody>
+                <tr *ngFor="let item of itemsRatingsTable">
+                        <td>{{item.time}}</td>
+                        <td><i *ngFor="let star of getArray(item.stars)" class="fa fa-star gradient-icon" aria-hidden="true"></i></td>
+                        <td><div>{{clearText(item.comment)}}</div></td>
+                        <td>{{item.product_name}}</td>
+                        <td>{{item.price}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="ratingsTableNavigate"><a (click)="previewRatingsTable()"><</a>&nbsp;&nbsp;&nbsp;{{pageRatings}}&nbsp;({{this.currentVendor.ratings.length}})&nbsp;&nbsp;&nbsp;<a (click)="nextRatingsTable()"> > </a></div>
+        </mat-tab>
+    </mat-tab-group>
+  <button *ngIf="closable" (click)="close()" aria-label="Close" class="dialog__close-btn">X</button>
+</div>
+<div *ngIf="openModal" class="overlay" (click)="close()"></div>

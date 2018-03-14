@@ -1,0 +1,123 @@
+<div class="audit-trail">
+  <div class="header_row">
+    <h1>Audit Trail</h1>
+  </div>
+  <div class="audit-trail__search">
+    <div class="row">
+      <div class="col-12 col-xl-2 datepicker">
+        <div class="datepicker__container"></div>
+        <input id="datepicker"
+               type="text"
+               class="datepicker__regular">
+      </div>
+      <div class="col-12 col-xl-4">
+        <input type="text"
+               placeholder="What are you searching for?"
+               class="input__regular">
+      </div>
+      <div class="col-12 col-xl-2">
+        <div class="dropdown">
+          <div class="dropdown__selected">
+            <input type="text"
+                   readonly
+                   value="Lorem Ipsum"
+                   class="dropdown__input">
+            <span style="background-image: url('img/arrow.png')"
+                  class="dropdown__arrow"></span>
+          </div>
+          <ul class="dropdown__list">
+          </ul>
+        </div>
+      </div>
+      <div class="col-12 col-xl-2">
+        <button class="button__regular_search">search</button>
+      </div>
+    </div>
+  </div>
+  <div class="audit-trail__tables-container">
+    <div class="audit-trail__table">
+      <div class="audit-trail__table__table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Nr</th>
+              <th>Username</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>User Type</th>
+              <th>Activity</th>
+            </tr>
+          </thead>
+
+          <tbody *ngFor="let audit of audittrail">
+            <tr>
+              <td>1</td>
+              <td>{{audit.audittName}}</td>
+              <td>2017/09/26</td>
+              <td>11:00:35</td>
+              <td>User</td>
+              <td>
+                <button data-toggle="modal"
+                        data-target="#modal-view-target"
+                        class="buttons__link">VIEWTARGET</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="audit-trail__pagination">
+    <div class="pagination">
+      <a href="javascript:void(0)"
+         class="pagination__prev">
+        < Prev</a>
+          <a href="javascript:void(0)"
+             class="pagination__page active">1</a>
+          <a href="javascript:void(0)"
+             class="pagination__page">2</a>
+          <a href="javascript:void(0)"
+             class="pagination__page">3</a>
+          <a href="javascript:void(0)"
+             class="pagination__page">4</a>
+          <a href="javascript:void(0)"
+             class="pagination__page">5</a>
+          <a href="javascript:void(0)"
+             class="pagination__next">Next ></a>
+    </div>
+  </div>
+  <div class="popup__container">
+    <div id="modal-view-target"
+         tabindex="-1"
+         role="dialog"
+         aria-labelledby="exampleModalLabel"
+         aria-hidden="true"
+         class="modal fade">
+      <div role="document"
+           class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 id="modal-view-target"
+                class="modal-title">Omertex</h5>
+            <button type="button"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                    class="close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="modal-view-target">
+              <div class="modal-view-target__textarea">
+                <textarea class="textarea__regular"></textarea>
+              </div>
+              <div class="modal-view-target__footer">
+                <button class="button__regular_accept">OK</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

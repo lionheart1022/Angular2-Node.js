@@ -1,0 +1,23 @@
+<div class="target-alerts">
+  <div class="query__container">
+
+    <div
+      *ngFor="let category of categories"
+      class="query__grid-element">
+      <div
+        (click)="showMore(category['page'])"
+        class="query-item">
+        <div class="query-item__container">
+          <a href="javascript:void(0)" class="query-item__link"></a>
+          <div class="query-item__icon">
+            <img [src]="category.icon" />
+          </div>
+          <div class="query-item__name">
+            {{category.name}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

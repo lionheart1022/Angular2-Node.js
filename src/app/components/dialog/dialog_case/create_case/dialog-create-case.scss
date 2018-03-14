@@ -1,0 +1,21 @@
+@import "../../../../../styles/dialog.scss";
+
+
+.dialog_create_case{
+  padding: 35px;
+  padding-bottom: 20px;
+  color: $white;
+}
+
+.dialog__save-btn{
+  color: black;
+  float: right;
+}
+
+.case_header{
+  margin-bottom: 25px;
+}
+
+.mat-input-container:nth-child(2){
+  margin-left: 25px;
+}

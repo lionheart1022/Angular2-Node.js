@@ -1,0 +1,282 @@
+<div [@dialog]
+     *ngIf="openModal"
+     class="dialog"
+     style="position: fixed;
+    bottom: 0px;
+    width: 55%;">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="functions">
+        <a (click)="openAllcases()"
+           *ngIf="!addTocase"
+           href="javascript:void(0)"
+           class="funcs addto"
+           title="Add to Case">
+          <img src="img/svg/addto.svg" />
+        </a>
+        <a (click)="downloadPDF()"
+           href="javascript:void(0)"
+           class="funcs dwnl"
+           title="Download PDF">
+          <img src="img/svg/dwnld.svg" />
+        </a>
+      </div>
+      <h4 id="modal-define-alert"
+          class="modal-title">♕ [NEW] eWhoring PACK by TheShop™ ♕</h4>
+      <button (click)="close()"
+              type="button"
+              data-dismiss="modal"
+              aria-label="Close"
+              class="close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-hidden_funcs">
+      <div class="select_dir">
+        <div class="direction">
+          <app-select placeholder="Select Case"></app-select>
+        </div>
+        <div class="or_new_dir">
+          <div class="text-in-row">OR</div>
+          <div class="new_dir_button">
+            <button class="button__regular_accept">Create New</button>
+          </div>
+        </div>
+      </div>
+      <div class="creating_dir_hidden">
+        <div class="creating_dir">
+          <div class="dir_cont">
+            <div class="dd_name">Name</div>
+            <input type="text"
+                   class="input__regular">
+          </div>
+          <div class="dir_cont">
+            <app-select placeholder="Select Case Type"></app-select>
+          </div>
+        </div>
+      </div>
+      <div class="already_done">
+        <div class="add_dir_button">
+          <button class="button__regular_accept">Save It</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-body">
+
+      <div class="tabs">
+        <input id="tab1"
+               type="radio"
+               name="tabs"
+               checked>
+        <label for="tab1">Goods</label>
+        <input id="tab2"
+               type="radio"
+               name="tabs">
+        <label for="tab2">Vendor</label>
+
+        <section id="content-tab1">
+          <!-- Goods Section -->
+          <div class="accordion_tabs">
+            <input id="tab1-1"
+                   type="radio"
+                   name="accs"
+                   checked>
+            <label for="tab1-1">Query about</label>
+            <section id="content-tab1-1">
+              <div class="acc_content">
+                <div class="main_acc_info">
+                  <div class="open-target-img">
+                    <img src="img/btc_hand.jpg"
+                         alt="" />
+                  </div>
+                  <div class="personal_info">
+                    <table class="open-target-personal-informations__info">
+                      <tr>
+                        <td class="head">Vendor:</td>
+                        <td class="cell">
+                          <a href="#profiledetails">{{currentItem?.vendor}}</a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="head">Price:</td>
+                        <td class="cell">{{currentItem?.product_price}}</td>
+                      </tr>
+                      <tr>
+                        <td class="head">Ships to:</td>
+                        <td class="cell">{{currentItem?.ships_to}}</td>
+                      </tr>
+                      <tr>
+                        <td class="head">Ships from:</td>
+                        <td class="cell">{{currentItem?.ships_from}}</td>
+                      </tr>
+                      <tr>
+                        <td class="head">Escrow:</td>
+                        <td class="cell">{{currentItem?.escrow}}</td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <input id="tab1-2"
+                   type="radio"
+                   name="accs">
+            <label for="tab1-2">Terms and conditions</label>
+            <section id="content-tab1-2">
+              <div class="acc_content">{{currentItem?.terms_and_conditions}}</div>
+            </section>
+            <input id="tab1-3"
+                   type="radio"
+                   name="accs">
+            <label for="tab1-3">Product description</label>
+            <section id="content-tab1-3">
+              <div class="acc_content">
+                <p>{{currentItem?.product_description}}</p>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section id="content-tab2">
+          <!-- Vendor Section -->
+          <div class="accordion_tabs">
+            <input id="tab2-1"
+                   type="radio"
+                   name="accs2"
+                   checked>
+            <label for="tab2-1">Vendor Information</label>
+            <section id="content-tab2-1">
+              <div class="acc_content">
+                <div class="main_vend_info">
+                  <table>
+                    <tr>
+                      <td class="head">Username:</td>
+                      <td class="cell">
+                        <p>{{currentItem.vendor_info.username}}
+                          <span class="raiting-preview">10&nbsp;/&nbsp;
+                            <b>{{currentItem.vendor_info.ratings | vendorRating}}</b>
+                          </span>
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="head">FE enabled:</td>
+                      <td class="cell">
+                        <p>{{currentItem.vendor_info?.fe_enabled}}</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="head">Join date:</td>
+                      <td class="cell">
+                        <p>{{currentItem.vendor_info?.join_date}}</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="head">Last active:</td>
+                      <td class="cell">
+                        <p>{{currentItem.vendr_info?.last_active}}</p>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </section>
+            <input id="tab2-2"
+                   type="radio"
+                   name="accs2">
+            <label for="tab2-2">Terms and conditions</label>
+            <section id="content-tab2-2">
+              <div class="acc_content">
+                <p>{{currentItem.vendor_info.terms_and_conditions}}</p>
+              </div>
+            </section>
+            <input id="tab2-3"
+                   type="radio"
+                   name="accs2">
+            <label for="tab2-3">Public RGP key</label>
+            <section id="content-tab2-3">
+              <div class="acc_content">
+                <p>{{currentItem.vendor_info.pgp_key}}</p>
+              </div>
+            </section>
+            <input id="tab2-4"
+                   type="radio"
+                   name="accs2">
+            <label for="tab2-4">Listings from UserName</label>
+            <section id="content-tab2-4">
+              <div class="acc_content">
+                <div class="listing_popup_slider">
+                  <app-listings-from-username></app-listings-from-username>
+                </div>
+              </div>
+
+            </section>
+            <input id="tab2-5"
+                   type="radio"
+                   name="accs2">
+            <label for="tab2-5">Ratings</label>
+            <section id="content-tab2-5">
+              <div class="acc_content">
+                <app-ratings></app-ratings>
+              </div>
+            </section>
+          </div>
+        </section>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- <div [@dialog] *ngIf="openModal" class="dialog">
+    <div class="arrow_gallery previewItem" (click)="previewItem()" *ngIf="preview">
+        <i class="fa fa-arrow-circle-left fa-lg" aria-hidden="true"></i>
+    </div>
+    <div class="weapon-detail-header">
+        <div class="weapon-detail-icons">
+            <i class="fa fa-plus-square fa-2x" aria-hidden="true" (click)="openAllcases()" *ngIf="!addTocase"></i>
+            <i class="fa fa-download fa-2x" aria-hidden="true" (click)="downloadPDF()"></i>
+        </div>
+    </div>
+
+    <div class="cases_list" flex-gt-sm="50" flex>
+        <mat-toolbar layout="row" class="md-hue-3" *ngIf="emptyCaseBox">
+            <div class="md-toolbar-tools">
+                <span>You have not created any cases yet.</span>
+                <button mat-button (click)="open_module_create_case_dialog()">Create case</button>
+            </div>
+        </mat-toolbar>
+        <div *ngIf="openCasesBox == true">
+            <mat-toolbar layout="row" class="md-hue-3">
+                <div class="md-toolbar-tools">
+                    <span>Select case</span>
+                </div>
+            </mat-toolbar>
+            <mat-list flex>
+                <mat-list-item class="md-3-line" *ngFor="let case of allCases" ng-click="null" (click)="selectCase(case.id)">
+                    <div class="md-list-item-text" layout="column">
+                        <h3>{{ case.name }}</h3>
+                    </div>
+                </mat-list-item>
+                <mat-list-item class="md-3-line" (click)="open_module_create_case_dialog()">
+                    <div class="md-list-item-text" layout="column">
+                        <h3>Create case</h3>
+                    </div>
+                </mat-list-item>
+            </mat-list>
+        </div>
+    </div>
+    <ng-content></ng-content>
+    <button *ngIf="closable" (click)="close()" aria-label="Close" class="dialog__close-btn">X</button>
+    <div class=" arrow_gallery nextItem" (click)="nextItem()" *ngIf="next">
+        <i class="fa fa-arrow-circle-right fa-lg" aria-hidden="true"></i>
+    </div>
+</div>
+<dialog-create-case [openModalCreate]="open_create_case_dialog" (visibleChange)="change_visibles_create_case_dialog()" (successAdd)="successAddCase($event)"></dialog-create-case>
+<dialog-vendor [openModal]="openVendorDialog" (visibleChange)="vendorModalClose()"></dialog-vendor>
+<div *ngIf="openModal" class="overlay" (click)="close()"></div> -->

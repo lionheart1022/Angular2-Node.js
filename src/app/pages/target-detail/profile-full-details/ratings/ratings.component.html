@@ -1,0 +1,39 @@
+<div class="open-target-tab" *ngIf="info">
+  <div class="open-target-full-details__info">
+
+    <table class="users__table">
+      <thead>
+      <tr>
+        <th>Age</th>
+        <th>1 stars</th>
+        <th>2 stars</th>
+        <th>3 stars</th>
+        <th>4 stars</th>
+        <th>5 stars</th>
+        <th>Rating</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let summary of info.ratings_summary">
+        <td>{{summary?.age}}</td>
+        <td>{{summary['1 Star Count']}}</td>
+        <td>{{summary['2 Star Count']}}</td>
+        <td>{{summary['3 Star Count']}}</td>
+        <td>{{summary['4 Star Count']}}</td>
+        <td>{{summary['5 Star Count']}}</td>
+        <td><span class="raiting-preview"><b>{{summary?.rating}}</b></span></td>
+      </tr>
+      </tbody>
+    </table>
+
+    <table class="rating_tab">
+      <tr *ngFor="let rating of info.ratings">
+        <td class="head">{{rating?.time}}</td>
+        <td class="stars">Stars ({{rating?.stars}})</td>
+        <td class="cell"><p>{{rating?.comment}}</p></td>
+        <td class="hidden_user"><p>{{rating?.product_name}}</p></td>
+        <td class="cost">{{rating?.price}}</td>
+      </tr>
+    </table>
+  </div>
+</div>

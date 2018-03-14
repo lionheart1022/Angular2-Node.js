@@ -1,0 +1,35 @@
+@import "../../../../styles/dialog.scss";
+
+
+.dialog_create_case{
+  padding: 35px;
+  padding-bottom: 20px;
+}
+
+.dialog__save-btn{
+  color: black;
+  float: right;
+}
+
+.case_header{
+  margin-bottom: 25px;
+}
+
+.mat-input-container:nth-child(2){
+  margin-left: 25px;
+}
+.dialog__close-btn{
+  position: relative;
+  top: 0px;
+  float: right;
+}
+
+.btn{
+  padding: 6px;
+  color: black;
+  margin-right: 17px;
+}
+
+.confirm-detail-header{
+  margin-top: 39px;
+}

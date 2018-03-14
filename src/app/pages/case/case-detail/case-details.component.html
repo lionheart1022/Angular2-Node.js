@@ -1,0 +1,26 @@
+<div class="results" [hidden]="!targetsBlock">
+
+  <div class="targets__container">
+    <div
+      *ngFor="let target of targets"
+      (click)="navigateToTarget(target.id)"
+      class="targets__grid-element">
+      <app-target [target]="target"></app-target>
+    </div>
+  </div>
+
+</div>
+<confirm-modal
+  [openModalConfirm]="openModalConfirmTarget"
+  [eventButton]="eventButtonDeleteTarget"
+  (deleteEv)="deleteTargetMethod($event)"
+>{{titleConfirm}}
+</confirm-modal>
+<confirm-modal
+  [openModalConfirm]="openModalConfirmCase"
+  [eventButton]="eventButtonClearCase"
+  (deleteEv)="clearCaseMethod($event)"
+
+>{{titleConfirm}}
+</confirm-modal>
+<weapon-details></weapon-details>

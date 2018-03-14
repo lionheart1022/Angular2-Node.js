@@ -1,0 +1,13 @@
+@import "../../../styles/dialog.scss";
+i{
+  color: #e3e3e4;
+  margin-left: 14px;
+  font-size: 34px;
+  &:hover{
+    color: #0188d1;
+    -webkit-transition: color 0.5s;
+    -moz-transition: color 0.5s;
+    -o-transition:color 0.2s;
+    transition: color 0.5s;
+  }
+}

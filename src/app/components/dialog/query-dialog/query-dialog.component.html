@@ -1,0 +1,321 @@
+<a href="javascript:void(0)"
+   data-toggle="modal"
+   data-target="#modal-define-alert"
+   style="display: none"
+   #linkToOpenModal></a>
+<div class="popup__container"
+     *ngIf="exists">
+  <div id="modal-define-alert"
+       tabindex="-1"
+       role="dialog"
+       aria-labelledby="exampleModalLabel"
+       aria-hidden="true"
+       class="modal fade">
+    <div role="document"
+         class="modal-dialog targeting">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <div class="functions">
+            <a (click)="toggleShowSelectCase()"
+               href="javascript:void(0)"
+               class="funcs addto"
+               title="Add to Case">
+              <img src="img/svg/addto.svg" />
+            </a>
+            <a (click)="downloadPDF()"
+               class="funcs dwnl"
+               title="Download PDF">
+              <img src="img/svg/dwnld.svg" />
+            </a>
+          </div>
+          <h4 id="modal-define-alert"
+              class="modal-title"
+              [innerHTML]="name"></h4>
+          <button type="button"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                  class="close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div *ngIf="showSelectCase"
+             class="modal-hidden_funcs">
+          <div class="select_dir">
+            <div class="direction">
+              <app-select [options]="allCases"
+                          (selectOption)="onSelectCase($event)"
+                          placeholder="Select Case"></app-select>
+            </div>
+            <div class="or_new_dir">
+              <div class="text-in-row">OR</div>
+              <div class="new_dir_button">
+                <button (click)="toggleCreateNew()"
+                        class="button__regular_accept">Create New</button>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="showCreateNew"
+               class="creating_dir_hidden">
+            <div class="creating_dir">
+              <div class="dir_cont">
+                <div class="dd_name">Name</div>
+                <input type="text"
+                       [(ngModel)]="newCaseName"
+                       class="input__regular">
+              </div>
+              <div class="dir_cont">
+                <app-select placeholder="Select Case Type"
+                            (selectOption)="onSelectCaseType()"></app-select>
+              </div>
+            </div>
+          </div>
+          <div class="already_done">
+            <div class="add_dir_button">
+              <button (click)="save()"
+                      class="button__regular_accept">Save It</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-body">
+
+          <div class="tabs">
+            <input id="tab1"
+                   type="radio"
+                   name="tabs"
+                   checked>
+            <label for="tab1">Goods</label>
+            <input id="tab2"
+                   type="radio"
+                   name="tabs">
+            <label for="tab2">Vendor</label>
+
+            <section id="content-tab1">
+              <!-- Goods Section -->
+              <div class="accordion_tabs">
+                <input id="tab1-1"
+                       type="radio"
+                       name="accs"
+                       checked>
+                <label for="tab1-1">Query about</label>
+                <section id="content-tab1-1">
+                  <div class="acc_content">
+                    <div class="main_acc_info">
+                      <div class="open-target-img">
+                        <img [src]="currentItem.product_photo || '/img/default-no-image.png'"
+                             alt="" />
+                      </div>
+                      <div class="personal_info">
+                        <table class="open-target-personal-informations__info">
+                          <tr>
+                            <td class="head">Vendor:</td>
+                            <td class="cell">
+                              <a href="javascript:void(0)">{{ vendor }}</a>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="head">Price:</td>
+                            <td class="cell">{{ price }}{{ currency }}</td>
+                          </tr>
+                          <tr>
+                            <td class="head">Ships to:</td>
+                            <td class="cell">{{ shipsTo }}</td>
+                          </tr>
+                          <tr>
+                            <td class="head">Ships from:</td>
+                            <td class="cell">{{ shipsFrom }}</td>
+                          </tr>
+                          <tr>
+                            <td class="head">Escrow:</td>
+                            <td class="cell">{{ escrow }}</td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <input id="tab1-2"
+                       type="radio"
+                       name="accs">
+                <label for="tab1-2">Terms and conditions</label>
+                <section id="content-tab1-2">
+                  <div class="acc_content"
+                       [innerHTML]="termsAndConditions"></div>
+                </section>
+                <input id="tab1-3"
+                       type="radio"
+                       name="accs">
+                <label for="tab1-3">Product description</label>
+                <section id="content-tab1-3">
+                  <div class="acc_content">
+                    <p [innerHTML]="description"></p>
+                  </div>
+                </section>
+              </div>
+            </section>
+
+            <section id="content-tab2">
+              <!-- Vendor Section -->
+              <div class="accordion_tabs">
+                <input id="tab2-1"
+                       type="radio"
+                       name="accs2"
+                       checked>
+                <label for="tab2-1">Vender Information</label>
+                <section id="content-tab2-1">
+                  <div class="acc_content">
+                    <div class="main_vend_info">
+                      <table>
+                        <tr>
+                          <td class="head">Username:</td>
+                          <td class="cell">
+                            <p>{{ username }}
+                              <span class="raiting-preview">{{ topRating }}&nbsp;/&nbsp;
+                                <b>{{ setRating }}</b>
+                              </span>
+                            </p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="head">FE enabled:</td>
+                          <td class="cell">
+                            <p>{{ feEnabled }}</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="head">Join date:</td>
+                          <td class="cell">
+                            <p>{{ joinDate }}</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="head">Last active:</td>
+                          <td class="cell">
+                            <p>{{ lastActive }}</p>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                </section>
+                <input id="tab2-2"
+                       type="radio"
+                       name="accs2">
+                <label for="tab2-2">Terms and conditions</label>
+                <section id="content-tab2-2">
+                  <div class="acc_content">
+                    <p [innerHTML]="termsAndConditions"></p>
+                  </div>
+                </section>
+                <input id="tab2-3"
+                       type="radio"
+                       name="accs2">
+                <label for="tab2-3">Public RGP key</label>
+                <section id="content-tab2-3">
+                  <div class="acc_content">
+                    <p [innerHTML]="pgpKey"></p>
+                  </div>
+                </section>
+                <input id="tab2-4"
+                       type="radio"
+                       name="accs2">
+                <label for="tab2-4">Listings from UserName</label>
+                <section id="content-tab2-4">
+                  <div class="acc_content">
+                    <div class="listing_popup_slider">
+
+                      <div class="target_listing_grid-element"
+                           *ngFor="let item of listingsFormUsername">
+                        <div class="listing-item">
+                          <div class="listing-item-img">
+                            <img [src]="item.photo"
+                                 alt="">
+                          </div>
+                          <div class="listing-item-info">
+                            <p class="name">{{ item.name }}</p>
+                            <p class="price">{{ item.price }}{{ item.currency }}</p>
+                            <div class="listing-item-buttons">
+                              <button class="listing-button__yes">Yes</button>
+                              <button class="listing-button__order">Order</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                </section>
+                <input id="tab2-5"
+                       type="radio"
+                       name="accs2">
+                <label for="tab2-5">Ratings</label>
+                <section id="content-tab2-5">
+                  <div class="acc_content">
+                    <table class="users__table in_acc">
+                      <thead>
+                        <tr>
+                          <th>Age</th>
+                          <th>1 stars</th>
+                          <th>2 stars</th>
+                          <th>3 stars</th>
+                          <th>4 stars</th>
+                          <th>5 stars</th>
+                          <th>Rating</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>{{ ratings.newerThan1Month.age }}</td>
+                          <td>{{ ratings.newerThan1Month.star1 }}</td>
+                          <td>{{ ratings.newerThan1Month.star2 }}</td>
+                          <td>{{ ratings.newerThan1Month.star3 }}</td>
+                          <td>{{ ratings.newerThan1Month.star4 }}</td>
+                          <td>{{ ratings.newerThan1Month.star5 }}</td>
+                          <td>
+                            <span class="raiting-preview">
+                              <b>{{ ratings.newerThan1Month.rating }}</b>
+                            </span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>{{ ratings.newerThan3Months.age }}</td>
+                          <td>{{ ratings.newerThan3Months.star1 }}</td>
+                          <td>{{ ratings.newerThan3Months.star2 }}</td>
+                          <td>{{ ratings.newerThan3Months.star3 }}</td>
+                          <td>{{ ratings.newerThan3Months.star4 }}</td>
+                          <td>{{ ratings.newerThan3Months.star5 }}</td>
+                          <td>
+                            <span class="raiting-preview">
+                              <b>{{ ratings.newerThan3Months.rating }}</b>
+                            </span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>{{ ratings.older.age }}</td>
+                          <td>{{ ratings.older.star1 }}</td>
+                          <td>{{ ratings.older.star2 }}</td>
+                          <td>{{ ratings.older.star3 }}</td>
+                          <td>{{ ratings.older.star4 }}</td>
+                          <td>{{ ratings.older.star5 }}</td>
+                          <td>
+                            <span class="raiting-preview">
+                              <b>{{ ratings.older.rating }}</b>
+                            </span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </section>
+              </div>
+            </section>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

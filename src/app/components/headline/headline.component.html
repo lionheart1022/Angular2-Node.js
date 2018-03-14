@@ -1,0 +1,14 @@
+<ul class="breadcrumbs">
+  <li *ngFor="let breadcrumb of breadcrumbs; let i = index;">
+    <a
+      *ngIf="breadcrumbs.length !== i + 1"
+      [routerLink]="breadcrumb.link">{{breadcrumb.title}}</a>
+    <span *ngIf="breadcrumbs.length === i + 1">{{breadcrumb.title}}</span>
+  </li>
+</ul>
+<div class="header_row">
+  <h1 class="title">{{title}}</h1>
+  <div class="stepback">
+    <a (click)="goBack()">Step Back</a>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+// @import "src/styles/variables.scss";
+// .navbar-default{
+//   width: 100%;
+//   margin: 0;
+//   border-radius: 0;
+//   border: none;
+//   height: 50px;
+//   background-color: $middle-background;
+//   z-index: 99999;
+//   &.fixed{
+//     position: fixed;
+//     top: 0;
+//     right: 0;
+//   }
+//   .container-fluid{
+//     font-size: 20px;
+//     color: $primary-blue;
+//     padding-right: 30px;
+//     .navbar-nav{
+//       li{
+//         a{
+//           color: $white;
+//           margin: 0 5px;
+//           border-radius: $radius;
+//         }
+//       }
+//       &.navbar-left{
+//         li{
+//           &:hover a, &.active a, &.active:hover a, &.active a:focus{
+//             background-color: $primary-blue;
+//             color: $white;
+//           }
+//         }
+//       }
+//       &.navbar-right{
+//         li{
+//           a i{
+//             font-size: 24px;
+//           }
+//           &.user{
+//             a{
+//               color: $primary-blue;
+//               i{
+//                 margin-right: 10px;
+//               }
+//             }
+//             &:hover a{
+//               color: $white;
+//             }
+//           }
+//           &.bell:hover a{
+//             color: $primary-blue;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+// .with_wrap{
+//   left: 192px;
+//   width: calc(100% - 192px);
+// }

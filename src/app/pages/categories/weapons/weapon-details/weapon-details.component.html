@@ -1,0 +1,56 @@
+<app-dialog
+		[openModal]="openModal"
+		[preview]="preview"
+		[next]="next"
+		[currentItem]="weapon"
+		[category]="category"
+		[addTocase]="otherComponent"
+		[openVendorDialog]="openVendorDialog"
+		(visibleChange)="closeModal($event)"
+		(itemChange)="changeItem($event)"
+		(idCase)="addToCase($event)"
+		(visibleChangeVendorDialog)="vendorModalClose()"
+>
+	<!-- <div class="weapon-detail-block" >
+		<div class="weapon-title" [innerHTML]="weapon?.product_name">
+		</div>
+		<div class="weapon-detail-content">
+			<div class="row">
+				<div class="col-xs-12 col-sm-7 col-md-7 col-lg-7 detail-info">
+					<p (click)="openVendorDialogMethod()">
+						<span> Vendor: </span> <a>{{weapon?.vendor}}</a>
+					</p>
+					<p>
+						<span> Price: </span> {{weapon?.product_price}}
+					</p>
+					<p>
+						<span> Ships to: </span> {{weapon?.ships_to}}
+					</p>
+					<p>
+						<span> Ships from: </span> {{weapon?.ships_from}}
+					</p>
+					<p>
+						<span> Escrow: </span> {{weapon?.escrow}}
+					</p>
+				</div>
+				<div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
+					<div [ngStyle]="{'background-image': 'url(' + weapon?.product_photo + ')'}" class="weapon-detail-image">
+					</div>
+				</div>
+			</div>
+			<div class="termsAndConditionsProfile">
+				<h3>Terms and conditions</h3>
+				<p class="content">
+					{{weapon?.terms_and_conditions}}
+				</p>
+			</div>
+			<div class="termsAndConditionsProfile">
+				<h3>Product description</h3>
+				<p class="content">
+					{{weapon?.product_description}}
+				</p>
+			</div>
+		</div>
+
+  </div> -->
+</app-dialog>
