@@ -1,1015 +1,361 @@
-<div class="user-management">
+<div class="user-management"  *ngIf="users">
   <div class="header_row">
     <h1>User Management</h1>
   </div>
   <div class="user-management__tables-container">
     <div class="user-management__table">
       <div class="user-management__table__table-wrapper">
+        <a
+          data-toggle="modal"
+          href="#modal-create-user"
+          class="create_user"
+        >
+          Create new User
+        </a>
         <table>
           <thead>
             <tr>
               <th>Username</th>
               <th>Role</th>
-              <th>Case</th>
+              <th>Cases</th>
               <th>Manage</th>
             </tr>
           </thead>
           <tbody>
+            <ng-container *ngFor="let user of users | paginate: { id: 'user-page', itemsPerPage: pageSize, currentPage: pageNum, totalItems: length }">
             <tr>
               <td>
-                <a href="javascript:void(0)">Sit Amet admin</a>
+                <a href="javascript:void(0)">{{user['username'] }}</a>
               </td>
               <td>
-                <div class="role__labels">
-                  <span class="label">Role user</span>
-                  <span class="label">Role admin</span>
+                <div class="role__labels" *ngIf="user['isAdmin']?.length > 0">
+                  <span class="label">{{ user['isAdmin'] }}</span>
+                </div>
+                <div class="role__labels" *ngIf="user['isUser']?.length > 0">
+                  <span class="label">{{ user['isUser'] }}</span>
                 </div>
               </td>
               <td class="cases">
                 <div class="cases__buttons">
-                  <button style="background-image: url('img/add_cases.png')"
-                          class="buttons__add-cases"></button>
-                  <p>5</p>
+                  <button
+                    style="background-image: url('img/add_cases.png')"
+                    (click)="setCurrentUser(user)"
+                    data-toggle="modal"
+                    data-target="#modal-add-case"
+                    class="buttons__add-cases"></button>
+                  <a
+                          *ngIf="user['cases']?.length > 0; else elseTemplateName"
+                          href="#modal_all_cases"
+                          data-toggle="modal"
+                          (click)="setCurrentUser(user)"
+                  >
+                    {{user['cases']?user['cases']?.length:0}}
+                  </a>
+                  <ng-template #elseTemplateName>
+                    <a>0</a>
+                  </ng-template>
                   <span class="graphic"></span>
                 </div>
               </td>
               <td>
                 <div class="action__buttons">
-                  <button style="background-image: url('img/ic_edit_blue.png')"
-                          data-toggle="modal"
-                          data-target="#modal-create-user"
-                          class="buttons__edit"></button>
+                  <button
+                    *ngIf="renderedOnHomePage"
+                    style="background-image: url('img/search.png')"
+                    data-toggle="modal"
+                    data-target="#modal-audit"
+                    class="buttons__users-search"></button>
+                  <button
+                    style="background-image: url('img/ic_edit_blue.png')"
+                    (click)="setCurrentUser(user)"
+                    data-toggle="modal"
+                    data-target="#modal-edit-user"
+                    class="buttons__edit"
+                  >
+                  </button>
                   <button style="background-image: url('img/delete.png')"
-                          class="buttons__delete"></button>
+                          class="buttons__delete" (click)="deleteUser(user)"></button>
                 </div>
               </td>
             </tr>
-            <tr>
-              <td>
-                <a href="javascript:void(0)">Sit Amet admin</a>
-              </td>
-              <td>
-                <div class="role__labels">
-                  <span class="label">Role admin</span>
-                </div>
-              </td>
-              <td class="cases">
-                <div class="cases__buttons">
-                  <button style="background-image: url('img/add_cases.png')"
-                          class="buttons__add-cases"></button>
-                  <p>5</p>
-                  <span class="graphic"></span>
-                </div>
-              </td>
-              <td>
-                <div class="action__buttons">
-                  <button style="background-image: url('img/ic_edit_blue.png')"
-                          data-toggle="modal"
-                          data-target="#modal-create-user"
-                          class="buttons__edit"></button>
-                  <button style="background-image: url('img/delete.png')"
-                          class="buttons__delete"></button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="javascript:void(0)">Sit Amet admin</a>
-              </td>
-              <td>
-                <div class="role__labels">
-                  <span class="label">Role user</span>
-                  <span class="label">Role admin</span>
-                </div>
-              </td>
-              <td class="cases">
-                <div class="cases__buttons">
-                  <button style="background-image: url('img/add_cases.png')"
-                          class="buttons__add-cases"></button>
-                  <p>5</p>
-                  <span class="graphic"></span>
-                </div>
-              </td>
-              <td>
-                <div class="action__buttons">
-                  <button style="background-image: url('img/ic_edit_blue.png')"
-                          data-toggle="modal"
-                          data-target="#modal-create-user"
-                          class="buttons__edit"></button>
-                  <button style="background-image: url('img/delete.png')"
-                          class="buttons__delete"></button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="javascript:void(0)">Sit Amet admin</a>
-              </td>
-              <td>
-                <div class="role__labels">
-                  <span class="label">Role admin</span>
-                </div>
-              </td>
-              <td class="cases">
-                <div class="cases__buttons">
-                  <button style="background-image: url('img/add_cases.png')"
-                          class="buttons__add-cases"></button>
-                  <p>5</p>
-                  <span class="graphic"></span>
-                </div>
-              </td>
-              <td>
-                <div class="action__buttons">
-                  <button style="background-image: url('img/ic_edit_blue.png')"
-                          data-toggle="modal"
-                          data-target="#modal-create-user"
-                          class="buttons__edit"></button>
-                  <button style="background-image: url('img/delete.png')"
-                          class="buttons__delete"></button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="javascript:void(0)">Sit Amet admin</a>
-              </td>
-              <td>
-                <div class="role__labels">
-                  <span class="label">Role user</span>
-                  <span class="label">Role admin</span>
-                </div>
-              </td>
-              <td class="cases">
-                <div class="cases__buttons">
-                  <button style="background-image: url('img/add_cases.png')"
-                          class="buttons__add-cases"></button>
-                  <p>5</p>
-                  <span class="graphic"></span>
-                </div>
-              </td>
-              <td>
-                <div class="action__buttons">
-                  <button style="background-image: url('img/ic_edit_blue.png')"
-                          data-toggle="modal"
-                          data-target="#modal-create-user"
-                          class="buttons__edit"></button>
-                  <button style="background-image: url('img/delete.png')"
-                          class="buttons__delete"></button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="javascript:void(0)">Sit Amet admin</a>
-              </td>
-              <td>
-                <div class="role__labels">
-                  <span class="label">Role admin</span>
-                </div>
-              </td>
-              <td class="cases">
-                <div class="cases__buttons">
-                  <button style="background-image: url('img/add_cases.png')"
-                          class="buttons__add-cases"></button>
-                  <p>5</p>
-                  <span class="graphic"></span>
-                </div>
-              </td>
-              <td>
-                <div class="action__buttons">
-                  <button style="background-image: url('img/ic_edit_blue.png')"
-                          data-toggle="modal"
-                          data-target="#modal-create-user"
-                          class="buttons__edit"></button>
-                  <button style="background-image: url('img/delete.png')"
-                          class="buttons__delete"></button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="javascript:void(0)">Sit Amet admin</a>
-              </td>
-              <td>
-                <div class="role__labels">
-                  <span class="label">Role user</span>
-                  <span class="label">Role admin</span>
-                </div>
-              </td>
-              <td class="cases">
-                <div class="cases__buttons">
-                  <button style="background-image: url('img/add_cases.png')"
-                          class="buttons__add-cases"></button>
-                  <p>5</p>
-                  <span class="graphic"></span>
-                </div>
-              </td>
-              <td>
-                <div class="action__buttons">
-                  <button style="background-image: url('img/ic_edit_blue.png')"
-                          data-toggle="modal"
-                          data-target="#modal-create-user"
-                          class="buttons__edit"></button>
-                  <button style="background-image: url('img/delete.png')"
-                          class="buttons__delete"></button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="javascript:void(0)">Sit Amet admin</a>
-              </td>
-              <td>
-                <div class="role__labels">
-                  <span class="label">Role admin</span>
-                </div>
-              </td>
-              <td class="cases">
-                <div class="cases__buttons">
-                  <button style="background-image: url('img/add_cases.png')"
-                          class="buttons__add-cases"></button>
-                  <p>5</p>
-                  <span class="graphic"></span>
-                </div>
-              </td>
-              <td>
-                <div class="action__buttons">
-                  <button style="background-image: url('img/ic_edit_blue.png')"
-                          data-toggle="modal"
-                          data-target="#modal-create-user"
-                          class="buttons__edit"></button>
-                  <button style="background-image: url('img/delete.png')"
-                          class="buttons__delete"></button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="javascript:void(0)">Sit Amet admin</a>
-              </td>
-              <td>
-                <div class="role__labels">
-                  <span class="label">Role user</span>
-                  <span class="label">Role admin</span>
-                </div>
-              </td>
-              <td class="cases">
-                <div class="cases__buttons">
-                  <button style="background-image: url('img/add_cases.png')"
-                          class="buttons__add-cases"></button>
-                  <p>5</p>
-                  <span class="graphic"></span>
-                </div>
-              </td>
-              <td>
-                <div class="action__buttons">
-                  <button style="background-image: url('img/ic_edit_blue.png')"
-                          data-toggle="modal"
-                          data-target="#modal-create-user"
-                          class="buttons__edit"></button>
-                  <button style="background-image: url('img/delete.png')"
-                          class="buttons__delete"></button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="javascript:void(0)">Sit Amet admin</a>
-              </td>
-              <td>
-                <div class="role__labels">
-                  <span class="label">Role admin</span>
-                </div>
-              </td>
-              <td class="cases">
-                <div class="cases__buttons">
-                  <button style="background-image: url('img/add_cases.png')"
-                          class="buttons__add-cases"></button>
-                  <p>5</p>
-                  <span class="graphic"></span>
-                </div>
-              </td>
-              <td>
-                <div class="action__buttons">
-                  <button style="background-image: url('img/ic_edit_blue.png')"
-                          data-toggle="modal"
-                          data-target="#modal-create-user"
-                          class="buttons__edit"></button>
-                  <button style="background-image: url('img/delete.png')"
-                          class="buttons__delete"></button>
-                </div>
-              </td>
-            </tr>
+            </ng-container>
           </tbody>
         </table>
-      </div>
-    </div>
-    <div class="user-management__table">
-      <div class="user-management__table__table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>Username</th>
-              <th>Role</th>
-              <th>Case</th>
-              <th>Manage</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <a href="javascript:void(0)">Sit Amet admin</a>
-              </td>
-              <td>
-                <div class="role__labels">
-                  <span class="label">Role user</span>
-                  <span class="label">Role admin</span>
-                </div>
-              </td>
-              <td class="cases">
-                <div class="cases__buttons">
-                  <button style="background-image: url('img/add_cases.png')"
-                          class="buttons__add-cases"></button>
-                  <p>5</p>
-                  <span class="graphic"></span>
-                </div>
-              </td>
-              <td>
-                <div class="action__buttons">
-                  <button style="background-image: url('img/ic_edit_blue.png')"
-                          data-toggle="modal"
-                          data-target="#modal-create-user"
-                          class="buttons__edit"></button>
-                  <button style="background-image: url('img/delete.png')"
-                          class="buttons__delete"></button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="javascript:void(0)">Sit Amet admin</a>
-              </td>
-              <td>
-                <div class="role__labels">
-                  <span class="label">Role admin</span>
-                </div>
-              </td>
-              <td class="cases">
-                <div class="cases__buttons">
-                  <button style="background-image: url('img/add_cases.png')"
-                          class="buttons__add-cases"></button>
-                  <p>5</p>
-                  <span class="graphic"></span>
-                </div>
-              </td>
-              <td>
-                <div class="action__buttons">
-                  <button style="background-image: url('img/ic_edit_blue.png')"
-                          data-toggle="modal"
-                          data-target="#modal-create-user"
-                          class="buttons__edit"></button>
-                  <button style="background-image: url('img/delete.png')"
-                          class="buttons__delete"></button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="javascript:void(0)">Sit Amet admin</a>
-              </td>
-              <td>
-                <div class="role__labels">
-                  <span class="label">Role user</span>
-                  <span class="label">Role admin</span>
-                </div>
-              </td>
-              <td class="cases">
-                <div class="cases__buttons">
-                  <button style="background-image: url('img/add_cases.png')"
-                          class="buttons__add-cases"></button>
-                  <p>5</p>
-                  <span class="graphic"></span>
-                </div>
-              </td>
-              <td>
-                <div class="action__buttons">
-                  <button style="background-image: url('img/ic_edit_blue.png')"
-                          data-toggle="modal"
-                          data-target="#modal-create-user"
-                          class="buttons__edit"></button>
-                  <button style="background-image: url('img/delete.png')"
-                          class="buttons__delete"></button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="javascript:void(0)">Sit Amet admin</a>
-              </td>
-              <td>
-                <div class="role__labels">
-                  <span class="label">Role admin</span>
-                </div>
-              </td>
-              <td class="cases">
-                <div class="cases__buttons">
-                  <button style="background-image: url('img/add_cases.png')"
-                          class="buttons__add-cases"></button>
-                  <p>5</p>
-                  <span class="graphic"></span>
-                </div>
-              </td>
-              <td>
-                <div class="action__buttons">
-                  <button style="background-image: url('img/ic_edit_blue.png')"
-                          data-toggle="modal"
-                          data-target="#modal-create-user"
-                          class="buttons__edit"></button>
-                  <button style="background-image: url('img/delete.png')"
-                          class="buttons__delete"></button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="javascript:void(0)">Sit Amet admin</a>
-              </td>
-              <td>
-                <div class="role__labels">
-                  <span class="label">Role user</span>
-                  <span class="label">Role admin</span>
-                </div>
-              </td>
-              <td class="cases">
-                <div class="cases__buttons">
-                  <button style="background-image: url('img/add_cases.png')"
-                          class="buttons__add-cases"></button>
-                  <p>5</p>
-                  <span class="graphic"></span>
-                </div>
-              </td>
-              <td>
-                <div class="action__buttons">
-                  <button style="background-image: url('img/ic_edit_blue.png')"
-                          data-toggle="modal"
-                          data-target="#modal-create-user"
-                          class="buttons__edit"></button>
-                  <button style="background-image: url('img/delete.png')"
-                          class="buttons__delete"></button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="javascript:void(0)">Sit Amet admin</a>
-              </td>
-              <td>
-                <div class="role__labels">
-                  <span class="label">Role admin</span>
-                </div>
-              </td>
-              <td class="cases">
-                <div class="cases__buttons">
-                  <button style="background-image: url('img/add_cases.png')"
-                          class="buttons__add-cases"></button>
-                  <p>5</p>
-                  <span class="graphic"></span>
-                </div>
-              </td>
-              <td>
-                <div class="action__buttons">
-                  <button style="background-image: url('img/ic_edit_blue.png')"
-                          data-toggle="modal"
-                          data-target="#modal-create-user"
-                          class="buttons__edit"></button>
-                  <button style="background-image: url('img/delete.png')"
-                          class="buttons__delete"></button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="javascript:void(0)">Sit Amet admin</a>
-              </td>
-              <td>
-                <div class="role__labels">
-                  <span class="label">Role user</span>
-                  <span class="label">Role admin</span>
-                </div>
-              </td>
-              <td class="cases">
-                <div class="cases__buttons">
-                  <button style="background-image: url('img/add_cases.png')"
-                          class="buttons__add-cases"></button>
-                  <p>5</p>
-                  <span class="graphic"></span>
-                </div>
-              </td>
-              <td>
-                <div class="action__buttons">
-                  <button style="background-image: url('img/ic_edit_blue.png')"
-                          data-toggle="modal"
-                          data-target="#modal-create-user"
-                          class="buttons__edit"></button>
-                  <button style="background-image: url('img/delete.png')"
-                          class="buttons__delete"></button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="javascript:void(0)">Sit Amet admin</a>
-              </td>
-              <td>
-                <div class="role__labels">
-                  <span class="label">Role admin</span>
-                </div>
-              </td>
-              <td class="cases">
-                <div class="cases__buttons">
-                  <button style="background-image: url('img/add_cases.png')"
-                          class="buttons__add-cases"></button>
-                  <p>5</p>
-                  <span class="graphic"></span>
-                </div>
-              </td>
-              <td>
-                <div class="action__buttons">
-                  <button style="background-image: url('img/ic_edit_blue.png')"
-                          data-toggle="modal"
-                          data-target="#modal-create-user"
-                          class="buttons__edit"></button>
-                  <button style="background-image: url('img/delete.png')"
-                          class="buttons__delete"></button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="javascript:void(0)">Sit Amet admin</a>
-              </td>
-              <td>
-                <div class="role__labels">
-                  <span class="label">Role user</span>
-                  <span class="label">Role admin</span>
-                </div>
-              </td>
-              <td class="cases">
-                <div class="cases__buttons">
-                  <button style="background-image: url('img/add_cases.png')"
-                          class="buttons__add-cases"></button>
-                  <p>5</p>
-                  <span class="graphic"></span>
-                </div>
-              </td>
-              <td>
-                <div class="action__buttons">
-                  <button style="background-image: url('img/ic_edit_blue.png')"
-                          data-toggle="modal"
-                          data-target="#modal-create-user"
-                          class="buttons__edit"></button>
-                  <button style="background-image: url('img/delete.png')"
-                          class="buttons__delete"></button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="javascript:void(0)">Sit Amet admin</a>
-              </td>
-              <td>
-                <div class="role__labels">
-                  <span class="label">Role admin</span>
-                </div>
-              </td>
-              <td class="cases">
-                <div class="cases__buttons">
-                  <button style="background-image: url('img/add_cases.png')"
-                          class="buttons__add-cases"></button>
-                  <p>5</p>
-                  <span class="graphic"></span>
-                </div>
-              </td>
-              <td>
-                <div class="action__buttons">
-                  <button style="background-image: url('img/ic_edit_blue.png')"
-                          data-toggle="modal"
-                          data-target="#modal-create-user"
-                          class="buttons__edit"></button>
-                  <button style="background-image: url('img/delete.png')"
-                          class="buttons__delete"></button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-  <div class="user-management__container">
-    <div class="user-management__item">
-      <div class="widget">
-        <div class="widget__header">
-          <a href="javascript:void(0)"
-             class="username">Sit Amet admin</a>
-          <div class="action__buttons">
-            <button style="background-image: url('img/ic_edit_blue.png')"
-                    data-toggle="modal"
-                    data-target="#modal-create-user"
-                    class="buttons__edit"></button>
-            <button style="background-image: url('img/delete.png')"
-                    class="buttons__delete"></button>
-          </div>
-        </div>
-        <div class="widget__content">
-          <div class="cases">
-            <div class="title">Cases</div>
-            <div class="cases__buttons">
-              <button style="background-image: url('img/add_cases.png')"
-                      data-toggle="modal"
-                      data-target="#modal-cases"
-                      class="buttons__add-cases"></button>
-              <p>5</p>
-              <span style="background-image: url('img/graphic.png')"
-                    class="graphic"></span>
-            </div>
-          </div>
-          <div class="role__labels">
-            <div class="title">Role</div>
-            <div class="role__type">
-              <span class="label">ROLE_USER</span>
-              <span class="label">ROLE_ADMIN</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="user-management__item">
-      <div class="widget">
-        <div class="widget__header">
-          <a href="javascript:void(0)"
-             class="username">Sit Amet admin</a>
-          <div class="action__buttons">
-            <button style="background-image: url('img/ic_edit_blue.png')"
-                    data-toggle="modal"
-                    data-target="#modal-create-user"
-                    class="buttons__edit"></button>
-            <button style="background-image: url('img/delete.png')"
-                    class="buttons__delete"></button>
-          </div>
-        </div>
-        <div class="widget__content">
-          <div class="cases">
-            <div class="title">Cases</div>
-            <div class="cases__buttons">
-              <button style="background-image: url('img/add_cases.png')"
-                      data-toggle="modal"
-                      data-target="#modal-cases"
-                      class="buttons__add-cases"></button>
-              <p>5</p>
-              <span style="background-image: url('img/graphic.png')"
-                    class="graphic"></span>
-            </div>
-          </div>
-          <div class="role__labels">
-            <div class="title">Role</div>
-            <div class="role__type">
-              <span class="label">ROLE_USER</span>
-              <span class="label">ROLE_ADMIN</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="user-management__item">
-      <div class="widget">
-        <div class="widget__header">
-          <a href="javascript:void(0)"
-             class="username">Sit Amet admin</a>
-          <div class="action__buttons">
-            <button style="background-image: url('img/ic_edit_blue.png')"
-                    data-toggle="modal"
-                    data-target="#modal-create-user"
-                    class="buttons__edit"></button>
-            <button style="background-image: url('img/delete.png')"
-                    class="buttons__delete"></button>
-          </div>
-        </div>
-        <div class="widget__content">
-          <div class="cases">
-            <div class="title">Cases</div>
-            <div class="cases__buttons">
-              <button style="background-image: url('img/add_cases.png')"
-                      data-toggle="modal"
-                      data-target="#modal-cases"
-                      class="buttons__add-cases"></button>
-              <p>5</p>
-              <span style="background-image: url('img/graphic.png')"
-                    class="graphic"></span>
-            </div>
-          </div>
-          <div class="role__labels">
-            <div class="title">Role</div>
-            <div class="role__type">
-              <span class="label">ROLE_USER</span>
-              <span class="label">ROLE_ADMIN</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="user-management__item">
-      <div class="widget">
-        <div class="widget__header">
-          <a href="javascript:void(0)"
-             class="username">Sit Amet admin</a>
-          <div class="action__buttons">
-            <button style="background-image: url('img/ic_edit_blue.png')"
-                    data-toggle="modal"
-                    data-target="#modal-create-user"
-                    class="buttons__edit"></button>
-            <button style="background-image: url('img/delete.png')"
-                    class="buttons__delete"></button>
-          </div>
-        </div>
-        <div class="widget__content">
-          <div class="cases">
-            <div class="title">Cases</div>
-            <div class="cases__buttons">
-              <button style="background-image: url('img/add_cases.png')"
-                      data-toggle="modal"
-                      data-target="#modal-cases"
-                      class="buttons__add-cases"></button>
-              <p>5</p>
-              <span style="background-image: url('img/graphic.png')"
-                    class="graphic"></span>
-            </div>
-          </div>
-          <div class="role__labels">
-            <div class="title">Role</div>
-            <div class="role__type">
-              <span class="label">ROLE_USER</span>
-              <span class="label">ROLE_ADMIN</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="user-management__item">
-      <div class="widget">
-        <div class="widget__header">
-          <a href="javascript:void(0)"
-             class="username">Sit Amet admin</a>
-          <div class="action__buttons">
-            <button style="background-image: url('img/ic_edit_blue.png')"
-                    data-toggle="modal"
-                    data-target="#modal-create-user"
-                    class="buttons__edit"></button>
-            <button style="background-image: url('img/delete.png')"
-                    class="buttons__delete"></button>
-          </div>
-        </div>
-        <div class="widget__content">
-          <div class="cases">
-            <div class="title">Cases</div>
-            <div class="cases__buttons">
-              <button style="background-image: url('img/add_cases.png')"
-                      data-toggle="modal"
-                      data-target="#modal-cases"
-                      class="buttons__add-cases"></button>
-              <p>5</p>
-              <span style="background-image: url('img/graphic.png')"
-                    class="graphic"></span>
-            </div>
-          </div>
-          <div class="role__labels">
-            <div class="title">Role</div>
-            <div class="role__type">
-              <span class="label">ROLE_USER</span>
-              <span class="label">ROLE_ADMIN</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="user-management__item">
-      <div class="widget">
-        <div class="widget__header">
-          <a href="javascript:void(0)"
-             class="username">Sit Amet admin</a>
-          <div class="action__buttons">
-            <button style="background-image: url('img/ic_edit_blue.png')"
-                    data-toggle="modal"
-                    data-target="#modal-create-user"
-                    class="buttons__edit"></button>
-            <button style="background-image: url('img/delete.png')"
-                    class="buttons__delete"></button>
-          </div>
-        </div>
-        <div class="widget__content">
-          <div class="cases">
-            <div class="title">Cases</div>
-            <div class="cases__buttons">
-              <button style="background-image: url('img/add_cases.png')"
-                      data-toggle="modal"
-                      data-target="#modal-cases"
-                      class="buttons__add-cases"></button>
-              <p>5</p>
-              <span style="background-image: url('img/graphic.png')"
-                    class="graphic"></span>
-            </div>
-          </div>
-          <div class="role__labels">
-            <div class="title">Role</div>
-            <div class="role__type">
-              <span class="label">ROLE_USER</span>
-              <span class="label">ROLE_ADMIN</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="user-management__item">
-      <div class="widget">
-        <div class="widget__header">
-          <a href="javascript:void(0)"
-             class="username">Sit Amet admin</a>
-          <div class="action__buttons">
-            <button style="background-image: url('img/ic_edit_blue.png')"
-                    data-toggle="modal"
-                    data-target="#modal-create-user"
-                    class="buttons__edit"></button>
-            <button style="background-image: url('img/delete.png')"
-                    class="buttons__delete"></button>
-          </div>
-        </div>
-        <div class="widget__content">
-          <div class="cases">
-            <div class="title">Cases</div>
-            <div class="cases__buttons">
-              <button style="background-image: url('img/add_cases.png')"
-                      data-toggle="modal"
-                      data-target="#modal-cases"
-                      class="buttons__add-cases"></button>
-              <p>5</p>
-              <span style="background-image: url('img/graphic.png')"
-                    class="graphic"></span>
-            </div>
-          </div>
-          <div class="role__labels">
-            <div class="title">Role</div>
-            <div class="role__type">
-              <span class="label">ROLE_USER</span>
-              <span class="label">ROLE_ADMIN</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="user-management__item">
-      <div class="widget">
-        <div class="widget__header">
-          <a href="javascript:void(0)"
-             class="username">Sit Amet admin</a>
-          <div class="action__buttons">
-            <button style="background-image: url('img/ic_edit_blue.png')"
-                    data-toggle="modal"
-                    data-target="#modal-create-user"
-                    class="buttons__edit"></button>
-            <button style="background-image: url('img/delete.png')"
-                    class="buttons__delete"></button>
-          </div>
-        </div>
-        <div class="widget__content">
-          <div class="cases">
-            <div class="title">Cases</div>
-            <div class="cases__buttons">
-              <button style="background-image: url('img/add_cases.png')"
-                      data-toggle="modal"
-                      data-target="#modal-cases"
-                      class="buttons__add-cases"></button>
-              <p>5</p>
-              <span style="background-image: url('img/graphic.png')"
-                    class="graphic"></span>
-            </div>
-          </div>
-          <div class="role__labels">
-            <div class="title">Role</div>
-            <div class="role__type">
-              <span class="label">ROLE_USER</span>
-              <span class="label">ROLE_ADMIN</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="user-management__item">
-      <div class="widget">
-        <div class="widget__header">
-          <a href="javascript:void(0)"
-             class="username">Sit Amet admin</a>
-          <div class="action__buttons">
-            <button style="background-image: url('img/ic_edit_blue.png')"
-                    data-toggle="modal"
-                    data-target="#modal-create-user"
-                    class="buttons__edit"></button>
-            <button style="background-image: url('img/delete.png')"
-                    class="buttons__delete"></button>
-          </div>
-        </div>
-        <div class="widget__content">
-          <div class="cases">
-            <div class="title">Cases</div>
-            <div class="cases__buttons">
-              <button style="background-image: url('img/add_cases.png')"
-                      data-toggle="modal"
-                      data-target="#modal-cases"
-                      class="buttons__add-cases"></button>
-              <p>5</p>
-              <span style="background-image: url('img/graphic.png')"
-                    class="graphic"></span>
-            </div>
-          </div>
-          <div class="role__labels">
-            <div class="title">Role</div>
-            <div class="role__type">
-              <span class="label">ROLE_USER</span>
-              <span class="label">ROLE_ADMIN</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="user-management__item">
-      <div class="widget">
-        <div class="widget__header">
-          <a href="javascript:void(0)"
-             class="username">Sit Amet admin</a>
-          <div class="action__buttons">
-            <button style="background-image: url('img/ic_edit_blue.png')"
-                    data-toggle="modal"
-                    data-target="#modal-create-user"
-                    class="buttons__edit"></button>
-            <button style="background-image: url('img/delete.png')"
-                    class="buttons__delete"></button>
-          </div>
-        </div>
-        <div class="widget__content">
-          <div class="cases">
-            <div class="title">Cases</div>
-            <div class="cases__buttons">
-              <button style="background-image: url('img/add_cases.png')"
-                      data-toggle="modal"
-                      data-target="#modal-cases"
-                      class="buttons__add-cases"></button>
-              <p>5</p>
-              <span style="background-image: url('img/graphic.png')"
-                    class="graphic"></span>
-            </div>
-          </div>
-          <div class="role__labels">
-            <div class="title">Role</div>
-            <div class="role__type">
-              <span class="label">ROLE_USER</span>
-              <span class="label">ROLE_ADMIN</span>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
   <div class="user-management__pagination">
     <div class="pagination">
-      <a href="javascript:void(0)"
-         class="pagination__prev">
-        < Prev</a>
-          <a href="javascript:void(0)"
-             class="pagination__page active">1</a>
-          <a href="javascript:void(0)"
-             class="pagination__page">2</a>
-          <a href="javascript:void(0)"
-             class="pagination__page">3</a>
-          <a href="javascript:void(0)"
-             class="pagination__page">4</a>
-          <a href="javascript:void(0)"
-             class="pagination__page">5</a>
-          <a href="javascript:void(0)"
-             class="pagination__next">Next ></a>
+      <pagination-controls
+        previousLabel="Prev"
+        (pageChange)="onPage($event)"
+        id="user-page">
+      </pagination-controls>
     </div>
   </div>
   <div class="popup__container">
-    <div id="modal-create-user"
+    <form [formGroup]="userform" (ngSubmit)="Save()">
+      <div id="modal-create-user"
+           tabindex="-1"
+           role="dialog"
+           aria-labelledby="exampleModalLabel"
+           aria-hidden="true"
+           class="modal fade">
+        <div role="document"
+             class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 id="modal-create-user"
+                  class="modal-title">Create User</h5>
+              <button type="button"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                      class="close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="modal-create-user">
+                <div class="modal-create-user__input">
+                  <label for="name" class="modal-create-user__label">Username</label>
+                  <input  id="name" class="input__regular"
+                         type="text"
+                         placeholder="Username"
+                         [(ngModel)]="user.username" formControlName="username" autofocus>
+                </div>
+                <div class="modal-create-user__input">
+                  <label for="password" class="modal-create-user__label">Password</label>
+                  <input id="password" class="input__regular" 
+                         type="password"
+                         placeholder="Password"
+                         [(ngModel)]="user.password" formControlName="password" autofocus>
+                </div>
+                <div class="modal-create-user__checkboxes" formArrayName="roles">
+                  <div class="checkbox">
+                    <input type="checkbox"
+                           id="admin" formControlName="0">
+                    <label for="admin">Administrators</label>
+                  </div>
+                  <div class="checkbox">
+                    <input type="checkbox"
+                           id="user" formControlName="1">
+                    <label for="user">Regular Users</label>
+                  </div>
+                </div>
+                <div class="modal-create-user__buttons">
+                  <button class="button__inactive" data-dismiss="modal">back to list</button>
+                  <button class="button__active" type="submit" [disabled]="!userform.valid">add</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="popup__container">
+    <form [formGroup]="userEditForm" *ngIf="currentUser">
+      <div
+        id="modal-edit-user"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+        class="modal fade"
+      >
+        <div
+          role="document"
+          class="modal-dialog"
+        >
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Edit User</h5>
+              <button type="button"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                      class="close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="modal-create-user">
+                <div class="modal-create-user__input">
+                  <label for="name" class="modal-create-user__label">Username</label>
+                  <input
+                    id="name"
+                    class="input__regular"
+                    type="text"
+                    placeholder="Username"
+                    value="{{currentUser['username']}}"
+                    formControlName="username"
+                    autofocus
+                  >
+                </div>
+                <div class="modal-create-user__input">
+                  <label for="password" class="modal-create-user__label">Password</label>
+                  <input id="password" class="input__regular"
+                         type="password"
+                         placeholder="Password"
+                  >
+                </div>
+                <div class="modal-create-user__checkboxes" formArrayName="roles">
+                  <div class="checkbox">
+                    <input type="checkbox"
+                           id="adminForm" formControlName="0"
+                           [checked]="currentUser['isAdmin']?.length > 0"
+                    >
+                    <label for="adminForm">Administrators</label>
+                  </div>
+                  <div class="checkbox">
+                    <input type="checkbox"
+                           id="userForm" formControlName="1"
+                           [checked]="currentUser['isUser']?.length > 0"
+                    >
+                    <label for="userForm">Regular Users</label>
+                  </div>
+                </div>
+                <div class="modal-create-user__buttons">
+                  <button class="button__inactive" data-dismiss="modal">back to list</button>
+                  <button class="button__active" type="submit" [disabled]="!userEditForm.valid">add</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="popup__container" *ngIf="currentUser">
+      <div id="modal-add-case"
+           tabindex="-1"
+           role="dialog"
+           aria-labelledby="exampleModalLabel"
+           aria-hidden="true"
+           class="modal fade modal_all_cases">
+        <div role="document"
+             class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5
+                  class="modal-title">Add {{currentUser['username']}} to the case</h5>
+              <button type="button"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                      class="close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="modal-add-case">
+                <div class="modal-add-case__checkboxes">
+                  <div class="case__content">
+                    <table class="users__table ">
+                      <thead [class.scroll]="currentUser['cases']?.length > 7">
+                      <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Targets</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <mat-radio-group [(ngModel)]="dataCase"  ngDefaultControl>
+                        <ng-container  *ngFor="let case of cases">
+                        <tr>
+                          <td>
+                            <mat-radio-button value="{{case.id}}"></mat-radio-button>
+                          </td>
+                          <td>
+                            <a
+                                    [routerLink]="['/cases/'+ case['id']]"
+                                    data-dismiss="modal"
+                            >
+                              {{case['name']}}
+                            </a>
+                          </td>
+                          <td>{{case['targets']?case['targets']?.length:0}}</td>
+                        </tr>
+                        </ng-container>
+                      </mat-radio-group>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="modal-add-case__buttons">
+                    <button class="button__active" (click)="addUserTOTheCase()">Add</button>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+     </div>
+     </div>
+  </div>
+  <!--<div class="popup__container">-->
+    <!--<form [formGroup]="caseForm" (ngSubmit)="addCase(caseForm)" *ngIf="currentUser">-->
+      <!--<div id="modal-add-case"-->
+           <!--tabindex="-1"-->
+           <!--role="dialog"-->
+           <!--aria-labelledby="exampleModalLabel"-->
+           <!--aria-hidden="true"-->
+           <!--class="modal fade">-->
+        <!--<div role="document"-->
+             <!--class="modal-dialog">-->
+          <!--<div class="modal-content">-->
+            <!--<div class="modal-header">-->
+              <!--<h5-->
+                  <!--class="modal-title">Add Case for {{currentUser['username']}}</h5>-->
+              <!--<button type="button"-->
+                      <!--data-dismiss="modal"-->
+                      <!--aria-label="Close"-->
+                      <!--class="close">-->
+                <!--<span aria-hidden="true">&times;</span>-->
+              <!--</button>-->
+            <!--</div>-->
+            <!--<div class="modal-body">-->
+              <!--<div class="modal-add-case">-->
+                <!--<div class="modal-add-case__checkboxes">-->
+                  <!--<div class="case__content">-->
+                    <!--<div class="inputs">-->
+                      <!--<label>Case Name</label>-->
+                      <!--<input-->
+                              <!--id="name"-->
+                              <!--class="input__regular"-->
+                              <!--type="text"-->
+                              <!--placeholder="Case Name"-->
+                              <!--formControlName="caseName"-->
+                              <!--autofocus-->
+                      <!--&gt;-->
+                    <!--</div>-->
+                    <!--<app-select-->
+                            <!--placeholder="Case type"-->
+                            <!--[current]="1"-->
+                            <!--[options]="[{name:'UNDEFINED',  id:1}, {name:'HOMICIDE',  id:2}]"-->
+                            <!--(selectOption)="selectCaseType($event)"-->
+                    <!--&gt;</app-select>-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<div class="modal-add-case__buttons">-->
+                  <!--<button class="button__active" type="submit">Add Case</button>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+     <!--</div>-->
+    <!--</form>-->
+  <!--</div>-->
+  <div class="popup__container" *ngIf="currentUser">
+    <div id="modal_all_cases"
          tabindex="-1"
          role="dialog"
          aria-labelledby="exampleModalLabel"
          aria-hidden="true"
-         class="modal fade">
+         class="modal fade modal_all_cases">
       <div role="document"
            class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 id="modal-create-user"
-                class="modal-title">Create User</h5>
+            <h5 class="modal-title">{{currentUser['username']}} Cases</h5>
             <button type="button"
                     data-dismiss="modal"
                     aria-label="Close"
@@ -1018,41 +364,35 @@
             </button>
           </div>
           <div class="modal-body">
-            <div class="modal-create-user">
-              <div class="modal-create-user__input">
-                <label class="modal-create-user__label">Username</label>
-                <input type="text"
-                       placeholder="Username"
-                       value="Omertex"
-                       class="input__regular">
-              </div>
-              <div class="modal-create-user__input">
-                <label class="modal-create-user__label">Password</label>
-                <input type="password"
-                       placeholder="Password"
-                       value="omertex"
-                       class="input__regular">
-              </div>
-              <div class="modal-create-user__checkboxes">
-                <div class="checkbox">
-                  <input type="checkbox"
-                         id="admin">
-                  <label for="admin">Administrators</label>
-                </div>
-                <div class="checkbox">
-                  <input type="checkbox"
-                         id="user">
-                  <label for="user">Regular Users</label>
-                </div>
-              </div>
-              <div class="modal-create-user__buttons">
-                <button class="button__inactive">back to list</button>
-                <button class="button__active">add</button>
-              </div>
-            </div>
+            <table class="users__table ">
+              <thead [class.scroll]="currentUser['cases']?.length > 7">
+              <tr>
+                <th>Name</th>
+                <th>Targets</th>
+              </tr>
+              </thead>
+              <tbody>
+              <ng-container  *ngFor="let case of currentUser['cases']">
+                <tr>
+                  <td>
+                    <a
+                      [routerLink]="['/cases/'+ case['id']]"
+                      data-dismiss="modal"
+                    >
+                      {{case['name']}}
+                    </a>
+                  </td>
+                  <td>{{case['targets']?case['targets']?.length:0}}</td>
+                </tr>
+              </ng-container>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+<dialog-create-case [openModalCreate]="showCreateCaseDialog"
+                    (visibleChange)="changeVisiblesCreateCaseDialog()"
+                    (successAdd)="successAddCase($event)"></dialog-create-case>
