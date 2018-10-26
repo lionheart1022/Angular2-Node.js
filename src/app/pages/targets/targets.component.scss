@@ -1,0 +1,36 @@
+.targets app-select{
+  margin: 2px;
+  position: relative;
+  top: -81px;
+  left: 15px;
+}
+.targets ::ng-deep .dropdown__selected{
+  width: 54px;
+  height: 24px;
+  padding: 0px 10px;
+}
+.targets  ::ng-deep .dropdown{
+  width: 162px;
+  display: flex;
+  justify-content: space-between;
+}
+.targets ::ng-deep .dd_name{
+  color: #cacaca;
+  font-size: 1.05em;
+}
+.targets  ::ng-deep .dropdown__list{
+  width: 55px;
+  background-color: #d2d2d3;
+  right: 0;
+  z-index: 100;
+  li{
+    text-align: center;
+  }
+}
+.targets .targets__grid-element{
+  z-index: 9;
+}
+
+.targets ::ng-deep .loading{
+  background: rgba(40, 40, 51, 0.8);
+}

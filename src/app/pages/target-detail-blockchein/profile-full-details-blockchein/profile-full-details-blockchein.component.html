@@ -1,0 +1,26 @@
+<div id="open-target__full-details" class="widget widget__open-target">
+  <div class="widget__header widget__open-target__header">
+    <div class="widget__title widget__open-target__title" id="profiledetails">Profile full details</div>
+    <div class="widget__buttons">
+      <button style="background-image: url('img/refresh.png')" class="buttons__refresh deg0"></button>
+      <button style="background-image: url('img/arrow.png')" class="buttons__hide deg0"></button>
+    </div>
+  </div>
+  <div class="widget__content widget__open-target__content">
+    <div class="open-target-full-details">
+
+      <div class="open-target-full-details__tabs full-details-tabs-slider">
+        <a
+          [routerLink]="['transactions']"
+          routerLinkActive="button__active"
+          class="open-target-full-details__tab button__active open_target_blockchain"
+        >
+          Transactions
+        </a>
+      </div>
+      <div class="open-target-full-details__tabs__container">
+        <app-transactions></app-transactions>
+      </div>
+    </div>
+  </div>
+</div>

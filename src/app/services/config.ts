@@ -10,4 +10,8 @@ export const config = {
   loginUrl: isLocalhost ? 'http://localhost:8001/' : productionLoginURL,
   username: 'vinculumscientific',
   password: 'Pass1234',
+  googleMap: {
+    key: 'AIzaSyB9LjN9U-SJdzGlFF0SfugYUJD9TAYc-d8',
+    apiUrl: 'https://maps.googleapis.com/maps/api'
+  }
 };

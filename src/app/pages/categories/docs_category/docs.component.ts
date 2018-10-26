@@ -7,7 +7,7 @@ import { SearchService } from '../../../services/search.service';
 import { SelectedSubcategoriesService } from '../../../services/subcategory/selectedSubCategory.service';
 
 @Component({
-  selector: 'docs',
+  selector: 'documents',
   templateUrl: 'docs.component.html',
   styleUrls: ['docs.scss']
 })
@@ -33,8 +33,17 @@ export class DocsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const subcategories = this.allSubcatService.getSubCat('docs');
+    const subcategories = this.allSubcatService.getSubCat('documents');
+    if(typeof this.title === 'undefined') {
+      this.title = 'all';
+    }
+    let subcategory = {name: this.title};
+    subcategories.map((item) => {
+      if(item['name'].toLowerCase() === this.title.toLowerCase()) {
+        subcategory = item;
+      }
+    });
     this.currentSubcatService.currentSubcategories$.next(subcategories);
-    this.selectedSubcatService.selectedSubcategories$.next(this.title);
+    this.selectedSubcatService.selectedSubcategories$.next(subcategory);
   }
 }

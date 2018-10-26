@@ -54,7 +54,7 @@ export class AuthenticationService implements CanActivate {
   logout() {
     localStorage.removeItem('token');
     this.token = null;
-    this.router.navigate(['/login']);
+    this.router.navigate(['/lg']);
   }
 
   canActivate() {
@@ -79,7 +79,6 @@ export class AuthenticationService implements CanActivate {
   }
 
   isAdmin() {
-    console.log(this.roles);
     if (!isNull(this.roles)) {
       return this.roles.indexOf(this.roleAdmin) !== -1;
     }

@@ -1,0 +1,74 @@
+<div class="open-target">
+
+  <div *ngIf="targetData"
+       class="row open-target__section">
+    <div class="open-target__section__profile">
+      <div class="open-target-profile">
+        <div class="open-target-profile__content">
+          <div class="open-target-img open-target-blockchain-img">
+            <img [src]="targetData.qrcode"
+                 [alt]="targetData.address" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="open-target__section__personal-informations">
+      <div class="open-target-personal-informations">
+        <div class="open-target-personal-informations__header">
+          <div class="open-target-personal-informations__title">Summary</div>
+        </div>
+        <table class="open-target-personal-informations__info">
+          <tr>
+            <td class="head">Address:</td>
+            <td class="cell">
+              {{targetData.address}}
+            </td>
+          </tr>
+          <tr>
+            <td class="head">Hash 160:</td>
+            <td class="cell">{{targetData.hash_address}}</td>
+          </tr>
+          <tr>
+            <td class="head">Tools:</td>
+            <td class="cell"><a>Related Tags</a> - <a>Unspent Outputs</a></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="open-target__section__friends-photos">
+      <div class="open-target-friends-photos">
+        <div class="open-target-personal-informations__header">
+          <div class="open-target-personal-informations__title">Transactions</div>
+        </div>
+        <table class="open-target-personal-informations__info">
+          <tr>
+            <td class="head">No Transactions:</td>
+            <td class="cell">
+              {{targetData.no_transactions}}
+            </td>
+          </tr>
+          <tr>
+            <td class="head">Total Recieved:</td>
+            <td class="cell">{{targetData.total_received}}</td>
+          </tr>
+          <tr>
+            <td class="head">Final Ballance:</td>
+            <td class="cell">{{targetData.final_balance}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+  <div *ngIf="targetData"
+       class="row">
+    <div class="col-12 open-target__section">
+      <app-profile-full-details-blockchein
+                                class="widget widget__open-target"></app-profile-full-details-blockchein>
+    </div>
+  </div>
+
+</div>

@@ -20,47 +20,47 @@ export class HomeSentimentMonitorComponent implements OnInit {
 
     let chartBInit = function (id, type, data, options) {
         let ctx = $(id);
-        let chart = new Chart(ctx, {
-            type: type,
-            data: data,
-            options: options
-        });
+        // let chart = new Chart(ctx, {
+        //     type: type,
+        //     data: data,
+        //     options: options
+        // });
     };
 
     let chartDInit = function (id, type, data) {
         let ctx = $(id);
-        let chart = new Chart(ctx, {
-            type: type,
-            data: data,
-            options: {
-                cutoutPercentage: 60,
-                legend: false,
-                legendCallback: function (chart) {
-                    let text = [];
-                    text.push('<ul class="chart-' + chart.id + '-legend">');
-                    for (let i = 0; i < chart.data.datasets[0].data.length; i++) {
-                        text.push('<li><span class="circle" style="background-color:' + chart.data.datasets[0].backgroundColor[i] + '"></span>');
-                        text.push('<p class="text">');
-                        if (chart.data.labels[i]) {
-                            text.push(chart.data.labels[i]);
-                        }
-                        text.push('</p></li>');
-                    }
-                    text.push('</ul>');
-                    return text.join("");
-                },
-                layout: {
-                    padding: {
-                        left: 12,
-                        right: 12,
-                        top: 12,
-                        bottom: 12
-                    }
-                }
-            }
-        });
+        // let chart = new Chart(ctx, {
+        //     type: type,
+        //     data: data,
+        //     options: {
+        //         cutoutPercentage: 60,
+        //         legend: false,
+        //         legendCallback: function (chart) {
+        //             let text = [];
+        //             text.push('<ul class="chart-' + chart.id + '-legend">');
+        //             for (let i = 0; i < chart.data.datasets[0].data.length; i++) {
+        //                 text.push('<li><span class="circle" style="background-color:' + chart.data.datasets[0].backgroundColor[i] + '"></span>');
+        //                 text.push('<p class="text">');
+        //                 if (chart.data.labels[i]) {
+        //                     text.push(chart.data.labels[i]);
+        //                 }
+        //                 text.push('</p></li>');
+        //             }
+        //             text.push('</ul>');
+        //             return text.join("");
+        //         },
+        //         layout: {
+        //             padding: {
+        //                 left: 12,
+        //                 right: 12,
+        //                 top: 12,
+        //                 bottom: 12
+        //             }
+        //         }
+        //     }
+        // });
 
-        $(`${id}-legend`).html(chart.generateLegend());
+        // $(`${id}-legend`).html(chart.generateLegend());
     };
 
     let chart1Data = {

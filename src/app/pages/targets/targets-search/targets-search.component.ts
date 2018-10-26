@@ -8,6 +8,7 @@ import { ITargetFilter } from '../../../interfaces';
 })
 export class TargetsSearchComponent implements OnInit {
   @Output() onSearch = new EventEmitter<object>();
+  @Output() onSelectPerPage = new EventEmitter<object>();
   searchData: ITargetFilter;
 
   constructor() { }
@@ -17,6 +18,10 @@ export class TargetsSearchComponent implements OnInit {
 
   search() {
     this.onSearch.emit(this.searchData);
+  }
+
+  selectPerPage(size){
+    this.onSelectPerPage.emit(size);
   }
 
 }

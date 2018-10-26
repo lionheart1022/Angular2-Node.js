@@ -35,7 +35,7 @@ export class UsersService {
     headers.append('Cache-Control', 'no-cache');
     headers.append('Postman-Token', '421c2371-b23b-8174-a46c-4235e3aff506');
 
-    return this.http.post(this.url, JSON.stringify(user), {headers: headers});
+    return this.http.post(`${config.url}users`, user);
   }
 
   updateUser(user){

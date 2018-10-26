@@ -4,15 +4,17 @@
    style="display: none"
    #linkToOpenModal></a>
 <div class="popup__container"
-     *ngIf="exists">
-  <div id="modal-define-alert"
+     *ngIf="open || currentItem">
+  <div
+       id="modal-define-alert"
        tabindex="-1"
        role="dialog"
        aria-labelledby="exampleModalLabel"
        aria-hidden="true"
        class="modal fade">
     <div role="document"
-         class="modal-dialog targeting">
+         class="modal-dialog targeting"
+         [class.modal__blockchain]="dialogFormat === 'blockchain'">
       <div class="modal-content">
 
         <div class="modal-header">
@@ -51,7 +53,7 @@
             <div class="or_new_dir">
               <div class="text-in-row">OR</div>
               <div class="new_dir_button">
-                <button (click)="toggleCreateNew()"
+                <button (click)="toggleCreateNew($event)"
                         class="button__regular_accept">Create New</button>
               </div>
             </div>
@@ -79,7 +81,92 @@
           </div>
         </div>
 
-        <div class="modal-body">
+        <div class="modal-body"  *ngIf="dialogFormat === 'blockchain'">
+
+          <div class="tabs">
+            <input id="tab2"
+                   type="radio"
+                   name="tabs"
+                   checked>
+            <section id="content-tab2">
+              <!-- Goods Section -->
+              <div class="accordion_tabs">
+                <input id="tab2-1"
+                       type="radio"
+                       name="accs"
+                       >
+                <label for="tab2-1">Summary</label>
+                <section id="content-tab2-1" class="summary_section">
+                  <div class="acc_content">
+                    <div class="main_acc_info">
+                      <table class="open-target-personal-informations__info">
+                        <tr>
+                          <td class="head">Address:</td>
+                          <td class="cell">
+                            {{currentItem.address}}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="head">Hash 160:</td>
+                          <td class="cell">{{currentItem.hash_address}}</td>
+                        </tr>
+                        <tr>
+                          <td class="head">Tools:</td>
+                          <td class="cell"><a>Related Tags</a> - <a>Unspent Outputs</a></td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                </section>
+                <input id="tab2-5"
+                       type="radio"
+                       name="accs2"
+                       checked>
+                <label for="tab2-5">transactions</label>
+                <section id="content-tab2-5" class="transactions">
+                  <div class="acc_content">
+                    <div class="main_vend_info">
+                     <table>
+                       <thead>
+                       <tr>
+                        <th>Hash</th>
+                        <th>From</th>
+                         <th>Date</th>
+                         <th>To</th>
+                        <th>Amount, BTC</th>
+                       </tr>
+                       </thead>
+                       <tbody>
+                       <ng-container  *ngFor="let transaction of currentItem.transactions">
+                         <tr>
+                           <td>{{transaction['transactions hash']}}</td>
+                           <td>{{transaction['from_adress'][0]['adress']}}</td>
+                           <td>{{transaction['date']}}</td>
+                         <td>
+                         <ng-container *ngFor="let to of transaction['to_adress']">
+                          {{to['adress']}}<br>
+                         </ng-container>
+                       </td>
+                       <td>
+                         <ng-container *ngFor="let to of transaction['to_adress']">
+                           {{to['value']}}<br>
+                         </ng-container>
+                       </td>
+                       </tr>
+                       </ng-container>
+
+                       </tbody>
+                     </table>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </section>
+
+          </div>
+
+        </div>
+        <div class="modal-body" *ngIf="dialogFormat !== 'blockchain' && exist(currentItem)">
 
           <div class="tabs">
             <input id="tab1"
@@ -103,16 +190,16 @@
                 <section id="content-tab1-1">
                   <div class="acc_content">
                     <div class="main_acc_info">
-                      <div class="open-target-img">
-                        <img [src]="currentItem.product_photo || '/img/default-no-image.png'"
-                             alt="" />
+                      <div class="open-target-img" [ngStyle]="{'background-image': 'url(' + currentItem.product_photo || '/img/default-no-image.png' + ')'}">
+                        <!--<img [src]="currentItem.product_photo || '/img/default-no-image.png'"-->
+                             <!--alt="" />-->
                       </div>
                       <div class="personal_info">
                         <table class="open-target-personal-informations__info">
                           <tr>
                             <td class="head">Vendor:</td>
                             <td class="cell">
-                              <a href="javascript:void(0)">{{ vendor }}</a>
+                              {{ vendor }}
                             </td>
                           </tr>
                           <tr>
@@ -266,8 +353,8 @@
                           <th>Rating</th>
                         </tr>
                       </thead>
-                      <tbody>
-                        <tr>
+                      <tbody >
+                        <tr *ngIf="exist(ratings.newerThan1Month)">
                           <td>{{ ratings.newerThan1Month.age }}</td>
                           <td>{{ ratings.newerThan1Month.star1 }}</td>
                           <td>{{ ratings.newerThan1Month.star2 }}</td>
@@ -280,7 +367,7 @@
                             </span>
                           </td>
                         </tr>
-                        <tr>
+                        <tr *ngIf="exist(ratings.newerThan3Month)">
                           <td>{{ ratings.newerThan3Months.age }}</td>
                           <td>{{ ratings.newerThan3Months.star1 }}</td>
                           <td>{{ ratings.newerThan3Months.star2 }}</td>
@@ -293,7 +380,7 @@
                             </span>
                           </td>
                         </tr>
-                        <tr>
+                        <tr *ngIf="exist(ratings.older)">
                           <td>{{ ratings.older.age }}</td>
                           <td>{{ ratings.older.star1 }}</td>
                           <td>{{ ratings.older.star2 }}</td>

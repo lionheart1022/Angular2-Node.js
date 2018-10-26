@@ -59,8 +59,6 @@ export class WeaponDetailsComponent implements OnInit, OnDestroy {
    * Subscribe of changes in search results (weapons), current item_id (weaponId$) and modal status  (weaponDetailsModal$)
    */
   private subscribeToModalEvent(): void {
-
-    console.log(this);
     this.searchService.weapons
       .takeUntil(this.ngUnsubscribe)
       .subscribe(data => {

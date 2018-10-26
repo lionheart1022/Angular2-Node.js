@@ -7,13 +7,7 @@ import { Component } from '@angular/core';
 })
 
 export class ContentComponent {
-  options = {
-    timeOut: 5000,
-    showProgressBar: false,
-    pauseOnHover: false,
-    clickToClose: false,
-    maxLength: 3,
-  };
+
 
   constructor(
   ) { }

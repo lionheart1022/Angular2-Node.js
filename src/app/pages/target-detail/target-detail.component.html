@@ -1,15 +1,13 @@
 <div class="open-target">
-
-  <div *ngIf="targetData" class="row open-target__section">
+  <app-loading [activated]="loading"></app-loading>
+  <div *ngIf="!loading"
+       class="row open-target__section">
     <div class="open-target__section__profile">
       <div class="open-target-profile">
         <div class="open-target-profile__content">
-          <div class="open-target-img">
-            <img
-              [src]="targetData.product_photo"
-              [alt]="targetData.product_name" />
+          <div class="open-target-img" [style.background-image]="'url('+targetData.product_photo+')'">
           </div>
-          <div class="open-target-profile__title">CC TO BTC - VIDEO PROOF GET 2+ BTC DAILY</div>
+          <div class="open-target-profile__title">{{targetData.product_name}}</div>
         </div>
       </div>
     </div>
@@ -22,7 +20,9 @@
         <table class="open-target-personal-informations__info">
           <tr>
             <td class="head">Vendor:</td>
-            <td class="cell"><a href="#profiledetails">{{targetData.vendor}}</a></td>
+            <td class="cell">
+              {{targetData.vendor}}
+            </td>
           </tr>
           <tr>
             <td class="head">Price:</td>
@@ -47,9 +47,14 @@
     <div class="open-target__section__friends-photos">
       <div class="open-target-friends-photos">
         <div class="tabs">
-          <input id="tab1" type="radio" name="tabs" checked>
+          <input id="tab1"
+                 type="radio"
+                 name="tabs"
+                 checked>
           <label for="tab1">Terms and conditions</label>
-          <input id="tab2" type="radio" name="tabs">
+          <input id="tab2"
+                 type="radio"
+                 name="tabs">
           <label for="tab2">Product description</label>
           <section id="content-tab1">
             <p>
@@ -58,7 +63,7 @@
           </section>
           <section id="content-tab2">
             <p>
-              {{targetData.vendor_info.terms_and_conditions}}
+              {{targetData.product_description}}
             </p>
           </section>
         </div>
@@ -66,28 +71,39 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row" *ngIf="!loading">
     <div class="col-12 open-target__section">
-      <div id="open-target__map-location" class="widget widget__open-target">
+      <div id="open-target__map-location"
+           class="widget widget__open-target">
         <div class="widget__header widget__open-target__header">
           <div class="widget__title widget__open-target__title">Map location</div>
           <div class="widget__buttons">
-            <button style="background-image: url('img/refresh.png')" class="buttons__refresh deg0"></button>
-            <button style="background-image: url('img/arrow.png')" class="buttons__hide deg0"></button>
+            <button style="background-image: url('img/refresh.png')"
+                    class="buttons__refresh deg0"></button>
+            <button style="background-image: url('img/arrow.png')"
+                    class="buttons__hide deg0"></button>
           </div>
         </div>
         <div class="widget__content widget__open-target__content">
-          <div id="map"></div>
+          <agm-map [latitude]="mapOptions.location.lat"
+                   [longitude]="mapOptions.location.lng"
+                   [zoom]="mapOptions.zoom">
+            <agm-marker *ngIf="showMarker"
+                        [latitude]="mapOptions.location.lat"
+                        [longitude]="mapOptions.location.lng"></agm-marker>
+          </agm-map>
         </div>
       </div>
     </div>
   </div>
 
-  <div *ngIf="targetData" class="row">
+  <div class="row" *ngIf="!loading">
     <div class="col-12 open-target__section">
       <app-profile-full-details
+        *ngIf="exist(targetData) && exist(targetData.vendor_info)"
         [info]="targetData.vendor_info"
-        class="widget widget__open-target"></app-profile-full-details>
+        class="widget widget__open-target"
+      ></app-profile-full-details>
     </div>
   </div>
 

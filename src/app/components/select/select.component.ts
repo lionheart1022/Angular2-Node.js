@@ -8,6 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class SelectComponent implements OnInit {
   @Input() placeholder: string = '';
+  @Input() current: string | number = 0;
   @Input() options: Option[] = [];
   @Output() selectOption: EventEmitter<Option> = new EventEmitter<Option>();
   show: boolean = false;
@@ -16,7 +17,9 @@ export class SelectComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.currentOption = this.options[0];
+    let index = this.current;
+    this.currentOption = this.options[index];
+    console.log(this.currentOption);
   }
 
   toggle() {

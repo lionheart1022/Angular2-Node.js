@@ -1,0 +1,93 @@
+@import '../../../styles/variables';
+
+.modal_all_cases table{
+  text-align: center;
+}
+
+.modal_all_cases tbody{
+  display:block;
+  max-height:184px;
+  overflow:auto;
+}
+.modal_all_cases thead,.modal_all_cases tbody tr {
+  display:table;
+  width:100%;
+  table-layout:fixed;
+}
+.modal_all_cases thead{
+
+}
+.modal_all_cases th:last-child, .modal_all_cases td:last-child{
+  width: 95px;
+}
+.modal_all_cases th:first-child, .modal_all_cases td:first-child{
+  word-break: break-all;
+}
+.modal_all_cases th:nth-child(3), .modal_all_cases td:nth-child(3){
+  width: 115px;
+}
+.modal_all_cases .scroll{
+  width: calc( 100% - 1.05em )
+}
+.modal-add-case th:first-child, .modal-add-case td:first-child{
+  width: 50px;
+  padding-left: 7px;
+}
+.modal-add-case .case__content{
+  margin-bottom: 15px;
+}
+.create_user{
+  display: none;
+}
+
+.modal-add-case .inputs{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal-add-case .inputs input{
+  width: 250px;
+  margin-right: 65px;
+}
+.modal-add-case .inputs label{
+  font-size: 14px;
+  color: $white;
+}
+.modal-add-case .case__content{
+  display: block;
+}
+.modal-add-case ::ng-deep app-select{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.modal-add-case ::ng-deep app-select .dropdown__selected{
+  background-color: #ffffff;
+  width: 250px;
+  position: relative;
+  left: 86px;
+}
+.modal-add-case ::ng-deep app-select .dropdown__selected input{
+  background-color: inherit;
+  color: #777a89;
+}
+.modal-add-case ::ng-deep app-select .dropdown__list{
+  width: 250px;
+  position: relative;
+  left: 153px;
+}
+.modal-add-case ::ng-deep app-select .dropdown__selected,.modal-add-case ::ng-deep app-select .dd_name{
+  display: inline-block;
+  font-size: 14px;
+  color: $white;
+}
+.modal-add-case__checkboxes{
+  & .mat-radio-button{
+    display: block;
+  }
+}
+.pointer{
+  cursor: pointer;
+}

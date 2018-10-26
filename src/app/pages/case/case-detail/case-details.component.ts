@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { exist } from '../../../helpers/exist_item/exist';
 import { ModalService } from '../../../services/modal.service';
 import { SearchService } from '../../../services';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'case-detail',
@@ -23,6 +24,7 @@ export class CaseDetailComponent implements OnInit {
   public currentTargetId;
   public currentTarget;
   public targetsBlock: boolean = false;
+  public loading: boolean = false;
   public openModalConfirmTarget: boolean = false;
   public openModalConfirmCase: boolean = false;
   public titleConfirm;
@@ -37,11 +39,11 @@ export class CaseDetailComponent implements OnInit {
     private modalService: ModalService,
     private searchService: SearchService,
     private router: Router,
+    private notificationService: NotificationsService,
   ) { }
 
   ngOnInit() {
     this.getCase();
-
   }
 
   navigateToTarget(id: number) {
@@ -72,13 +74,16 @@ export class CaseDetailComponent implements OnInit {
    * @param caseId
    */
   getTargets(caseId) {
+    this.loading = true;
     this.getAllTargets.handler(caseId)
       .then(data => {
         this.targets = data;
+        console.log(data);
         this.targetsBlock = true;
         this.targets.map((i) => {
           this.targetsOnlyItems.push(this.returnTargetData(i));
         });
+        this.loading = false;
       });
   }
 

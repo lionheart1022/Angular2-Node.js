@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import Chart from 'chart.js';
 
 @Component({
   selector: 'app-home-timeline',
   templateUrl: './home-timeline.component.html',
   styleUrls: ['./home-timeline.component.scss']
 })
+
 export class HomeTimelineComponent implements OnInit {
 
   constructor() { }
@@ -58,7 +60,7 @@ export class HomeTimelineComponent implements OnInit {
                     }
                 }
             }
-        });
+        }); 
 
         $(`${id}-legend`).html(chart.generateLegend());
     };

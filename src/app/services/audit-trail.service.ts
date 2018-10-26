@@ -1,31 +1,27 @@
 import { BehaviorSubject } from 'rxjs/Rx';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Response } from '@angular/http';
 import { config } from './config';
 import { Observable } from 'rxjs/Observable';
-import { AuditTrail } from '../interfaces/audit-trail';
-import { AuditTrailResponse } from '../interfaces/audit-trail';
+import { AuditTrail } from '../interfaces';
+import { AuditTrailResponse } from '../interfaces';
 import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class AuditTrailService {
   private audittrail: Subject<AuditTrail> = new BehaviorSubject<AuditTrail>(null);
   audittrail$ = this.audittrail.asObservable();
+
   constructor(private http: HttpClient) { }
 
   getAuditTrail({ pageNum, pageSize }: any): Observable<AuditTrailResponse> {
-    const params = new HttpParams()
-      .set('pageNum', pageNum)
-      .set('pageSize', pageSize);
+    let headers = new HttpHeaders();
+    headers.append('content-type', 'application/json')
 
-    return this.http.get(`${config.url}audittrail`, { params })
-              .map(this.extractData)
+    return this.http.get(`${config.url}audittrail?pagenum=${pageNum}&pagesize=${pageSize}`, { headers: headers })
+              .map(response => response)
               .catch(this.handleError);
-  }
-
-  private extractData(res:Response) {
-    let body = res.json();
-    return body || [];
   }
 
   private handleError(error:any) {

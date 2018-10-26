@@ -102,7 +102,7 @@
                    alt=""
                    class="user__logo">
               <a href="javascript:void(0)"
-                 class="name">John Doe</a>
+                 class="name_">John Doe</a>
             </div>
             <div class="logout">
               <button class="buttons__logout"></button>
@@ -114,25 +114,17 @@
                 <li class="user-menu__item">
                   <span style="background-image: url('img/star.png')"
                         class="img"></span>
-                  <a href="ui_user-management.html">User Management</a>
+                  <a [routerLink]="['/user-management']">User Management</a>
                 </li>
                 <li class="user-menu__item">
                   <span style="background-image: url('img/avatars.png')"
                         class="img"></span>
-                  <a href="ui_avatars.html">Avatars</a>
+                  <a [routerLink]="['/avatars']">Avatars</a>
                 </li>
                 <li class="user-menu__item">
                   <span style="background-image: url('img/audit-trail.png')"
                         class="img"></span>
-                  <a href="ui_audit-trail.html">Audit Trail</a>
-                </li>
-                <li class="user-menu__item">
-                  <label class="switch">
-                    <input type="checkbox"
-                           id="color-scheme">
-                    <span class="slider"></span>
-                  </label>
-                  <a>Color Scheme</a>
+                  <a [routerLink]="['/audit-trail']">Audit Trail</a>
                 </li>
                 <li class="user-menu__item">
                   <span style="background-image: url('img/logout_white.png')"
@@ -214,6 +206,22 @@
           </div>
         </div>
         <div class="col-3">
+          <div *ngIf="currentPageName === 'avatars'"
+               class="header__page-menu">
+            <button (click)="openCreateAvatarDialog()"
+                    title="Add Avatar"
+                    class="buttons__header-add-case"
+            >
+            </button>
+          </div>
+          <div *ngIf="currentPageName === 'user-management'"
+               class="header__page-menu">
+            <button (click)="openCreateUserDialog()"
+                    title="Add User"
+                    class="buttons__header-add-case"
+            >
+            </button>
+          </div>
           <div *ngIf="currentPageName === 'cases'"
                class="header__page-menu">
             <button title="Import"
@@ -225,7 +233,10 @@
           <div *ngIf="currentPageName === 'targets'"
                class="header__page-menu">
             <button title="Export"
-                    class="buttons__export"></button>
+                    class="buttons__export"
+                    (click)="exportToPDF()"
+            >
+            </button>
             <button title="Merge"
                     class="buttons__merge"></button>
             <button style="background-image: url('img/delete_header.png')"
@@ -333,14 +344,14 @@
                             class="img"></span>
                       <a [routerLink]="['/audit-trail']">Audit Trail</a>
                     </li>
-                    <li class="user-menu__item">
-                      <label class="switch">
-                        <input type="checkbox"
-                               id="color-scheme">
-                        <span class="slider"></span>
-                      </label>
-                      <a>Color Scheme</a>
-                    </li>
+                    <!--<li class="user-menu__item">-->
+                      <!--<label class="switch">-->
+                        <!--<input type="checkbox"-->
+                               <!--id="color-scheme">-->
+                        <!--<span class="slider"></span>-->
+                      <!--</label>-->
+                      <!--<a>Color Scheme</a>-->
+                    <!--</li>-->
                     <li class="user-menu__item">
                       <span style="background-image: url('img/logout_white.png')"
                             class="img"></span>
@@ -369,3 +380,4 @@
 <dialog-create-case [openModalCreate]="showCreateCaseDialog"
                     (visibleChange)="changeVisiblesCreateCaseDialog()"
                     (successAdd)="successAddCase($event)"></dialog-create-case>
+<simple-notifications [options]="options"></simple-notifications>

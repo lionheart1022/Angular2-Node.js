@@ -6,6 +6,7 @@
     <div class="row">
       <div class="col-12">
         <div class="avatars__table__table-wrapper">
+          <app-loading [activated]="loading"></app-loading>
           <table>
             <thead>
               <tr>
@@ -20,15 +21,20 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>foursquare.com</td>
-                <td>helen.swartz@yandex.com</td>
-                <td>Loremipsum</td>
+            <tr *ngFor="let avatar of avatars; let i = index">
                 <td>
-                  <div class="status">
+                  {{i + 1}}</td>
+                <td>{{avatar?.domain}}</td>
+                <td>{{avatar?.username}}</td>
+                <td>{{avatar?.password}}</td>
+                <td>
+                  <div class="status" *ngIf="avatar?.status === 'VALID'">
                     <span class="status-valid"></span>
-                    <span>Valid</span>
+                    <span>{{avatar?.status}}</span>
+                  </div>
+                  <div class="status" *ngIf="avatar?.status === 'DISABLED'">
+                    <span  class="status-disabled"></span>
+                    <span>{{avatar?.status}}</span>
                   </div>
                 </td>
                 <td>
@@ -37,387 +43,14 @@
                 <td class="manage">
                   <label class="switch">
                     <input type="checkbox"
+                           [checked]="avatar?.status === 'VALID'"
+                           (click)="toggleStatus(avatar.id, i)"
                            id="manage_0">
                     <span class="slider"></span>
                   </label>
                 </td>
                 <td>
-                  <button class="buttons__delete"></button>
-                </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>foursquare.com</td>
-                <td>helen.swartz@yandex.com</td>
-                <td>Loremipsum</td>
-                <td>
-                  <div class="status">
-                    <span class="status-disabled"></span>
-                    <span>Disabled</span>
-                  </div>
-                </td>
-                <td>
-                  <button class="buttons__link">Login</button>
-                </td>
-                <td class="manage">
-                  <label class="switch">
-                    <input type="checkbox"
-                           id="manage_1">
-                    <span class="slider"></span>
-                  </label>
-                </td>
-                <td>
-                  <button class="buttons__delete"></button>
-                </td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>foursquare.com</td>
-                <td>helen.swartz@yandex.com</td>
-                <td>Loremipsum</td>
-                <td>
-                  <div class="status">
-                    <span class="status-valid"></span>
-                    <span>Valid</span>
-                  </div>
-                </td>
-                <td>
-                  <button class="buttons__link">Login</button>
-                </td>
-                <td class="manage">
-                  <label class="switch">
-                    <input type="checkbox"
-                           id="manage_2">
-                    <span class="slider"></span>
-                  </label>
-                </td>
-                <td>
-                  <button class="buttons__delete"></button>
-                </td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>foursquare.com</td>
-                <td>helen.swartz@yandex.com</td>
-                <td>Loremipsum</td>
-                <td>
-                  <div class="status">
-                    <span class="status-disabled"></span>
-                    <span>Disabled</span>
-                  </div>
-                </td>
-                <td>
-                  <button class="buttons__link">Login</button>
-                </td>
-                <td class="manage">
-                  <label class="switch">
-                    <input type="checkbox"
-                           id="manage_3">
-                    <span class="slider"></span>
-                  </label>
-                </td>
-                <td>
-                  <button class="buttons__delete"></button>
-                </td>
-              </tr>
-              <tr>
-                <td>5</td>
-                <td>foursquare.com</td>
-                <td>helen.swartz@yandex.com</td>
-                <td>Loremipsum</td>
-                <td>
-                  <div class="status">
-                    <span class="status-valid"></span>
-                    <span>Valid</span>
-                  </div>
-                </td>
-                <td>
-                  <button class="buttons__link">Login</button>
-                </td>
-                <td class="manage">
-                  <label class="switch">
-                    <input type="checkbox"
-                           id="manage_4">
-                    <span class="slider"></span>
-                  </label>
-                </td>
-                <td>
-                  <button class="buttons__delete"></button>
-                </td>
-              </tr>
-              <tr>
-                <td>6</td>
-                <td>foursquare.com</td>
-                <td>helen.swartz@yandex.com</td>
-                <td>Loremipsum</td>
-                <td>
-                  <div class="status">
-                    <span class="status-disabled"></span>
-                    <span>Disabled</span>
-                  </div>
-                </td>
-                <td>
-                  <button class="buttons__link">Login</button>
-                </td>
-                <td class="manage">
-                  <label class="switch">
-                    <input type="checkbox"
-                           id="manage_5">
-                    <span class="slider"></span>
-                  </label>
-                </td>
-                <td>
-                  <button class="buttons__delete"></button>
-                </td>
-              </tr>
-              <tr>
-                <td>7</td>
-                <td>foursquare.com</td>
-                <td>helen.swartz@yandex.com</td>
-                <td>Loremipsum</td>
-                <td>
-                  <div class="status">
-                    <span class="status-valid"></span>
-                    <span>Valid</span>
-                  </div>
-                </td>
-                <td>
-                  <button class="buttons__link">Login</button>
-                </td>
-                <td class="manage">
-                  <label class="switch">
-                    <input type="checkbox"
-                           id="manage_6">
-                    <span class="slider"></span>
-                  </label>
-                </td>
-                <td>
-                  <button class="buttons__delete"></button>
-                </td>
-              </tr>
-              <tr>
-                <td>8</td>
-                <td>foursquare.com</td>
-                <td>helen.swartz@yandex.com</td>
-                <td>Loremipsum</td>
-                <td>
-                  <div class="status">
-                    <span class="status-disabled"></span>
-                    <span>Disabled</span>
-                  </div>
-                </td>
-                <td>
-                  <button class="buttons__link">Login</button>
-                </td>
-                <td class="manage">
-                  <label class="switch">
-                    <input type="checkbox"
-                           id="manage_7">
-                    <span class="slider"></span>
-                  </label>
-                </td>
-                <td>
-                  <button class="buttons__delete"></button>
-                </td>
-              </tr>
-              <tr>
-                <td>9</td>
-                <td>foursquare.com</td>
-                <td>helen.swartz@yandex.com</td>
-                <td>Loremipsum</td>
-                <td>
-                  <div class="status">
-                    <span class="status-valid"></span>
-                    <span>Valid</span>
-                  </div>
-                </td>
-                <td>
-                  <button class="buttons__link">Login</button>
-                </td>
-                <td class="manage">
-                  <label class="switch">
-                    <input type="checkbox"
-                           id="manage_8">
-                    <span class="slider"></span>
-                  </label>
-                </td>
-                <td>
-                  <button class="buttons__delete"></button>
-                </td>
-              </tr>
-              <tr>
-                <td>10</td>
-                <td>foursquare.com</td>
-                <td>helen.swartz@yandex.com</td>
-                <td>Loremipsum</td>
-                <td>
-                  <div class="status">
-                    <span class="status-disabled"></span>
-                    <span>Disabled</span>
-                  </div>
-                </td>
-                <td>
-                  <button class="buttons__link">Login</button>
-                </td>
-                <td class="manage">
-                  <label class="switch">
-                    <input type="checkbox"
-                           id="manage_9">
-                    <span class="slider"></span>
-                  </label>
-                </td>
-                <td>
-                  <button class="buttons__delete"></button>
-                </td>
-              </tr>
-              <tr>
-                <td>11</td>
-                <td>foursquare.com</td>
-                <td>helen.swartz@yandex.com</td>
-                <td>Loremipsum</td>
-                <td>
-                  <div class="status">
-                    <span class="status-valid"></span>
-                    <span>Valid</span>
-                  </div>
-                </td>
-                <td>
-                  <button class="buttons__link">Login</button>
-                </td>
-                <td class="manage">
-                  <label class="switch">
-                    <input type="checkbox"
-                           id="manage_10">
-                    <span class="slider"></span>
-                  </label>
-                </td>
-                <td>
-                  <button class="buttons__delete"></button>
-                </td>
-              </tr>
-              <tr>
-                <td>12</td>
-                <td>foursquare.com</td>
-                <td>helen.swartz@yandex.com</td>
-                <td>Loremipsum</td>
-                <td>
-                  <div class="status">
-                    <span class="status-disabled"></span>
-                    <span>Disabled</span>
-                  </div>
-                </td>
-                <td>
-                  <button class="buttons__link">Login</button>
-                </td>
-                <td class="manage">
-                  <label class="switch">
-                    <input type="checkbox"
-                           id="manage_11">
-                    <span class="slider"></span>
-                  </label>
-                </td>
-                <td>
-                  <button class="buttons__delete"></button>
-                </td>
-              </tr>
-              <tr>
-                <td>13</td>
-                <td>foursquare.com</td>
-                <td>helen.swartz@yandex.com</td>
-                <td>Loremipsum</td>
-                <td>
-                  <div class="status">
-                    <span class="status-valid"></span>
-                    <span>Valid</span>
-                  </div>
-                </td>
-                <td>
-                  <button class="buttons__link">Login</button>
-                </td>
-                <td class="manage">
-                  <label class="switch">
-                    <input type="checkbox"
-                           id="manage_12">
-                    <span class="slider"></span>
-                  </label>
-                </td>
-                <td>
-                  <button class="buttons__delete"></button>
-                </td>
-              </tr>
-              <tr>
-                <td>14</td>
-                <td>foursquare.com</td>
-                <td>helen.swartz@yandex.com</td>
-                <td>Loremipsum</td>
-                <td>
-                  <div class="status">
-                    <span class="status-disabled"></span>
-                    <span>Disabled</span>
-                  </div>
-                </td>
-                <td>
-                  <button class="buttons__link">Login</button>
-                </td>
-                <td class="manage">
-                  <label class="switch">
-                    <input type="checkbox"
-                           id="manage_13">
-                    <span class="slider"></span>
-                  </label>
-                </td>
-                <td>
-                  <button class="buttons__delete"></button>
-                </td>
-              </tr>
-              <tr>
-                <td>15</td>
-                <td>foursquare.com</td>
-                <td>helen.swartz@yandex.com</td>
-                <td>Loremipsum</td>
-                <td>
-                  <div class="status">
-                    <span class="status-valid"></span>
-                    <span>Valid</span>
-                  </div>
-                </td>
-                <td>
-                  <button class="buttons__link">Login</button>
-                </td>
-                <td class="manage">
-                  <label class="switch">
-                    <input type="checkbox"
-                           id="manage_14">
-                    <span class="slider"></span>
-                  </label>
-                </td>
-                <td>
-                  <button class="buttons__delete"></button>
-                </td>
-              </tr>
-              <tr>
-                <td>16</td>
-                <td>foursquare.com</td>
-                <td>helen.swartz@yandex.com</td>
-                <td>Loremipsum</td>
-                <td>
-                  <div class="status">
-                    <span class="status-disabled"></span>
-                    <span>Disabled</span>
-                  </div>
-                </td>
-                <td>
-                  <button class="buttons__link">Login</button>
-                </td>
-                <td class="manage">
-                  <label class="switch">
-                    <input type="checkbox"
-                           id="manage_15">
-                    <span class="slider"></span>
-                  </label>
-                </td>
-                <td>
-                  <button class="buttons__delete"></button>
+                  <button class="buttons__delete" (click)="deleteAvatar(avatar.id, i)"></button>
                 </td>
               </tr>
             </tbody>
@@ -426,308 +59,38 @@
       </div>
     </div>
   </div>
-  <div class="avatars__container">
-    <div class="avatars__item">
-      <div class="widget">
-        <div class="widget__header">
-          <div class="title">1. linkedin.com</div>
-          <div class="manage">
-            <button class="buttons__link">Login</button>
-            <label class="switch">
-              <input type="checkbox"
-                     id="manage_0">
-              <span class="slider"></span>
-            </label>
-            <button class="buttons__delete"></button>
-          </div>
-        </div>
-        <div class="widget__content">
-          <div class="status">
-            <span class="status-valid"></span>
-            <span>Valid</span>
-          </div>
-          <div class="login">
-            <label>Login</label>
-            <p>helen.swartz@yandex.com</p>
-          </div>
-          <div class="password">
-            <label>Password</label>
-            <p>Loremipsum</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="avatars__item">
-      <div class="widget">
-        <div class="widget__header">
-          <div class="title">2. linkedin.com</div>
-          <div class="manage">
-            <button class="buttons__link">Login</button>
-            <label class="switch">
-              <input type="checkbox"
-                     id="manage_1">
-              <span class="slider"></span>
-            </label>
-            <button class="buttons__delete"></button>
-          </div>
-        </div>
-        <div class="widget__content">
-          <div class="status">
-            <span class="status-disabled"></span>
-            <span>Disabled</span>
-          </div>
-          <div class="login">
-            <label>Login</label>
-            <p>helen.swartz@yandex.com</p>
-          </div>
-          <div class="password">
-            <label>Password</label>
-            <p>Loremipsum</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="avatars__item">
-      <div class="widget">
-        <div class="widget__header">
-          <div class="title">3. linkedin.com</div>
-          <div class="manage">
-            <button class="buttons__link">Login</button>
-            <label class="switch">
-              <input type="checkbox"
-                     id="manage_2">
-              <span class="slider"></span>
-            </label>
-            <button class="buttons__delete"></button>
-          </div>
-        </div>
-        <div class="widget__content">
-          <div class="status">
-            <span class="status-valid"></span>
-            <span>Valid</span>
-          </div>
-          <div class="login">
-            <label>Login</label>
-            <p>helen.swartz@yandex.com</p>
-          </div>
-          <div class="password">
-            <label>Password</label>
-            <p>Loremipsum</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="avatars__item">
-      <div class="widget">
-        <div class="widget__header">
-          <div class="title">4. linkedin.com</div>
-          <div class="manage">
-            <button class="buttons__link">Login</button>
-            <label class="switch">
-              <input type="checkbox"
-                     id="manage_3">
-              <span class="slider"></span>
-            </label>
-            <button class="buttons__delete"></button>
-          </div>
-        </div>
-        <div class="widget__content">
-          <div class="status">
-            <span class="status-disabled"></span>
-            <span>Disabled</span>
-          </div>
-          <div class="login">
-            <label>Login</label>
-            <p>helen.swartz@yandex.com</p>
-          </div>
-          <div class="password">
-            <label>Password</label>
-            <p>Loremipsum</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="avatars__item">
-      <div class="widget">
-        <div class="widget__header">
-          <div class="title">5. linkedin.com</div>
-          <div class="manage">
-            <button class="buttons__link">Login</button>
-            <label class="switch">
-              <input type="checkbox"
-                     id="manage_4">
-              <span class="slider"></span>
-            </label>
-            <button class="buttons__delete"></button>
-          </div>
-        </div>
-        <div class="widget__content">
-          <div class="status">
-            <span class="status-valid"></span>
-            <span>Valid</span>
-          </div>
-          <div class="login">
-            <label>Login</label>
-            <p>helen.swartz@yandex.com</p>
-          </div>
-          <div class="password">
-            <label>Password</label>
-            <p>Loremipsum</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="avatars__item">
-      <div class="widget">
-        <div class="widget__header">
-          <div class="title">6. linkedin.com</div>
-          <div class="manage">
-            <button class="buttons__link">Login</button>
-            <label class="switch">
-              <input type="checkbox"
-                     id="manage_5">
-              <span class="slider"></span>
-            </label>
-            <button class="buttons__delete"></button>
-          </div>
-        </div>
-        <div class="widget__content">
-          <div class="status">
-            <span class="status-disabled"></span>
-            <span>Disabled</span>
-          </div>
-          <div class="login">
-            <label>Login</label>
-            <p>helen.swartz@yandex.com</p>
-          </div>
-          <div class="password">
-            <label>Password</label>
-            <p>Loremipsum</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="avatars__item">
-      <div class="widget">
-        <div class="widget__header">
-          <div class="title">7. linkedin.com</div>
-          <div class="manage">
-            <button class="buttons__link">Login</button>
-            <label class="switch">
-              <input type="checkbox"
-                     id="manage_6">
-              <span class="slider"></span>
-            </label>
-            <button class="buttons__delete"></button>
-          </div>
-        </div>
-        <div class="widget__content">
-          <div class="status">
-            <span class="status-valid"></span>
-            <span>Valid</span>
-          </div>
-          <div class="login">
-            <label>Login</label>
-            <p>helen.swartz@yandex.com</p>
-          </div>
-          <div class="password">
-            <label>Password</label>
-            <p>Loremipsum</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="avatars__item">
-      <div class="widget">
-        <div class="widget__header">
-          <div class="title">8. linkedin.com</div>
-          <div class="manage">
-            <button class="buttons__link">Login</button>
-            <label class="switch">
-              <input type="checkbox"
-                     id="manage_7">
-              <span class="slider"></span>
-            </label>
-            <button class="buttons__delete"></button>
-          </div>
-        </div>
-        <div class="widget__content">
-          <div class="status">
-            <span class="status-disabled"></span>
-            <span>Disabled</span>
-          </div>
-          <div class="login">
-            <label>Login</label>
-            <p>helen.swartz@yandex.com</p>
-          </div>
-          <div class="password">
-            <label>Password</label>
-            <p>Loremipsum</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="avatars__item">
-      <div class="widget">
-        <div class="widget__header">
-          <div class="title">9. linkedin.com</div>
-          <div class="manage">
-            <button class="buttons__link">Login</button>
-            <label class="switch">
-              <input type="checkbox"
-                     id="manage_8">
-              <span class="slider"></span>
-            </label>
-            <button class="buttons__delete"></button>
-          </div>
-        </div>
-        <div class="widget__content">
-          <div class="status">
-            <span class="status-valid"></span>
-            <span>Valid</span>
-          </div>
-          <div class="login">
-            <label>Login</label>
-            <p>helen.swartz@yandex.com</p>
-          </div>
-          <div class="password">
-            <label>Password</label>
-            <p>Loremipsum</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="avatars__item">
-      <div class="widget">
-        <div class="widget__header">
-          <div class="title">10. linkedin.com</div>
-          <div class="manage">
-            <button class="buttons__link">Login</button>
-            <label class="switch">
-              <input type="checkbox"
-                     id="manage_9">
-              <span class="slider"></span>
-            </label>
-            <button class="buttons__delete"></button>
-          </div>
-        </div>
-        <div class="widget__content">
-          <div class="status">
-            <span class="status-disabled"></span>
-            <span>Disabled</span>
-          </div>
-          <div class="login">
-            <label>Login</label>
-            <p>helen.swartz@yandex.com</p>
-          </div>
-          <div class="password">
-            <label>Password</label>
-            <p>Loremipsum</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!--<div class="avatars__container">-->
+    <!--<div class="avatars__item">-->
+      <!--<div class="widget">-->
+        <!--<div class="widget__header">-->
+          <!--<div class="title">1. linkedin.com</div>-->
+          <!--<div class="manage">-->
+            <!--<button class="buttons__link">Login</button>-->
+            <!--<label class="switch">-->
+              <!--<input type="checkbox"-->
+                     <!--id="manage_0">-->
+              <!--<span class="slider"></span>-->
+            <!--</label>-->
+            <!--<button class="buttons__delete"></button>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="widget__content">-->
+          <!--<div class="status">-->
+            <!--<span class="status-valid"></span>-->
+            <!--<span>Valid</span>-->
+          <!--</div>-->
+          <!--<div class="login">-->
+            <!--<label>Login</label>-->
+            <!--<p>helen.swartz@yandex.com</p>-->
+          <!--</div>-->
+          <!--<div class="password">-->
+            <!--<label>Password</label>-->
+            <!--<p>Loremipsum</p>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
   <div class="avatars__pagination">
     <div class="pagination">
       <a href="javascript:void(0)"
@@ -747,57 +110,62 @@
              class="pagination__next">Next ></a>
     </div>
   </div>
-  <div class="popup__container">
-    <div id="modal-add-avatar"
-         tabindex="-1"
-         role="dialog"
-         aria-labelledby="exampleModalLabel"
-         aria-hidden="true"
-         class="modal fade">
-      <div role="document"
-           class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 id="modal-add-avatar"
-                class="modal-title">Add New Avatar</h5>
-            <button type="button"
-                    data-dismiss="modal"
-                    aria-label="Close"
-                    class="close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="modal-add-avatar">
-              <div class="modal-add-avatar__input">
-                <label class="modal-add-avatar__label">Login</label>
-                <input type="text"
-                       placeholder="Login"
-                       value="Omertex"
-                       class="input__regular">
-              </div>
-              <div class="modal-add-avatar__input">
-                <label class="modal-add-avatar__label">Password</label>
-                <input type="password"
-                       placeholder="Password"
-                       value="omertex"
-                       class="input__regular">
-              </div>
-              <div class="modal-add-avatar__input">
-                <label class="modal-add-avatar__label">Domain</label>
-                <input type="text"
-                       placeholder="Domain"
-                       value="Loremipsum"
-                       class="input__regular">
-              </div>
-              <div class="modal-add-avatar__buttons">
-                <button class="button__inactive">return</button>
-                <button class="button__active">save</button>
+  <div [class.opend]="openCreateModal" class="modal modal_create_avatar" (click)="close($event)">
+    <div  class="modal_dialog">
+      <div class="confirm-detail-header">
+        <div class="weapon-detail-icons case_header">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 id="modal-add-avatar"
+                  class="modal-title">Add New Avatar</h5>
+              <button type="button"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                      (click)="close($event)"
+                      class="close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="modal-add-avatar">
+                <div class="modal-add-avatar__input">
+                  <label class="modal-add-avatar__label">Login</label>
+                  <input type="text"
+                         placeholder="Login"
+                         value=""
+                         class="input__regular"
+                         #login
+                  >
+                </div>
+                <div class="modal-add-avatar__input">
+                  <label class="modal-add-avatar__label">Password</label>
+                  <input type="password"
+                         placeholder="Password"
+                         value=""
+                         class="input__regular"
+                         #password
+                  >
+                </div>
+                <div class="modal-add-avatar__input">
+                  <label class="modal-add-avatar__label">Domain</label>
+                  <input
+                         #domain
+                         type="text"
+                         placeholder="Domain"
+                         value=""
+                         class="input__regular"
+
+                  >
+                </div>
+                <div class="modal-add-avatar__buttons">
+                  <button class="button__inactive">return</button>
+                  <button class="button__active" (click)="createAvatar(login.value, password.value, domain.value)">save</button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+    </div>
 </div>

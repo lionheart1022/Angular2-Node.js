@@ -41,8 +41,17 @@ export class FraudComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.selectedSubcatService.selectedSubcategories$.next(this.title);
     const subcategories = this.allSubcatService.getSubCat('fraud');
+    if(typeof this.title === 'undefined') {
+      this.title = 'all';
+    }
+    let subcategory = {name: this.title};
+    subcategories.map((item) => {
+      if(item['name'].toLowerCase() === this.title.toLowerCase()) {
+        subcategory = item;
+      }
+    });
+    this.selectedSubcatService.selectedSubcategories$.next(subcategory);
     this.currentSubcatService.currentSubcategories$.next(subcategories);
 
   }

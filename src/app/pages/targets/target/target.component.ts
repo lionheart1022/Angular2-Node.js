@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ITarget } from '../../../interfaces';
+import { exist } from '../../../helpers/exist_item/exist';
 import { TargetsService } from '../../../services';
 
 @Component({
@@ -17,7 +18,6 @@ export class TargetComponent implements OnInit {
 
   ngOnInit() {
     this.targetData = this.targetsService.getTargetData(this.target);
-    console.log(this.targetData);
   }
 
   delete(): void {
@@ -25,7 +25,13 @@ export class TargetComponent implements OnInit {
   }
 
   navigateToTarget() {
-    this.router.navigate(['/targets', this.target.id]);
+    if(this.target.targetName === 'blockchain'){
+      this.router.navigate(['/targets/blockchain', this.target.id]);
+    }else{
+      this.router.navigate(['/targets', this.target.id]);
+    }
   }
-
+  exist(item){
+    return exist(item);
+  }
 }

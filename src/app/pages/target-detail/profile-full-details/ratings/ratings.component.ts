@@ -17,20 +17,5 @@ export class RatingsComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    //console.log('-----------------------------------------');
-    //console.log(this);
-    //this.info = <IVendorInfo>{
-    //  fe_enabled: '',
-    //  join_date: '',
-    //  last_active: '',
-    //  listings: [],
-    //  pgp_key: '',
-    //  ratings: [],
-    //  ratings_summary: [],
-    //  terms_and_conditions: '',
-    //  username: '',
-    //};
-  }
-
+  ngOnInit() {}
 }

@@ -1,21 +1,67 @@
-<div class="login-wrapper">
-  <form name="form" [formGroup]="loginForm" (ngSubmit)="login(loginForm)" novalidate>
-      <div class="form-group">
-          <label for="username">Username</label>
-          <input type="text" class="form-control" formControlName="username"/>
-          <small [hidden]="loginForm.controls.username.valid || (loginForm.controls.username.pristine && !submitted)" class="text-danger">
-            Username is required
-          </small>
-      </div>
-      <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" formControlName="password" />
-          <small [hidden]="loginForm.controls.password.valid || (loginForm.controls.password.pristine && !submitted)" class="text-danger">
-            Password is required
-          </small>
-      </div>
-      <div class="form-group button-block">
-          <button type="submit" class="btn btn-login" > Login </button>
-      </div>
-  </form>
+﻿<div class="login-wrapper">
+    ﻿<div class="outer">
+    <div class="middle">
+        <div class="inner">
+            <div style="" class="login-container">
+                <div class="" id="login-form">
+                    <div class="row">
+                        <div class="signin-container widget">
+                            <form name="form" (ngSubmit)="login(loginForm)" autocomplete="off">
+                                <div class="signin-header">{{"Log in"}}</div>
+                                <div class="signin-body">
+                                    <div *ngIf="error.length > 0" class="alert alert-danger">{{error}}</div>
+                                    <div class="signin-input">
+                                        <div class="signin-icon signin-icon-user"></div>
+                                        <input type="text" placeholder="{{'User Name' }}" name="username" [(ngModel)]="user.username" required="">
+                                    </div>
+                                    <div class="signin-input">
+                                        <div class="signin-icon signin-icon-password"></div>
+                                        <input type="password" placeholder="{{'Password' }}" name="password" [(ngModel)]="user.password" required>
+                                    </div>
+                                    <div class="signin-options">
+                                        <a href="" class="signin-forgot">{{"Forgot password?"}}</a>
+                                        <div class="signin-remember">
+                                            <div class="checkbox">
+                                                <input id="remember-me" type="checkbox">
+                                                <label for="remember-me">{{"Remember me"}}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="signin-footer modal-audit__footer">
+                                    <button ng-disabled="dataLoading" type="submit" class="btn-return button__regular_accept ng-binding" data-dismiss="modal">{{"Log in"}}<img *ngIf="dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="login-footer footer">
+        <div class="footer__copyright">
+            <p ng-if="!customLogo">&copy; 2017 {{"Safezone UI"}} v{{version}}</p>
+            <p ng-if="customLogo">&copy; 2017 {{customLogo | uppercase}} v{{version}}</p>
+        </div>
+    </div>
+  <!--<form name="form" [formGroup]="loginForm" (ngSubmit)="login(loginForm)" novalidate>-->
+      <!--<div class="form-group">-->
+          <!--<label for="username">Username</label>-->
+          <!--<input type="text" class="form-control" formControlName="username"/>-->
+          <!--<small [hidden]="loginForm.controls.username.valid || (loginForm.controls.username.pristine && !submitted)" class="text-danger">-->
+            <!--Username is required-->
+          <!--</small>-->
+      <!--</div>-->
+      <!--<div class="form-group">-->
+          <!--<label for="password">Password</label>-->
+          <!--<input type="password" class="form-control" formControlName="password" />-->
+          <!--<small [hidden]="loginForm.controls.password.valid || (loginForm.controls.password.pristine && !submitted)" class="text-danger">-->
+            <!--Password is required-->
+          <!--</small>-->
+      <!--</div>-->
+      <!--<div class="form-group button-block">-->
+          <!--<button type="submit" class="btn btn-login" > Login </button>-->
+      <!--</div>-->
+  <!--</form>-->
 </div>

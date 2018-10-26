@@ -15,17 +15,18 @@
         <table>
           <thead>
             <tr>
-              <th>Username</th>
+              <th><span class="pointer" (click)="sortTable('username')">Username</span></th>
               <th>Role</th>
               <th>Cases</th>
               <th>Manage</th>
             </tr>
           </thead>
           <tbody>
-            <ng-container *ngFor="let user of users | paginate: { id: 'user-page', itemsPerPage: pageSize, currentPage: pageNum, totalItems: length }">
+            <ng-container *ngFor="let user of users | sortingUsers:path:order | paginate: { id: 'user-page', itemsPerPage: pageSize, currentPage: pageNum, totalItems: length }">
             <tr>
               <td>
-                <a href="javascript:void(0)">{{user['username'] }}</a>
+                <a href (click)="setCurrentUser(user)"
+                  data-toggle="modal" data-target="#modal-edit-user">{{user['username'] }}</a>
               </td>
               <td>
                 <div class="role__labels" *ngIf="user['isAdmin']?.length > 0">
@@ -43,6 +44,13 @@
                     data-toggle="modal"
                     data-target="#modal-add-case"
                     class="buttons__add-cases"></button>
+                  <button
+                    style="background-image: url('img/delete_case.png')"
+                    (click)="setCurrentUser(user)"
+                    data-toggle="modal"
+                    data-target="#modal-delete-case"
+                    *ngIf="user['cases']?.length > 0; else elseDeleteTemplateName"
+                    class="buttons__add-cases"></button>
                   <a
                           *ngIf="user['cases']?.length > 0; else elseTemplateName"
                           href="#modal_all_cases"
@@ -51,6 +59,10 @@
                   >
                     {{user['cases']?user['cases']?.length:0}}
                   </a>
+                  <ng-template #elseDeleteTemplateName>
+                    <button style="background-image: url('img/delete_case.png')"
+                      class="buttons__add-cases"></button>
+                  </ng-template>
                   <ng-template #elseTemplateName>
                     <a>0</a>
                   </ng-template>
@@ -74,7 +86,9 @@
                   >
                   </button>
                   <button style="background-image: url('img/delete.png')"
-                          class="buttons__delete" (click)="deleteUser(user)"></button>
+                            class="buttons__delete" data-toggle="modal"
+                            data-target="#modal-delete-user"
+                            (click)="setCurrentUser(user)"></button>
                 </div>
               </td>
             </tr>
@@ -94,7 +108,7 @@
     </div>
   </div>
   <div class="popup__container">
-    <form [formGroup]="userform" (ngSubmit)="Save()">
+    <form [formGroup]="userform" (ngSubmit)="AddUser()">
       <div id="modal-create-user"
            tabindex="-1"
            role="dialog"
@@ -130,6 +144,15 @@
                          placeholder="Password"
                          [(ngModel)]="user.password" formControlName="password" autofocus>
                 </div>
+                <div class="modal-create-user__input">
+                    <label for="confirmpassword" class="modal-create-user__label">Confirm Password</label>
+                    <input id="confirmpassword" class="input__regular" 
+                           type="password"
+                           placeholder="Confirm Password"
+                           [(ngModel)]="user.confirmpassword" formControlName="confirmpassword" autofocus>
+                </div>
+                <div class="alert alert-danger" *ngIf="userform.controls.confirmpassword.errors?.MatchPassword">Password and Confirm Password do not match</div>
+                <div class="alert alert-danger" *ngIf="usercheck == 1">This Username already exist. Please enter a different Username</div>
                 <div class="modal-create-user__checkboxes" formArrayName="roles">
                   <div class="checkbox">
                     <input type="checkbox"
@@ -188,7 +211,7 @@
                     placeholder="Username"
                     value="{{currentUser['username']}}"
                     formControlName="username"
-                    autofocus
+                    disabled
                   >
                 </div>
                 <div class="modal-create-user__input">
@@ -216,7 +239,7 @@
                 </div>
                 <div class="modal-create-user__buttons">
                   <button class="button__inactive" data-dismiss="modal">back to list</button>
-                  <button class="button__active" type="submit" [disabled]="!userEditForm.valid">add</button>
+                  <button class="button__active" type="submit" [disabled]="!userEditForm.valid">save</button>
                 </div>
               </div>
             </div>
@@ -224,6 +247,35 @@
         </div>
       </div>
     </form>
+  </div>
+
+  <div class="popup__container" *ngIf="currentUser">
+      <div id="modal-delete-user" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true" class="modal fade">
+
+        <div role="document" class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Delete User</h5>
+              <button type="button"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                      class="close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <h3>Are you sure want to delete 
+                  <span style="font-weight: bold; font-size: large;">{{currentUser['username']}}
+                  </span>?</h3>
+                <div class="modal-delete-user__buttons">
+                  <button class="button__inactive" data-dismiss="modal">back to list</button>
+                  <button class="button__active" (click)="deleteUser(currentUser)">delete</button>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
   </div>
 
   <div class="popup__container" *ngIf="currentUser">
@@ -261,20 +313,32 @@
                       <tbody>
                       <mat-radio-group [(ngModel)]="dataCase"  ngDefaultControl>
                         <ng-container  *ngFor="let case of cases">
-                        <tr>
-                          <td>
-                            <mat-radio-button value="{{case.id}}"></mat-radio-button>
-                          </td>
-                          <td>
-                            <a
-                                    [routerLink]="['/cases/'+ case['id']]"
-                                    data-dismiss="modal"
-                            >
-                              {{case['name']}}
-                            </a>
-                          </td>
-                          <td>{{case['targets']?case['targets']?.length:0}}</td>
-                        </tr>
+                          <tr *ngIf="caseExistInArray(currentUser['cases'], case); else newcase_template">
+                            <td>
+                              <mat-radio-button value="{{case.id}}" disabled></mat-radio-button>
+                            </td>
+                            <td>
+                              <a [routerLink]="['/cases/'+ case['id']]"
+                                  data-dismiss="modal" class="duplicate-case">
+                                {{case['name']}}
+                              </a>
+                            </td>
+                            <td>{{case['targets']?case['targets']?.length:0}}</td>
+                          </tr>
+                          <ng-template #newcase_template>
+                            <tr>
+                              <td>
+                                <mat-radio-button value="{{case.id}}"></mat-radio-button>
+                              </td>
+                              <td>
+                                <a [routerLink]="['/cases/'+ case['id']]"
+                                    data-dismiss="modal">
+                                  {{case['name']}}
+                                </a>
+                              </td>
+                              <td>{{case['targets']?case['targets']?.length:0}}</td>
+                            </tr>
+                          </ng-template>
                         </ng-container>
                       </mat-radio-group>
                       </tbody>
@@ -289,6 +353,67 @@
         </div>
      </div>
      </div>
+  </div>
+
+  <div class="popup__container" *ngIf="currentUser">
+    <div id="modal-delete-case"
+         tabindex="-1"
+         role="dialog"
+         aria-labelledby="exampleModalLabel"
+         aria-hidden="true"
+         class="modal fade modal_all_cases">
+      <div role="document" class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Delete {{currentUser['username']}} from the case</h5>
+            <button type="button"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                    class="close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="modal-add-case">
+              <div class="modal-add-case__checkboxes">
+                <div class="case__content">
+                  <table class="users__table ">
+                    <thead [class.scroll]="currentUser['cases']?.length > 7">
+                      <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Targets</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <mat-radio-group [(ngModel)]="deletedataCase"  ngDefaultControl>
+                        <ng-container  *ngFor="let case of currentUser['cases']">
+                          <tr>
+                            <td>
+                              <mat-radio-button value="{{case.id}}"></mat-radio-button>
+                            </td>
+                            <td>
+                              <a
+                                [routerLink]="['/cases/'+ case['id']]"
+                                data-dismiss="modal">{{case['name']}}
+                              </a>
+                            </td>
+                            <td>{{case['targets']?case['targets']?.length:0}}</td>
+                          </tr>
+                        </ng-container>
+                      </mat-radio-group>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="modal-add-case__buttons">
+                  <button class="button__active" (click)="deleteUserFromTheCase(currentUser)">Delete</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <!--<div class="popup__container">-->
     <!--<form [formGroup]="caseForm" (ngSubmit)="addCase(caseForm)" *ngIf="currentUser">-->

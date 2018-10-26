@@ -2,11 +2,14 @@ import { NotificationsService } from 'angular2-notifications';
 import { AddToTheCaseService } from './../../../services/case/addTotheCase.service';
 import { CreateCaseService } from './../../../services/case/createCase.service';
 import { GetAllCasesService } from './../../../services/case/getAllCases.service';
+import { AuthenticationService } from '../../../services';
+
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { QueryService } from '../../../services/query.service';
 import { exist } from '../../../helpers/exist_item/exist';
 import * as jsPDF from 'jspdf';
 import { Option } from '../../../interfaces/option.interface';
+import {SelectedSubcategoriesService} from "../../../services/subcategory/selectedSubCategory.service";
 
 @Component({
   selector: 'app-query-dialog',
@@ -17,7 +20,8 @@ export class QueryDialogComponent implements OnInit {
   data: any;
   @ViewChild('linkToOpenModal') linkToOpenModal: ElementRef;
 
-  exists = false;
+  open = false;
+  dialogFormat: String = '';
   id = -1;
   name = '';
   photo = '';
@@ -54,7 +58,10 @@ export class QueryDialogComponent implements OnInit {
     private getAllCases: GetAllCasesService,
     private createCase: CreateCaseService,
     private addToTheCaseService: AddToTheCaseService,
-    private notificationService: NotificationsService
+    private notificationService: NotificationsService,
+    private auth: AuthenticationService,
+    private selectedSubcatService: SelectedSubcategoriesService,
+
   ) {
     this.queryService.onShowDialog().subscribe((data: any) => {
       this.onShowDialog(data);
@@ -67,11 +74,13 @@ export class QueryDialogComponent implements OnInit {
       this.getAllCases.handler().then(data => {
         this.allCases = data;
       });
+      this.open = true;
+
     }
   }
 
   downloadPDF() {
-    if (exist(this.currentItem)) {
+    if (exist(this.currentItem) && exist(this.currentItem.vendor_info)) {
       // const testItem = {
       //   product_id: '1356548',
       //   product_name: 'product name product name product name',
@@ -91,35 +100,39 @@ export class QueryDialogComponent implements OnInit {
       let canvas = document.createElement('canvas');
       if (this.currentItem.product_name.length > 35) {
         const length = this.currentItem.product_name.length;
+
         pdf.text(32, p, 'Product name:');
-        for (let i = 0; i <= length; i += 35, p += 15) {
-          if (i + 35 < length) {
-            pdf.text(70, p, this.currentItem.product_name.slice(i, i + 35));
-          } else {
-            let q = length - i;
-            pdf.text(70, p, this.currentItem.product_name.slice(i, i + q));
-          }
-        }
+        p = this.chunkText(this.currentItem.product_name, 40, p, 40, pdf);
+
+        // for (let i = 0; i <= length; i += 35, p += 15) {
+        //   if (i + 35 < length) {
+        //     pdf.text(70, p, this.currentItem.product_name.slice(i, i + 35));
+        //   } else {
+        //     let q = length - i;
+        //     pdf.text(70, p, this.currentItem.product_name.slice(i, i + q));
+        //   }
+        // }
       } else {
         pdf.text(32, p, `Product name: ${this.currentItem.product_name}`);
       }
-
+      p = this.incrementP(p,15,pdf);
       pdf.text(32, p, `Vendor: ${this.currentItem.vendor}`);
-      p += 15;
+      p = this.incrementP(p,15,pdf);
       const c = p;
       pdf.text(
         32,
         p,
         `Product price:    ${this.currentItem.product_price.match(regex)}`
       );
-      p += 15;
+      p = this.incrementP(p,15,pdf);
       pdf.text(32, p, `Ships to ${this.currentItem.ships_to}`);
-      p += 15;
+      p = this.incrementP(p,15,pdf);
       pdf.text(32, p, `Ships from: ${this.currentItem.ships_from}`);
-      p += 15;
+      p = this.incrementP(p,15,pdf);
       pdf.text(32, p, `Escrow: ${this.currentItem.escrow}`);
-      p += 15;
-      pdf.addImage(this.currentItem.product_photo, 'JPEG', 15, p, 180, 160);
+      p = this.incrementP(p,15,pdf);
+      let tabImage = 32;
+      pdf.addImage(this.currentItem.product_photo_big, 'JPEG', tabImage, p);
       let img = new Image();
       img.onload = function() {
         let self = this as HTMLCanvasElement;
@@ -135,42 +148,42 @@ export class QueryDialogComponent implements OnInit {
       // vendor details page
       let p1 = 25;
       pdf.text(90, p1, 'Vendor detail');
-      p1 += 15;
+      p1 = this.incrementP(p1,15,pdf);
       pdf.text(32, p1, `User name: ${this.currentItem.vendor_info.username}`);
-      p1 += 15;
+      p1 = this.incrementP(p1,15,pdf);
       pdf.text(
         32,
         p1,
         `FE enabled: ${this.currentItem.vendor_info.fe_enabled}`
       );
-      p1 += 15;
+      p1 = this.incrementP(p1,15,pdf);
       pdf.text(32, p1, `Join date: ${this.currentItem.vendor_info.join_date}`);
-      p1 += 15;
+      p1 = this.incrementP(p1,15,pdf);
       pdf.text(
         32,
         p1,
         `Last active: ${this.currentItem.vendor_info.last_active}`
       );
-      p1 += 15;
+      p1 = this.incrementP(p1,15,pdf);
       pdf.text(32, p1, 'Terms and conditions: ');
-      p1 += 7;
+      p1 = this.incrementP(p1,7,pdf);
 
       let terms = this.currentItem.vendor_info.terms_and_conditions;
 
       if (terms.length > 50) {
-        p1 = this.chunkText(terms, 42, p1, 40, pdf);
+        p1 = this.chunkText(terms, 32, p1, 40, pdf);
       } else {
         pdf.text(32, p1, terms);
       }
 
-      p1 += 15;
+      p1 = this.incrementP(p1,15,pdf);
       pdf.text(32, p1, 'Public RGP key : ');
-      p1 += 7;
+      p1 = this.incrementP(p1,7,pdf);
 
       let rgp = this.currentItem.vendor_info.pgp_key;
 
       if (rgp.length > 50) {
-        p1 = this.chunkText(rgp, 42, p1, 40, pdf);
+        p1 = this.chunkText(rgp, 32, p1, 40, pdf);
       } else {
         pdf.text(32, p1, rgp);
       }
@@ -349,19 +362,22 @@ export class QueryDialogComponent implements OnInit {
 
   private async onShowDialog(data) {
     this.currentItem = data;
+    this.category = this.selectedSubcatService.selectedSubcategories$.getValue().parent;
+    this.caseId = this.allCases[0]['id'];
+    this.dialogFormat = this.queryService.getDialogFormat();
     await this.setData(data);
     await this.showDialog();
   }
 
   private async setData(data) {
     this.data = data;
-    if (!data) {
-      this.exists = false;
-      return;
-    }
-    this.exists = true;
-    this.id = data.product_id;
-    this.name = data.product_name;
+    this.open = true;
+    // if (!data) {
+    //   this.exists = false;
+    //   return;
+    // }
+    this.id = exist(data.product_id)?data.product_id:data.item_id;
+    this.name = exist(data.product_name)?data.product_name:data.address;
     this.photo = data.product_photo;
     this.photoBig = data.product_photo_big;
     if (data.product_price == null) {
@@ -369,6 +385,17 @@ export class QueryDialogComponent implements OnInit {
     }
     if (!/\s*[0-9\.\,]+\s*(\$|USD)*\s*/g.test(data.product_price)) {
       data.product_price = '0 $';
+    }
+    if(exist(data.vendor_info)){
+      const vendorInfo = data.vendor_info;
+      this.feEnabled = !!vendorInfo.fe_enabled ? 'Yes' : 'No';
+      this.username = vendorInfo.username;
+      this.joinDate = vendorInfo.join_date;
+      this.lastActive = vendorInfo.last_active;
+      const listingsFormUsername = vendorInfo.listings.length
+        ? vendorInfo.listings
+        : [];
+      this.pgpKey = data.vendor_info.pgp_key || '(no set)';
     }
     const [price, currency] = data.product_price.split(' ');
     this.price = price;
@@ -379,71 +406,68 @@ export class QueryDialogComponent implements OnInit {
     this.shipsTo = data.ships_to || '(no set)';
     this.escrow = !!data.escrow ? 'Yes' : 'No';
     this.termsAndConditions = data.terms_and_conditions || '(no set)';
-    const vendorInfo = data.vendor_info;
-    this.feEnabled = !!vendorInfo.fe_enabled ? 'Yes' : 'No';
-    this.username = vendorInfo.username;
-    this.joinDate = vendorInfo.join_date;
-    this.lastActive = vendorInfo.last_active;
     const ratings = data.product_ratings;
     this.topRating = 0;
     this.setRating = 0;
-    ratings.forEach(item => {
-      if (item.rating == null) {
-        item.rating = '0 / 0';
-      }
-      if (!/\s*[0-9\.\,]+\s*\/\s*[0-9\.\,]+\s*/g.test(item.rating)) {
-        item.rating = '0 / 0';
-      }
-      const parseRating = item.rating.split('/');
-      this.topRating += +parseRating[0].trim();
-      this.setRating += +parseRating[1].trim();
-    });
-    const ratLength = ratings.length > 0 ? ratings.length : 1;
+    if(exist(ratings)){
+      ratings.forEach(item => {
+        if (item.rating == null) {
+          item.rating = '0 / 0';
+        }
+        if (!/\s*[0-9\.\,]+\s*\/\s*[0-9\.\,]+\s*/g.test(item.rating)) {
+          item.rating = '0 / 0';
+        }
+        const parseRating = item.rating.split('/');
+        this.topRating += +parseRating[0].trim();
+        this.setRating += +parseRating[1].trim();
+      });
+    }
+    const ratLength = exist(ratings)? ratings.length : 1;
     this.topRating /= ratLength;
     this.setRating /= ratLength;
-    this.pgpKey = data.pgp_key || '(no set)';
-    const listingsFormUsername = vendorInfo.listings.length
-      ? vendorInfo.listings
-      : [];
-    this.listingsFormUsername = [];
-    listingsFormUsername.forEach(item => {
-      const listing = {
-        name: '',
-        rating: '',
-        category: '',
-        photo: '',
-        price: 0,
-        currency: ''
-      };
-      listing.name = item.product_name;
-      listing.rating = item.product_overall_ratings;
-      listing.category = item.product_category;
-      listing.photo = item.product_photo;
-      if (item.rating == null || item.rating.length === 0) {
-        item.product_price = { price };
-      }
-      if (item.rating == null) {
-        item.product_price = '0 / 0';
-      }
-      if (!/\s*[0-9\.\,]+\s*\/\s*[0-9\.\,]+\s*/g.test(item.rating)) {
-        item.product_price = '0 / 0';
-      }
-      if (
-        item &&
-        item[0] &&
-        item[0].price &&
-        item.product_price[0].price.split('\n').length >= 2
-      ) {
-        listing.price = item.product_price[0].price.split('\n')[0];
-      } else {
-        listing.price = ['0', '$'];
-      }
-      const [price, currency] = listing.price;
-      listing.price = price;
-      listing.currency = currency === '$' ? '$' : '$';
 
-      this.listingsFormUsername.push(listing);
-    });
+    this.listingsFormUsername = [];
+    if(exist(this.listingsFormUsername)){
+      this.listingsFormUsername.forEach(item => {
+        const listing = {
+          name: '',
+          rating: '',
+          category: '',
+          photo: '',
+          price: 0,
+          currency: ''
+        };
+        listing.name = item.product_name;
+        listing.rating = item.product_overall_ratings;
+        listing.category = item.product_category;
+        listing.photo = item.product_photo;
+        if (item.rating == null || item.rating.length === 0) {
+          item.product_price = { price: this.price };
+        }
+        if (item.rating == null) {
+          item.product_price = '0 / 0';
+        }
+        if (!/\s*[0-9\.\,]+\s*\/\s*[0-9\.\,]+\s*/g.test(item.rating)) {
+          item.product_price = '0 / 0';
+        }
+        if (
+          item &&
+          item[0] &&
+          item[0].price &&
+          item.product_price[0].price.split('\n').length >= 2
+        ) {
+          listing.price = item.product_price[0].price.split('\n')[0];
+        } else {
+          listing.price = 0;
+        }
+        const [price, currency] = [listing.price, listing.currency];
+        listing.price = price;
+        listing.currency = currency === '$' ? '$' : '$';
+
+        this.listingsFormUsername.push(listing);
+      });
+    }
+
     this.ratings = {
       newerThan1Month: {
         age: 'Newer than 1 Month',
@@ -479,76 +503,79 @@ export class QueryDialogComponent implements OnInit {
         count: 0
       }
     };
-    ratings.forEach(item => {
-      if (item.rating == null) {
-        item.rating = '0 / 0';
-      }
-      if (!/\s*[0-9\.\,]+\s*\/\s*[0-9\.\,]+\s*/g.test(item.rating)) {
-        item.rating = '0 / 0';
-      }
-      let [top, set] = item.rating.split('/');
-      top = +top.trim();
-      set = +set.trim();
-      const timestamp = item.rating_timestamp;
-      if (['1 month ago'].indexOf(timestamp) >= 0) {
-        this.ratings.newerThan1Month.rating += +set;
-        this.ratings.newerThan1Month.top += +top;
-        this.ratings.newerThan1Month.count++;
-        if (set >= 0.01 && set <= 0.99) {
-          this.ratings.newerThan1Month.star1++;
+    if(exist(ratings)){
+      ratings.forEach(item => {
+        if (item.rating == null) {
+          item.rating = '0 / 0';
         }
-        if (set >= 1 && set <= 1.99) {
-          this.ratings.newerThan1Month.star2++;
+        if (!/\s*[0-9\.\,]+\s*\/\s*[0-9\.\,]+\s*/g.test(item.rating)) {
+          item.rating = '0 / 0';
         }
-        if (set >= 2 && set <= 2.99) {
-          this.ratings.newerThan1Month.star3++;
+        let [top, set] = item.rating.split('/');
+        top = +top.trim();
+        set = +set.trim();
+        const timestamp = item.rating_timestamp;
+        if (['1 month ago'].indexOf(timestamp) >= 0) {
+          this.ratings.newerThan1Month.rating += +set;
+          this.ratings.newerThan1Month.top += +top;
+          this.ratings.newerThan1Month.count++;
+          if (set >= 0.01 && set <= 0.99) {
+            this.ratings.newerThan1Month.star1++;
+          }
+          if (set >= 1 && set <= 1.99) {
+            this.ratings.newerThan1Month.star2++;
+          }
+          if (set >= 2 && set <= 2.99) {
+            this.ratings.newerThan1Month.star3++;
+          }
+          if (set >= 3 && set <= 3.99) {
+            this.ratings.newerThan1Month.star4++;
+          }
+          if (set >= 4 && set <= 5) {
+            this.ratings.newerThan1Month.star5++;
+          }
+        } else if (['2 months ago', '3 months ago'].indexOf(timestamp) >= 0) {
+          this.ratings.newerThan3Months.rating += +set;
+          this.ratings.newerThan3Months.top += +top;
+          this.ratings.newerThan3Months.count++;
+          if (set >= 0.01 && set <= 0.99) {
+            this.ratings.newerThan3Months.star1++;
+          }
+          if (set >= 1 && set <= 1.99) {
+            this.ratings.newerThan3Months.star2++;
+          }
+          if (set >= 2 && set <= 2.99) {
+            this.ratings.newerThan3Months.star3++;
+          }
+          if (set >= 3 && set <= 3.99) {
+            this.ratings.newerThan3Months.star4++;
+          }
+          if (set >= 4) {
+            this.ratings.newerThan3Months.star5++;
+          }
+        } else {
+          this.ratings.older.rating += +set;
+          this.ratings.older.top += +top;
+          this.ratings.older.count++;
+          if (set >= 0.01 && set <= 0.99) {
+            this.ratings.older.star1++;
+          }
+          if (set >= 1 && set <= 1.99) {
+            this.ratings.older.star2++;
+          }
+          if (set >= 2 && set <= 2.99) {
+            this.ratings.older.star3++;
+          }
+          if (set >= 3 && set <= 3.99) {
+            this.ratings.older.star4++;
+          }
+          if (set >= 4) {
+            this.ratings.older.star5++;
+          }
         }
-        if (set >= 3 && set <= 3.99) {
-          this.ratings.newerThan1Month.star4++;
-        }
-        if (set >= 4 && set <= 5) {
-          this.ratings.newerThan1Month.star5++;
-        }
-      } else if (['2 months ago', '3 months ago'].indexOf(timestamp) >= 0) {
-        this.ratings.newerThan3Months.rating += +set;
-        this.ratings.newerThan3Months.top += +top;
-        this.ratings.newerThan3Months.count++;
-        if (set >= 0.01 && set <= 0.99) {
-          this.ratings.newerThan3Months.star1++;
-        }
-        if (set >= 1 && set <= 1.99) {
-          this.ratings.newerThan3Months.star2++;
-        }
-        if (set >= 2 && set <= 2.99) {
-          this.ratings.newerThan3Months.star3++;
-        }
-        if (set >= 3 && set <= 3.99) {
-          this.ratings.newerThan3Months.star4++;
-        }
-        if (set >= 4) {
-          this.ratings.newerThan3Months.star5++;
-        }
-      } else {
-        this.ratings.older.rating += +set;
-        this.ratings.older.top += +top;
-        this.ratings.older.count++;
-        if (set >= 0.01 && set <= 0.99) {
-          this.ratings.older.star1++;
-        }
-        if (set >= 1 && set <= 1.99) {
-          this.ratings.older.star2++;
-        }
-        if (set >= 2 && set <= 2.99) {
-          this.ratings.older.star3++;
-        }
-        if (set >= 3 && set <= 3.99) {
-          this.ratings.older.star4++;
-        }
-        if (set >= 4) {
-          this.ratings.older.star5++;
-        }
-      }
-    });
+      });
+    }
+
     if (!this.ratings.newerThan1Month.count) {
       this.ratings.newerThan1Month.count = 1;
     }
@@ -569,7 +596,7 @@ export class QueryDialogComponent implements OnInit {
 
   private incrementP(p: number, step: number, pdf: any) {
     const pageHeight = pdf.internal.pageSize.height;
-    if (p + step > pageHeight) {
+    if (p + step > pageHeight - 25) {
       pdf.addPage();
       p = 25;
       return p;
@@ -621,16 +648,16 @@ export class QueryDialogComponent implements OnInit {
   }
 
   onSelectCaseType(option: Option) {
-    console.log('onSelectCaseType', option);
   }
 
   save() {
     if (this.showCreateNew) {
       this.saveCase(this.newCaseName)
         .then(res => {
+          this.allCases.push(res);
           this.notificationService.success(
             'Success',
-            `The case "${this.caseName}" has been created`
+            `The case "${this.newCaseName}" has been created`
           );
           this.caseId = res.id;
           return this.addToTheCase();
@@ -642,33 +669,74 @@ export class QueryDialogComponent implements OnInit {
   }
 
   addToTheCase() {
-    this.addToTheCaseService
-      .handler(
-        this.id.toString(),
-        this.caseId.toString(),
-        this.currentItem.customrequestid
-      )
-      .then(res => {
-        this.notificationService.success('Success', `item has been added`);
-        return res;
-      });
+    if(this.dialogFormat === 'blockchain'){
+      this.addToTheCaseService
+        .addbtcTarget(
+          this.id.toString(),
+          this.caseId.toString(),
+          this.currentItem.customrequestid
+        )
+        .then(res => {
+          this.notificationService.success('Success', `item has been added`);
+          return res;
+        });
+    }else{
+      this.addToTheCaseService
+        .handler(
+          this.id.toString(),
+          this.caseId.toString(),
+          this.currentItem.customrequestid
+        )
+        .then(res => {
+          this.notificationService.success('Success', `item has been added`);
+          return res;
+        });
+    }
+
   }
 
   saveCase(caseName: string): Promise<any> {
-    if (!caseName)
-      return Promise.reject(new Error('Please enter a new case name.'));
-    return this.createCase.handler(caseName, this.caseType);
+      this.showCreateNew = false;
+      this.showSelectCase = false;
+      if (!caseName) return Promise.reject(new Error('Please enter a new case name.'));
+    return this.createCase.handler(caseName, [this.auth.username], this.caseType);
   }
 
-  async showDialog() {
+   showDialog() {
     (this.linkToOpenModal.nativeElement as HTMLElement).click();
   }
 
-  toggleCreateNew() {
+  toggleCreateNew(e) {
+
+    let button = $(e.target);
+
+    if(!this.showCreateNew){
+      button.animate({
+        opacity:0,
+      },200,(e)=>{
+        button.text('Cancel');
+        button.animate({
+          opacity:1,
+        },200);
+      });
+    }else{
+      button.animate({
+        opacity:0,
+      },200,(e)=>{
+        button.text('Create New');
+        button.animate({
+          opacity:1,
+        },200);
+      });
+    }
     this.showCreateNew = !this.showCreateNew;
   }
 
   toggleShowSelectCase() {
+    this.showCreateNew = false;
     this.showSelectCase = !this.showSelectCase;
+  }
+  exist(item){
+    return exist(item);
   }
 }

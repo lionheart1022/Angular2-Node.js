@@ -1,0 +1,26 @@
+.users__table__blockchain{
+  table-layout: fixed;
+  width: 100%;
+}
+.users__table__blockchain tbody{
+  display:block;
+  height:500px;
+  overflow:auto;
+}
+.users__table__blockchain thead, tbody tr {
+  display:table;
+  width:100%;
+  table-layout:fixed;
+}
+.users__table__blockchain thead{
+  width: calc( 100% - 1em )
+}
+.users__table__blockchain th:last-child, td:last-child{
+  width: 95px;
+}
+.users__table__blockchain th:first-child, td:first-child{
+  word-break: break-all;
+}
+.users__table__blockchain th:nth-child(3),td:nth-child(3){
+  width: 115px;
+}

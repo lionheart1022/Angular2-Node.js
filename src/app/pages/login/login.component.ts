@@ -8,18 +8,21 @@ import { AuthenticationService } from '../../services/index';
 @Component({
   selector: 'login',
   templateUrl: 'login.component.html',
-  styleUrls: ['login.scss']
+  styleUrls: ['login.scss'],
 })
 
 export class LoginComponent {
 
   user: User = {
     username: '',
-    password: ''
+    password: '',
+    isAdmin:'',
+    isUser: ''
   };
   loginForm: FormGroup;
   submitted: boolean = false;
-
+  dataLoading: boolean = false;
+  error: String = '';
   constructor(
     private authenticationService: AuthenticationService,
     private route: ActivatedRoute,
@@ -31,23 +34,26 @@ export class LoginComponent {
   ngOnInit() {
     // if (this.authenticationService.token){
     //   this.router.navigate(['/home']);
-    // }
-    this.loginForm = this.fb.group({
-      username: [localStorage.getItem('username') || '', [<any>Validators.required]],
-      password: [localStorage.getItem('password') || '', [<any>Validators.required]]
-    });
+    // // }
+    // this.loginForm = this.fb.group({
+    //   username: [localStorage.getItem('username') || '', [<any>Validators.required]],
+    //   password: [localStorage.getItem('password') || '', [<any>Validators.required]]
+    // });
   }
 
-  login(form: any): void {
+  login(): void {
     this.submitted = true;
-    if (form.valid) {
-      this.authenticationService.login(form.value.username, form.value.password)
-        .then(data => {
-          localStorage.setItem('username', form.value.username);
-          localStorage.setItem('password', form.value.password);
-          this.router.navigate(['/home']);
-        })
-        .catch((error) => console.log(error));
-    }
+    this.dataLoading = true;
+    const name = this.user.username;
+    const pwd = this.user.password;
+
+    this.authenticationService.login(name, pwd)
+      .then(data => {
+        localStorage.setItem('username', name);
+        localStorage.setItem('password', pwd);
+        this.router.navigate(['/home']);
+        this.dataLoading = false;
+      })
+      .catch((error) => console.log(error));
   }
 }

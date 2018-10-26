@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Injectable()
 export class SelectedSubcategoriesService {
 
-  public selectedSubcategories$: Subject<string> = new Subject<string>();
+  public selectedSubcategories$: BehaviorSubject<any> = new BehaviorSubject<any>({});
 
   constructor(
   ) { }

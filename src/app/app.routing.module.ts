@@ -17,6 +17,8 @@ import {
   RgpKeyComponent,
   ListingsFromUsernameComponent,
   RatingsComponent,
+  TransactionsComponent,
+  TargetDetailBlockcheinComponent
 } from './pages';
 
 import {
@@ -25,19 +27,30 @@ import {
   CounterfeitsComponent,
   DocsComponent,
   EbooksComponent,
-  ElectronicsComponent,
+  DigitalGoodsComponent,
   FraudComponent,
   HackingComponent,
   IdsPassportsComponent,
   MoneyComponent,
   ReligionComponent,
-  SoftwareComponent,
+  SoftwareComponent, TicketsAndBookingsComponent, BlockchainComponent,
 } from './pages/categories';
 import {
   QueryLayoutComponent,
   ContentComponent,
 } from './layouts';
 import { AuthenticationService } from './services';
+import {BankingComponent} from "./pages/categories/banking/banking.component";
+import {PrescriptionComponent} from "./pages/categories/prescription/prescription.component";
+import {SecurityAndHostingComponent} from "./pages/categories/securityAndHosting/securityAndHosting.component";
+import {ServicesComponent} from "./pages/categories/services/services.component";
+import {SteroidsComponent} from "./pages/categories/steroids/steroids.component";
+import {LuxuryComponent} from "./pages/categories/luxury/luxury.component";
+import {HardwareComponent} from "./pages/categories/hardware/hardware.component";
+import {GuidesAndTutorialsComponent} from "./pages/categories/guidesAndTutorials/guidesAndTutorials.component";
+import {FashionComponent} from "./pages/categories/fashion/fashion.component";
+import {CardingWareComponent} from "./pages/categories/cardingWare/cardingWare.component";
+import {OtherComponent} from "./pages/categories/other/other.component";
 
 
 export let routes: Routes = [
@@ -54,8 +67,10 @@ export let routes: Routes = [
     component: AuditTrailComponent,
   },
   {
-    path: 'login',
-    component: LoginComponent,
+    path: 'lg',
+    // component: LoginComponent,
+    loadChildren: './login/login-routing.module#LoginRoutingModule'
+
   },
   {
     path: 'home',
@@ -118,6 +133,16 @@ export let routes: Routes = [
         ]
       },
       {
+        path: 'targets/blockchain/:id',
+        component: TargetDetailBlockcheinComponent,
+        children: [
+          {
+            path: 'transactions',
+            component: TransactionsComponent,
+          },
+        ]
+      },
+      {
         path: 'cases',
         component: CaseComponent,
         data: { who: 'test' },
@@ -144,108 +169,221 @@ export let routes: Routes = [
             component: QueryLayoutComponent,
             children: [
               {
+                path: 'drugs',
+                component: DrugsComponent,
+              },
+              {
+                path: 'drugs/:subcategory',
+                component: DrugsComponent,
+              },
+              {
+                path: 'blockchain',
+                component: BlockchainComponent,
+              },
+              {
+                path: 'blockchain/:subcategory',
+                component: BlockchainComponent,
+              },
+              {
+                path: 'counterfeits',
+                component: CounterfeitsComponent,
+              },
+              {
+                path: 'counterfeits/:subcategory',
+                component: CounterfeitsComponent,
+              },
+              {
+                path: 'documents',
+                component: DocsComponent,
+              },
+              {
+                path: 'documents/:subcategory',
+                component: DocsComponent,
+              },
+              {
+                path: 'eBooks',
+                component: EbooksComponent,
+              },
+              {
+                path: 'eBooks/:subcategory',
+                component: EbooksComponent,
+              },
+              {
+                path: 'digitalGoods',
+                component: DigitalGoodsComponent,
+              },
+              {
+                path: 'digitalGoods/:subcategory',
+                component: DigitalGoodsComponent,
+              },
+              {
+                path: 'software',
+                component: SoftwareComponent,
+              },
+              {
+                path: 'software/:subcategory',
+                component: SoftwareComponent,
+              },
+              {
+                path: 'steroids',
+                component: SteroidsComponent,
+              },
+              {
+                path: 'steroids/:subcategory',
+                component: SteroidsComponent,
+              },
+              {
+                path: 'fashion',
+                component: FashionComponent,
+              },
+              {
+                path: 'fashion/:subcategory',
+                component: FashionComponent,
+              },
+              {
+                path: 'cardingWare',
+                component: CardingWareComponent,
+              },
+              {
+                path: 'cardingWare/:subcategory',
+                component: CardingWareComponent,
+              },
+              {
+                path: 'hardware',
+                component: HardwareComponent,
+              },
+              {
+                path: 'hardware/:subcategory',
+                component: HardwareComponent,
+              },
+              {
+                path: 'guidesAndTutorials',
+                component: GuidesAndTutorialsComponent,
+              },
+              {
+                path: 'guidesAndTutorials/:subcategory',
+                component: GuidesAndTutorialsComponent,
+              },
+              {
+                path: 'luxury',
+                component: LuxuryComponent,
+              },
+              {
+                path: 'luxury/:subcategory',
+                component: LuxuryComponent,
+              },
+              {
+                path: 'ticketsAndBookings',
+                component: TicketsAndBookingsComponent,
+              },
+              {
+                path: 'ticketsAndBookings/:subcategory',
+                component: TicketsAndBookingsComponent,
+              },
+              {
+                path: 'services',
+                component: ServicesComponent,
+              },
+              {
+                path: 'services/:subcategory',
+                component: ServicesComponent,
+              },
+              {
+                path: 'securityAndHosting',
+                component: SecurityAndHostingComponent,
+              },
+              {
+                path: 'securityAndHosting/:subcategory',
+                component: SecurityAndHostingComponent,
+              },
+              {
+                path: 'fraud',
+                component: FraudComponent,
+              },
+              {
+                path: 'fraud/:subcategory',
+                component: FraudComponent,
+              },
+              {
+                path: 'prescription',
+                component: PrescriptionComponent,
+              },
+              {
+                path: 'prescription/:subcategory',
+                component: PrescriptionComponent,
+              },
+              {
+                path: 'hacking',
+                component: HackingComponent,
+              },
+              {
+                path: 'hacking/:subcategory',
+                component: HackingComponent,
+
+              },
+              {
+                path: 'banking',
+                component: BankingComponent,
+              },
+              {
+                path: 'banking/:subcategory',
+                component: BankingComponent,
+
+              },
+              {
+                path: 'other',
+                component: OtherComponent,
+              },
+              {
+                path: 'other/:subcategory',
+                component: OtherComponent,
+
+              },
+              {
                 path: 'weapons',
                 component: WeaponsComponent,
               },
               {
-                path: 'drugs',
-                children: [
-                  {
-                    path: ':subcategory',
-                    component: DrugsComponent,
-                  }
-                ]
+                path: 'weapons/:subcategory',
+                component: WeaponsComponent,
+
               },
-              {
-                path: 'counterfeits',
-                children: [
-                  {
-                    path: ':subcategory',
-                    component: CounterfeitsComponent,
-                  }
-                ]
-              },
-              {
-                path: 'docs',
-                children: [
-                  {
-                    path: ':subcategory',
-                    component: DocsComponent,
-                  }
-                ]
-              },
-              {
-                path: 'eBooks',
-                children: [
-                  {
-                    path: ':subcategory',
-                    component: EbooksComponent,
-                  }
-                ]
-              },
-              {
-                path: 'electronics',
-                children: [
-                  {
-                    path: ':subcategory',
-                    component: ElectronicsComponent,
-                  }
-                ]
-              },
-              {
-                path: 'fraud',
-                children: [
-                  {
-                    path: ':subcategory',
-                    component: FraudComponent,
-                  }
-                ]
-              },
-              {
-                path: 'hacking',
-                children: [
-                  {
-                    path: ':subcategory',
-                    component: HackingComponent,
-                  }
-                ]
-              },
-              {
-                path: 'ids_passports',
-                children: [
-                  {
-                    path: ':subcategory',
-                    component: IdsPassportsComponent,
-                  }
-                ]
-              },
-              {
-                path: 'money',
-                children: [
-                  {
-                    path: ':subcategory',
-                    component: MoneyComponent,
-                  }
-                ]
-              },
-              {
-                path: 'religion',
-                children: [
-                  {
-                    path: ':subcategory',
-                    component: ReligionComponent,
-                  }
-                ]
-              },
-              {
-                path: 'blockchain',
-                children: [
-                  {
-                    path: ':subcategory',
-                    component: SoftwareComponent,
-                  }
-                ]
-              },
+              // {
+              //   path: 'ids_passports',
+              //   children: [
+              //     {
+              //       path: ':subcategory',
+              //       component: IdsPassportsComponent,
+              //     }
+              //   ]
+              // },
+              // {
+              //   path: 'banking',
+              //   children: [
+              //     {
+              //       path: ':subcategory',
+              //       component: MoneyComponent,
+              //     }
+              //   ]
+              // },
+              // {
+              //   path: 'religion',
+              //   children: [
+              //     {
+              //       path: ':subcategory',
+              //       component: ReligionComponent,
+              //     }
+              //   ]
+              // },
+              // {
+              //   path: 'blockchain',
+              //   children: [
+              //     {
+              //       path: ':subcategory',
+              //       component: SoftwareComponent,
+              //     }
+              //   ]
+              // },
             ]
           },
 

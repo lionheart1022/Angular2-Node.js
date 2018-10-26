@@ -16,16 +16,19 @@
               style="background-image: url('img/close.png')"
               class="buttons__close"></button>
     </div>
-    <div class="target-item__content">
+    <div class="target-item__content" *ngIf="targetData">
       <div (click)="navigateToTarget()"
-           class="target-item__avatar">
-        <img [src]="targetData.product_photo || '/img/default-no-image.png'"
-             [alt]="target.targetName">
+           class="target-item__avatar"
+           [style.background-image] = "'url('+(targetData.product_photo || targetData.qrcode || '/img/default-no-image.png')+')'"
+           [class.qrBlockChein] = "exist(targetData.qrcode)"
+      >
+        <!--<img [src]="targetData?.product_photo || '/img/default-no-image.png'"-->
+             <!--[alt]="target.targetName">-->
       </div>
       <div class="target-item__name">
-        <a href="ui_open-target.html">{{target.targetName}}</a>
+        <a (click)="navigateToTarget()">{{targetData?.address}}</a>
       </div>
-      <table class="target-item__info">
+      <table class="target-item__info" *ngIf="!exist(targetData.qrcode)">
         <tr>
           <td class="head">Vendor:</td>
           <td class="cell phone">{{targetData?.vendor}}</td>

@@ -1,7 +1,7 @@
-@import "./variables.scss";
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
-@import "./custom-material.scss";
-@import "./custom-pagination.scss";
+@import './variables.scss';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import './custom-material.scss';
+@import './custom-pagination.scss';
 
 .modal {
   z-index: 999 !important;
@@ -9,4 +9,8 @@
 
 .modal-backdrop {
   z-index: 998 !important;
+}
+
+agm-map {
+  height: 400px;
 }

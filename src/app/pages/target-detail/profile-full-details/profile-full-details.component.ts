@@ -9,9 +9,7 @@ export class ProfileFullDetailsComponent implements OnInit {
   @Input() info: object;
   tabIndex: number = 0;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

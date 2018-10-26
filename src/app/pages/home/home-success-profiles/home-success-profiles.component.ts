@@ -20,16 +20,16 @@ export class HomeSuccessProfilesComponent implements OnInit {
 
     let chartBInit = function (id, type, data, options) {
         let ctx = $(id);
-        let chart = new Chart(ctx, {
+/*        let chart = new Chart(ctx, {
             type: type,
             data: data,
             options: options
-        });
+        });*/
     };
 
     let chartDInit = function (id, type, data) {
         let ctx = $(id);
-        let chart = new Chart(ctx, {
+/*        let chart = new Chart(ctx, {
             type: type,
             data: data,
             options: {
@@ -60,7 +60,7 @@ export class HomeSuccessProfilesComponent implements OnInit {
             }
         });
 
-        $(`${id}-legend`).html(chart.generateLegend());
+        $(`${id}-legend`).html(chart.generateLegend()); */
     };
 
     let chart1Data = {

@@ -1,3 +1,37 @@
 .functions {
   display: flex;
 }
+.modal__blockchain{
+}
+.modal__blockchain .transactions table{
+  width:100%;
+  //border: 1px solid grey;
+  max-height: 270px;
+  overflow: scroll;
+  display: block;
+  padding: 5px;
+}
+.modal__blockchain .transactions table tbody{
+  height: 500px;
+  overflow-y: scroll;;
+}
+.modal__blockchain .transactions td, th {
+  padding: 0;
+  border: 1px solid;
+  text-align: center;
+}
+.modal__blockchain .transactions td:first-child, th:first-child {
+  width: 30%;
+}
+.modal__blockchain .transactions td:last-child, th:last-child {
+  width: 17%;
+}
+.modal__blockchain .transactions table tr:nth-child(even){
+  background-color: #2d363e;
+}
+
+.summary_section{
+  & .main_acc_info{
+    justify-content: start;
+  }
+}

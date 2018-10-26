@@ -1,0 +1,37 @@
+.modal_create_avatar{
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  background-color: rgba(12, 12, 12, 0.5);
+  opacity :0;
+  visibility: hidden;
+  transition: all 250ms 300ms;
+  & .modal_dialog{
+    width: 500px;
+    height: 365px;
+    transform: translateY(-100px);
+    opacity :0;
+    transition: all 300ms;
+  }
+
+}
+.opend{
+  visibility: visible;
+  opacity :1;
+  transition: all 250ms;
+  & .modal_dialog{
+    transform: translateY(0);
+    transition: all 300ms 250ms ;
+    opacity :1;
+  }
+
+}
+.dialog{
+  padding: 35px;
+  padding-bottom: 20px;
+  text-align: center;
+}

@@ -33,7 +33,16 @@ export class IdsPassportsComponent implements OnInit {
 
   ngOnInit(): void {
     const subcategories = this.allSubcatService.getSubCat('ids_passports');
-    this.selectedSubcatService.selectedSubcategories$.next(this.title);
+    if(typeof this.title === 'undefined') {
+      this.title = 'all';
+    }
+    let subcategory = {name: this.title};
+    subcategories.map((item) => {
+      if(item['name'].toLowerCase() === this.title.toLowerCase()) {
+        subcategory = item;
+      }
+    });
+    this.selectedSubcatService.selectedSubcategories$.next(subcategory);
     this.currentSubcatService.currentSubcategories$.next(subcategories);
   }
 }

@@ -1,3 +1,20 @@
-.open-target-full-details__search__grid {
-  flex-wrap: nowrap;
+@import '../../../../../styles/variables';
+
+.target_listing_grid-element {
+  width: 19%;
+  margin: 0;
+  margin-bottom: 10px;
+  margin-right: 5px;
+}
+
+@media (max-width: $screen-sm) {
+  .target_listing_grid-element {
+    width: 49%;
+  }
+}
+
+@media (max-width: $screen-xs) {
+  .target_listing_grid-element {
+    width: 100%;
+  }
 }

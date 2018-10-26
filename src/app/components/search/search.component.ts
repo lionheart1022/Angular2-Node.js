@@ -41,7 +41,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscribeItems();
-    this.isBlockchain = new RegExp('/query/blockchain', 'ig').test(this.router.url);
+    this.isBlockchain = this.spider === 'blockchain';
   }
 
   ngOnDestroy() {
@@ -52,7 +52,6 @@ export class SearchComponent implements OnInit, OnDestroy {
   onApplyFilter(filterData: SearchFilter): void {
     this.filterData = filterData;
   }
-
   /**
    * Run searching
    */
@@ -81,6 +80,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   openInModal(id: number, weapon) {
+    if(this.isBlockchain) this.queryService.emitDialogFormat('blockchain');
     this.queryService.emitShowDialog(weapon);
   }
 
@@ -103,5 +103,4 @@ export class SearchComponent implements OnInit, OnDestroy {
         () => this.activated = false
       );
   }
-
 }

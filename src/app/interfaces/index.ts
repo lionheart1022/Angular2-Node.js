@@ -5,3 +5,4 @@ export * from './search-filter.interface';
 export * from './targets';
 export * from './breadcrumb.interface';
 export * from './audit-trail';
+export * from './users';

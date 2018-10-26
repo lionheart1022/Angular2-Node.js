@@ -25,4 +25,16 @@ export class AddToTheCaseService {
     const body = { 'productId': itemId, 'caseId': caseId, 'customrequestId': customrequestid };
     return this.http.post(`${config.url}cases/addDarkWebTarget`, body).toPromise();
   }
+
+  /**
+   *  Add btc target to the case
+   * @param itemId
+   * @param caseId
+   * @param customrequestid
+   * @return {Promise<R>|Promise<void>|Promise<T>}
+   */
+  addbtcTarget(itemId: string, caseId: string, customrequestid): Promise<any> {
+    const body = { 'item_id': itemId, 'caseId': caseId, 'customrequestId': customrequestid };
+    return this.http.post(`${config.url}cases/addBTCTarget`, body).toPromise();
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { CurrentSubcategoriesService } from '../../../services/subcategory/currentSubcategory.service';
 import { AllSubcategoriesService } from '../../../services/subcategory/allSubcategories.service';
@@ -7,11 +7,11 @@ import { SearchService } from '../../../services/search.service';
 import { SelectedSubcategoriesService } from '../../../services/subcategory/selectedSubCategory.service';
 
 @Component({
-  selector: 'home',
-  templateUrl: 'electronics.component.html',
-  styleUrls: ['electronics.scss']
+  selector: 'app-fashion',
+  templateUrl: 'fashion.component.html',
+  styleUrls: ['fashion.scss']
 })
-export class ElectronicsComponent implements OnInit {
+export class FashionComponent {
   public title: string;
   items: any = [];
   constructor(
@@ -24,7 +24,8 @@ export class ElectronicsComponent implements OnInit {
     router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
         this.searchService.weapons.next([]);
-        this.title = event.url.split("/")[3];
+        this.title = event.url.split('/')[3];
+        this.selectedSubcatService.selectedSubcategories$.next(this.title);
         this.title = ucFirst(this.title);
         this.items = [];
       }
@@ -32,10 +33,18 @@ export class ElectronicsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const subcategories = this.allSubcatService.getSubCat('fashion');
+    if(typeof this.title === 'undefined') {
+      this.title = 'all';
+    }
 
-    const subcategories = this.allSubcatService.getSubCat('electronics');
-    this.selectedSubcatService.selectedSubcategories$.next(this.title);
+    let subcategory = {name: this.title};
+    subcategories.map((item) => {
+      if(item['name'].toLowerCase() === this.title.toLowerCase()) {
+        subcategory = item;
+      }
+    });
+    this.selectedSubcatService.selectedSubcategories$.next(subcategory);
     this.currentSubcatService.currentSubcategories$.next(subcategories);
-
   }
 }

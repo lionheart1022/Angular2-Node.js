@@ -1,6 +1,6 @@
-<div class="col-10 q-content">
+<div class="col-12 q-content">
   <div class="query__search">
-    <app-filter (onApplyFilter)="onApplyFilter($event)"></app-filter>
+    <!--<app-filter (onApplyFilter)="onApplyFilter($event)"></app-filter>-->
   </div>
 
 
@@ -34,31 +34,63 @@
     </div>
   </div>
 
-
-  <div [hidden]="!searchBlock" class="search__result">
+  <div [hidden]="!searchBlock" class="search__result result__blockchein">
     <h2>Search Results</h2>
     <div class="devider"></div>
     <div class="targets_search_res">
-
-      <div
-        *ngFor="let weapon of weapons | limitTo: 12; let ind = index"
-        (click)="openInModal(+ind, weapon)"
-        class="search_res_item">
-        <div class="open-target__section">
-          <div class="open-target__section__profile">
-            <div class="open-target-profile">
-              <div class="open-target-profile__content">
-                <div class="open-target-img">
-                  <img [src]="weapon.product_photo" alt="" />
+      <div *ngIf="isBlockchain === true">
+        <div
+                *ngFor="let weapon of weapons | limitTo: 12; let ind = index"
+                (click)="openInModal(+ind, weapon)"
+                class="search_res_item">
+          <div class="open-target__section">
+            <div class="open-target__section__profile">
+              <div class="open-target-profile">
+                <div class="open-target-profile__content">
+                  <div class="open-target-img">
+                    <img [src]="weapon.qrcode" alt="" class="blockchain_qr"/>
+                  </div>
+                  <div class="description">
+                      <p>Address</p>
+                    {{weapon.address}}
+                    <div>
+                      <label>No. Transactions</label>{{weapon.no_transactions}}
+                    </div>
+                    <div>
+                      <label>Total Received</label>{{weapon.total_received}}
+                    </div>
+                    <div>
+                      <label>Final Balance</label>{{weapon.final_balance}}
+                    </div>
+                  </div>
                 </div>
-                <a
-                  href="javascript:void(0)"
-                  class="open-target-profile__title">{{weapon.product_name}}</a>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <div *ngIf="isBlockchain === false" style="width: 100%;">
+        <div
+                *ngFor="let weapon of weapons | limitTo: 12; let ind = index"
+                (click)="openInModal(+ind, weapon)"
+                class="search_res_item">
+          <div class="open-target__section">
+            <div class="open-target__section__profile">
+              <div class="open-target-profile">
+                <div class="open-target-profile__content">
+                  <div class="open-target-img">
+                    <img [src]="weapon.product_photo" alt="" />
+                  </div>
+                  <a
+                          href="javascript:void(0)"
+                          class="open-target-profile__title">{{weapon.product_name}}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
 
       <div *ngIf="errorMessage" [ngClass]="'error'"> {{errorMessage}} </div>
 

@@ -10,11 +10,38 @@
     padding: 0;
   }
 }
-
+.searching__row{
+  min-width: 800px;
+}
 .open-target-img {
   img {
     height: 100%;
     width: 100%;
     background-size: contain;
   }
+}
+.result__blockchein .open-target-profile{
+  padding-bottom: 24px
+}
+.result__blockchein .open-target-img{
+  border-radius: 0;
+}
+.result__blockchein .description{
+  font-size: 1.1em;
+  color: #ccc;
+  line-height: 1.5;
+}
+.result__blockchein .description > div{
+  display: flex;
+  justify-content: space-between;
+}
+.result__blockchein .description label, p{
+  color: #fff;
+}
+.result__blockchein .description p{
+  text-align: center;
+}
+
+.result__blockchein .open-target-img .blockchain_qr{
+  border-radius: 0;
 }

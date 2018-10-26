@@ -5,7 +5,7 @@
       class="categories-item"
       *ngFor="let item of subcategories"
       [class.active]="item.name === selectedSubcategory"
-      (click)="selectItem(item.name)">
+      (click)="selectItem(item)">
       <a [routerLink]="[item.url]">
         {{item.name}}
       </a>

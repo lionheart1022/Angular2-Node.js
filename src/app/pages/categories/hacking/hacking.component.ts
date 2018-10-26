@@ -7,7 +7,7 @@ import { SearchService } from '../../../services/search.service';
 import { SelectedSubcategoriesService } from '../../../services/subcategory/selectedSubCategory.service';
 
 @Component({
-  selector: 'home',
+  selector: 'app-hacking',
   templateUrl: 'hacking.component.html',
   styleUrls: ['hacking.scss']
 })
@@ -37,7 +37,16 @@ export class HackingComponent implements OnInit {
   ngOnInit(): void {
 
     const subcategories = this.allSubcatService.getSubCat('hacking');
-    this.selectedSubcatService.selectedSubcategories$.next(this.title);
+    if(typeof this.title === 'undefined') {
+      this.title = 'all';
+    }
+    let subcategory = {name: this.title};
+    subcategories.map((item) => {
+      if(item['name'].toLowerCase() === this.title.toLowerCase()) {
+        subcategory = item;
+      }
+    });
+    this.selectedSubcatService.selectedSubcategories$.next(subcategory);
     this.currentSubcatService.currentSubcategories$.next(subcategories);
 
   }

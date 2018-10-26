@@ -9,10 +9,12 @@ import {
   SubcategoryComponent,
   ConfirmComponent,
   SearchComponent,
+  LoadingComponent,
   DialogVendorComponent,
   FilterComponent,
   LeftMenuComponent
 } from './components';
+
 
 import {
   CaseComponent,
@@ -35,7 +37,9 @@ import {
   AvatarsComponent,
   AuditTrailComponent,
   TargetDetailComponent,
-  ProfileFullDetailsComponent
+  TargetDetailBlockcheinComponent,
+  ProfileFullDetailsComponent,
+  ProfileFullDetailsBlockcheinComponent
 } from './pages';
 
 import {
@@ -49,8 +53,10 @@ import {
   DocsDetailsComponent,
   EbooksComponent,
   EbooksDetailsComponent,
-  ElectronicsComponent,
-  ElectronicsDetailsComponent,
+  DigitalGoodsComponent,
+  DigitalGoodsDetailsComponent,
+  PrescriptionComponent,
+  PrescriptionDetailsComponent,
   FraudComponent,
   FraudDetailsComponent,
   HackingComponent,
@@ -62,13 +68,34 @@ import {
   ReligionComponent,
   ReligionDetailsComponent,
   SoftwareComponent,
-  SoftwareDetailsComponent
+  SoftwareDetailsComponent,
+  BankingComponent,
+  SecurityAndHostingDetailsComponent,
+  SecurityAndHostingComponent,
+  TicketsAndBookingsDetailsComponent,
+  TicketsAndBookingsComponent,
+  ServicesComponent,
+  ServicesDetailsComponent,
+  SteroidsComponent,
+  SteroidsDetailsComponent,
+  LuxuryComponent,
+  LuxuryDetailsComponent,
+  HardwareComponent,
+  HardwareDetailsComponent,
+  GuidesAndTutorialsComponent,
+  GuidesAndTutorialsDetailsComponent,
+  FashionComponent,
+  FashionDetailsComponent,
+  CardingWareComponent,
+  CardingWareDetailsComponent,
+  OtherDetailsComponent,
+  OtherComponent,
+  BlockchainComponent,
 } from './pages/categories';
 
-import { WeaponFilterPipe, WeaponLimitPipe, VendorRatingPipe } from './pipes';
+import { WeaponFilterPipe, WeaponLimitPipe, VendorRatingPipe, SortingUsersPipe } from './pipes';
 
 import { GoogleChart } from './directives';
-
 import {
   ContentComponent,
   QueryLayoutComponent,
@@ -81,6 +108,7 @@ import {
   TermsAndConditionsComponent,
   VendorInformationsComponent
 } from './pages/target-detail/profile-full-details';
+import {TransactionsComponent} from './pages/target-detail-blockchein/profile-full-details-blockchein';
 import { QueryDialogComponent } from './components/dialog/query-dialog/query-dialog.component';
 
 export const AppDeclarations = [
@@ -103,13 +131,13 @@ export const AppDeclarations = [
   SelectComponent,
   TargetsSearchComponent,
   HomeComponent,
-  LoginComponent,
   QueryComponent,
   TargetsComponent,
   TargetDetailComponent,
   UserManagementComponent,
   WeaponFilterPipe,
   ProfileFullDetailsComponent,
+  ProfileFullDetailsBlockcheinComponent,
   ListingsFromUsernameComponent,
   RatingsComponent,
   RgpKeyComponent,
@@ -117,6 +145,7 @@ export const AppDeclarations = [
   VendorInformationsComponent,
   VendorRatingPipe,
   WeaponLimitPipe,
+  SortingUsersPipe,
   GoogleChart,
   ContentComponent,
   FooterComponent,
@@ -131,8 +160,30 @@ export const AppDeclarations = [
   DocsDetailsComponent,
   EbooksComponent,
   EbooksDetailsComponent,
-  ElectronicsComponent,
-  ElectronicsDetailsComponent,
+  DigitalGoodsComponent,
+  DigitalGoodsDetailsComponent,
+  PrescriptionComponent,
+  PrescriptionDetailsComponent,
+  SecurityAndHostingDetailsComponent,
+  SecurityAndHostingComponent,
+  TicketsAndBookingsDetailsComponent,
+  TicketsAndBookingsComponent,
+  ServicesComponent,
+  ServicesDetailsComponent,
+  SteroidsComponent,
+  SteroidsDetailsComponent,
+  LuxuryComponent,
+  LuxuryDetailsComponent,
+  HardwareComponent,
+  HardwareDetailsComponent,
+  GuidesAndTutorialsComponent,
+  GuidesAndTutorialsDetailsComponent,
+  FashionComponent,
+  FashionDetailsComponent,
+  CardingWareComponent,
+  CardingWareDetailsComponent,
+  OtherDetailsComponent,
+  OtherComponent,
   FraudComponent,
   FraudDetailsComponent,
   HackingComponent,
@@ -145,6 +196,10 @@ export const AppDeclarations = [
   ReligionDetailsComponent,
   SoftwareComponent,
   SoftwareDetailsComponent,
+  TransactionsComponent,
+  TargetDetailBlockcheinComponent,
+  BankingComponent,
+  BlockchainComponent,
   /*----- Components -----*/
   DialogComponent,
   DialogCreateCaseComponent,
@@ -152,7 +207,9 @@ export const AppDeclarations = [
   SubcategoryComponent,
   ConfirmComponent,
   SearchComponent,
+  LoadingComponent,
   DialogVendorComponent,
   FilterComponent,
-  QueryDialogComponent
+  QueryDialogComponent,
+
 ];

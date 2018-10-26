@@ -35,8 +35,17 @@ export class CounterfeitsComponent {
 
   ngOnInit(): void {
     const subcategories = this.allSubcatService.getSubCat('counterfeits');
+    if(typeof this.title === 'undefined') {
+      this.title = 'all';
+    }
+    let subcategory = {name: this.title};
+    subcategories.map((item) => {
+      if(item['name'].toLowerCase() === this.title.toLowerCase()) {
+        subcategory = item;
+      }
+    });
     this.currentSubcatService.currentSubcategories$.next(subcategories);
-    this.selectedSubcatService.selectedSubcategories$.next(this.title);
+    this.selectedSubcatService.selectedSubcategories$.next(subcategory);
   }
 
   selectItem(item: string) {

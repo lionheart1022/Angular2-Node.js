@@ -4,4 +4,7 @@ export * from './window.service';
 export * from './targets.service';
 export * from './cases.service';
 export * from './audit-trail.service';
+export * from './google-map.service';
 export * from './users.service';
+export * from './avatar';
+export * from './export';

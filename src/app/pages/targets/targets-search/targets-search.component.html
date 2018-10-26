@@ -1,8 +1,13 @@
+
 <form (submit)="search()"
       class="targets__search">
-  <div class="search__period">
-    <app-select></app-select>
-  </div>
+
+  <app-select
+          placeholder="Items per page"
+          [current]="2"
+          [options]="[{name:5,  id:5}, {name:10,  id:10}, {name:15,  id:15}, {name:20,  id:20}, {name:25,  id:25}]"
+          (selectOption)="selectPerPage($event)"
+  ></app-select>
   <div class="search__target-id">
     <input type="text"
            placeholder="Search by Target ID"

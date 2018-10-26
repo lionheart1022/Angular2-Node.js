@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuditTrailService } from '../../services';
-import { AuditTrail, AuditTrailResponse } from '../../interfaces';
+import { AuditTrail, AuditTrailResponse, AuditTrailFilter } from '../../interfaces';
 
 @Component({
   selector: 'app-audit-trail',
@@ -30,11 +30,24 @@ export class AuditTrailComponent implements OnInit {
     });
   }
 
+  search(searchData: AuditTrailFilter) {
+    this.getAuditTrail({
+      ...searchData,
+      pageNum: this.pageNum,
+      pageSize: this.pageSize,
+    });
+  }
+
   private getAuditTrail(params) {
     this.AuditTrailService.getAuditTrail(params)
       .subscribe(
         (data: AuditTrailResponse) => {
-          this.audittrail = data.content;
+          this.audittrail = data.content.map(audit => {
+            let date = new Date(audit['datePerformed']);
+            audit['datePerformed'] = date.getFullYear() + '/' + date.getMonth() + '/' + date.getDate();
+            audit['timePerformed'] = date.getHours() + '/' + date.getMinutes() + '/' + date.getSeconds();
+            return audit;
+          });
           this.length = data.totalElements;
         },
         err => console.error(err),

@@ -1,3 +1,5 @@
+import { GoogleMapService } from './services';
+import { config } from './services/config';
 import { CasesService } from './services/cases.service';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -7,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AgmCoreModule } from '@agm/core';
 
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -24,7 +27,7 @@ import {
   MatTabsModule,
   MatTableModule,
   MatPaginatorModule,
-
+  MatRadioModule
 } from '@angular/material';
 
 import { NgModule } from '@angular/core';
@@ -41,7 +44,9 @@ import {
   AuthenticationService,
   SearchService,
   WindowRef,
-  TargetsService
+  TargetsService,
+  AuditTrailService,
+  UsersService
 } from './services';
 
 // --- case ---
@@ -52,7 +57,7 @@ import {
   GetAllTargetsService,
   DeleteCaseService,
   DeleteTargetService,
-  ClearCaseService,
+  ClearCaseService
 } from './services/case';
 
 import { ModalService } from './services/modal.service';
@@ -64,7 +69,23 @@ import {
   SelectedSubcategoriesService
 } from './services/subcategory/index';
 import { HttpClientModule } from '@angular/common/http';
-import {QueryService} from './services/query.service';
+import { QueryService } from './services/query.service';
+
+// --- subcategory ---
+import {
+  AllAvatarsService,
+  AddAvatarService
+} from './services/index';
+
+// --- export ---
+import {
+  ExportService,
+} from './services/index';
+
+import {Avatar, ErrorModel} from "./models";
+import {DeleteAvatarService} from "./services/avatar/deleteAvatar.service";
+import {EnableAvatarService} from "./services/avatar/enableAvatar.service";
+import {DisableAvatarService} from "./services/avatar/disableAvatar.service";
 // ----- end services -----
 @NgModule({
   declarations: AppDeclarations,
@@ -90,20 +111,25 @@ import {QueryService} from './services/query.service';
     MatFormFieldModule,
     MatTabsModule,
     MatTableModule,
+    MatRadioModule,
     MatPaginatorModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    AgmCoreModule.forRoot({
+      apiKey: config.googleMap.key
+    })
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
-      multi: true,
+      multi: true
     },
     AuthenticationService,
     SearchService,
     TargetsService,
     CasesService,
+    GoogleMapService,
     WindowRef,
     ModalService,
     GetAllCasesService,
@@ -116,9 +142,19 @@ import {QueryService} from './services/query.service';
     DeleteTargetService,
     ClearCaseService,
     SelectedSubcategoriesService,
-    QueryService
+    QueryService,
+    AuditTrailService,
+    UsersService,
+    AllAvatarsService,
+    AddAvatarService,
+    DeleteAvatarService,
+    EnableAvatarService,
+    DisableAvatarService,
+    ExportService,
+    /*------Models------*/
+    ErrorModel,
   ],
   entryComponents: [AppComponent],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

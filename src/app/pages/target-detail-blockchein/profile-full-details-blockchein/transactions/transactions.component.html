@@ -1,0 +1,35 @@
+<div class="open-target-tab" *ngIf="transactions">
+  <div class="open-target-full-details__info">
+
+    <table class="users__table users__table__blockchain">
+      <thead>
+      <tr>
+        <th>Hash</th>
+        <th>From</th>
+        <th>Date</th>
+        <th>To</th>
+        <th>Amount, BTC</th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-container  *ngFor="let transaction of transactions">
+        <tr>
+          <td>{{transaction['transactions hash']}}</td>
+          <td>{{transaction['from_adress'][0]['adress']}}</td>
+          <td>{{transaction['date']}}</td>
+          <td>
+            <ng-container *ngFor="let to of transaction['to_adress']">
+              {{to['adress']}}<br>
+            </ng-container>
+          </td>
+          <td>
+            <ng-container *ngFor="let to of transaction['to_adress']">
+              {{to['value']}}<br>
+            </ng-container>
+          </td>
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>

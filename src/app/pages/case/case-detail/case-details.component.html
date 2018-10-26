@@ -1,11 +1,14 @@
+<app-loading [activated]="loading"></app-loading>
 <div class="results" [hidden]="!targetsBlock">
-
   <div class="targets__container">
     <div
       *ngFor="let target of targets"
-      (click)="navigateToTarget(target.id)"
       class="targets__grid-element">
-      <app-target [target]="target"></app-target>
+      <app-target
+              [target]="target"
+              (onDelete)="openConfirmModaleDeleteTarget($event)"
+      >
+      </app-target>
     </div>
   </div>
 

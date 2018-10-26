@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl, Validators} from '@angular/forms';
 import { Router, ActivatedRoute} from '@angular/router';
 
@@ -6,13 +6,19 @@ import { UsersService, CasesService, AuthenticationService } from '../../service
 import { CreateCaseService } from '../../services/case/createCase.service';
 import { exist } from '../../helpers/exist_item/exist';
 import { User, UserDetail} from '../../interfaces';
+import {Subject} from "rxjs/Rx";
+import {ModalService} from "../../services/modal.service";
+import { PasswordValidation } from "../../directives/passwordValidation.directive";
 
 @Component({
-  selector: 'app-user-management',
+	selector: 'app-user-management',
   templateUrl: './user-management.component.html',
-  styleUrls: ['./user-management.component.scss']
+	styleUrls: ['./user-management.component.scss']
 })
-export class UserManagementComponent implements OnInit {
+export class UserManagementComponent implements OnInit, OnDestroy {
+
+  private ngUnsubscribe: Subject<boolean> = new Subject<boolean>();
+
   length = 0;
   showCreateCaseDialog:boolean = false;
   pageSize: number = 10;
@@ -22,12 +28,17 @@ export class UserManagementComponent implements OnInit {
   caseForm: FormGroup;
   currentUser:User;
   public data: string;
-  public dataCase = '1';
+  public dataNewUser: any;
+	public dataCase = '1';
+	public deletedataCase = '1';
   cases: any = {};
   sortedCases: any = {};
   errorMessage: string;
   user: User = new User();
-  users: Array<User> = [];
+	users: Array<User> = [];
+	path: string[] = ['username'];
+	order: number = 1; // 1 asc, -1 desc;
+	usercheck: number = 0;
 
   @Input() renderedOnHomePage: boolean = false;
 
@@ -37,7 +48,8 @@ export class UserManagementComponent implements OnInit {
   	private route: ActivatedRoute,
   	private usersService: UsersService,
   	private casesService: CasesService,
-  	private auth: AuthenticationService,
+    private modalService: ModalService,
+    private auth: AuthenticationService,
   	private CreateCaseService: CreateCaseService
   	)
   {
@@ -50,7 +62,7 @@ export class UserManagementComponent implements OnInit {
   			Validators.required,
   			Validators.minLength(5),
   			Validators.maxLength(15)
-  		]],
+			]],
   		roles: new FormArray([
   			new FormControl(),
   			new FormControl()
@@ -60,9 +72,14 @@ export class UserManagementComponent implements OnInit {
 		this.userform = formBuilder.group({
   		username: ['', [
   			Validators.required,
-  			Validators.minLength(3)
+				Validators.minLength(3)
   		]],
   		password: ['', [
+  			Validators.required,
+  			Validators.minLength(5),
+  			Validators.maxLength(15)
+			]],
+			confirmpassword: ['', [
   			Validators.required,
   			Validators.minLength(5),
   			Validators.maxLength(15)
@@ -71,7 +88,9 @@ export class UserManagementComponent implements OnInit {
   			new FormControl(),
   			new FormControl()
   		])
-  	});
+  	}, {
+			validator: PasswordValidation.MatchPassword
+		});
 
     // this.caseForm = formBuilder.group({
 			// options: ['1', [
@@ -83,7 +102,14 @@ export class UserManagementComponent implements OnInit {
 			// this.dataCase = form.options;
   	// });
 		this.userform.valueChanges.subscribe((form: any) => {
-  		this.data = `${form.username}, ${form.password}, ${form.roles}`;
+			let roles = [];
+			if(form.roles[0]){
+				roles.push("ROLE_ADMIN");
+			}
+			if(form.roles[1]){
+				roles.push("ROLE_USER");
+			}
+  		this.dataNewUser = { "username": form.username, "password": form.password, "roles":roles};
   	});
 		this.userEditForm.valueChanges.subscribe((form: any) => {
   		this.data = `${form.username}, ${form.password}, ${form.roles}`;
@@ -92,15 +118,26 @@ export class UserManagementComponent implements OnInit {
 
   ngOnInit() {
   	this.getCasesAndFetchUsesrs();
+    this.subscribe();
+  }
+
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   onPage(pageIndex) {
-    this.pageNum = pageIndex;
+		this.pageNum = pageIndex;
 
     this.usersService.getUsers({
-      pageNum: this.pageNum,
+      pageNum: this.pageNum - 1,
       pageSize: this.pageSize,
-    });
+    }).subscribe(
+			data => {
+				this.createUsersArray(data);
+			},
+			err => console.error(err),
+		);
   }
 
   Save() {
@@ -113,46 +150,108 @@ export class UserManagementComponent implements OnInit {
   		result = this.usersService.createUser(userValue);
   	}
   	result.subscribe(data=>this.router.navigate(['user-management']));
+	}
+	
+	sortTable(prop: string) {
+    this.path = prop.split('.')
+    this.order = this.order * (-1); // change order
+    return false; // do not reload
+	}
+
+  AddUser(){
+		this.usersService.getUser(this.dataNewUser['username'])
+		.subscribe(
+			(resp) => {
+				if (this.dataNewUser['username'] in resp) {
+					this.usercheck = 1;
+				}
+				else {
+					var length = this.users.length;
+					
+					this.dataNewUser['roles'].includes('ROLE_ADMIN') ? this.dataNewUser['isAdmin'] = 'Role admin' : this.dataNewUser['isAdmin'] = '';
+					this.dataNewUser['roles'].includes('ROLE_USER') ? this.dataNewUser['isUser'] = 'Role user' : this.dataNewUser['isUser'] = '';
+					this.users.splice(length, 0, this.dataNewUser);
+					this.usersService.createUser(this.dataNewUser)
+					.subscribe(
+						(resp) => {
+							console.log(resp);
+						}
+					);
+					$('.close').click();
+				}
+			}
+		)
   }
 
 	addUserTOTheCase(){
-  	this.casesService.addUsertoCase(this.currentUser.username, this.dataCase)
-			.subscribe(resp => {
-				console.log(resp);
-				this.users.map((user => {
-					if(user.username === this.currentUser.username) {
-						user['cases'].push({
-							name: resp['name'],
-							targets: resp['targets'],
-							id: resp['id']
-						});
-						$('.close').click();
-            this.dataCase = '';
-					}
-				}))
-			});
-  	console.log(this.dataCase);
+		console.log(this.currentUser['cases']);
+  	// this.casesService.addUsertoCase(this.currentUser.username, this.dataCase)
+		// 	.subscribe(resp => {
+		// 		console.log(resp);
+		// 		this.users.map((user => {
+		// 			if(user.username === this.currentUser.username) {
+		// 				user['cases'].push({
+		// 					name: resp['name'],
+		// 					targets: resp['targets'],
+		// 					id: resp['id']
+		// 				});
+		// 				$('.close').click();
+    //         this.dataCase = '';
+		// 			}
+		// 		}))
+		// 	});
+  	// console.log(this.dataCase);
 
 	}
 
-  deleteUser(user){
-  	if (confirm("Are you sure you want to delete " + user.username + "?")) {
-  		var index = this.users.indexOf(user);
-  		this.users.splice(index, 1);
+	deleteUserFromTheCase(user){
+		var index;
 
-  		this.usersService.deleteUser(user.username)
-  		  .subscribe(null,
-  		  	err => {
-  		  		alert("Could not delete user.");
-  		  		this.users.splice(index, 0, user);
-  		  	});
-  	}
+		for (var i = 0; i< user['cases'].length -1; i++) {
+			if (user['cases'][i]['id'] == this.deletedataCase) {
+				index = i;
+			}
+		}
+
+		if (index !== -1) {
+			this.casesService.deleteUserFromCase(this.currentUser.username, this.deletedataCase)
+				.subscribe(
+					(resp) => {
+						user['cases'].splice(index, 1);
+						$('.close').click();
+					},
+					(err) => {
+						console.log(err);
+						console.log('Error');
+					}
+				);
+			this.deletedataCase = '';
+		}
+	}
+
+  deleteUser(user){
+		var index = this.users.indexOf(user);
+
+		if (index !== -1) {
+			this.users.splice(index, 1);
+			this.usersService.deleteUser(user.username).subscribe();
+
+			$('.close').click();
+		}
   }
 
 
   exist(item){
 	return exist(item);
-  }
+	}
+	
+	caseExistInArray(myArray, value) {
+		for(var i=0; i<myArray.length; i++) {
+			if (myArray[i].id === value.id) {
+				return true;
+			}
+		}
+	}
 
   setCurrentUser(user:User){
 	this.currentUser = user;
@@ -221,4 +320,12 @@ export class UserManagementComponent implements OnInit {
 	});
 		return data;
 	}
+
+	private subscribe(){
+    this.modalService.createUserModal$
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe(data => {
+				$('.create_user').click();
+      });
+  }
 }

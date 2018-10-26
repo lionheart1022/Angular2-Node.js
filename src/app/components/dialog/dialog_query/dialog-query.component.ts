@@ -53,8 +53,8 @@ export class DialogComponent implements OnInit {
   ) {
     this.targetsService.target$.subscribe((target: ITarget) => {
       this.info = this.targetsService.getTargetData(target).vendor_info;
-      console.log('++++++++++++++++++ DIALOG QUERY +++++++++++++++++++++++');
-      console.log(this.info);
+      // console.log('++++++++++++++++++ DIALOG QUERY +++++++++++++++++++++++');
+      // console.log(this.info);
     });
   }
 

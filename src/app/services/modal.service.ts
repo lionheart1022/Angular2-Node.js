@@ -8,6 +8,9 @@ export class ModalService {
   public otherComponentItem$: Subject<any> = new Subject<any>();
   public vendor$: Subject<any> = new Subject<any>();
 
+  public createAvatarModal$: Subject<boolean> = new Subject<boolean>();
+  public createUserModal$: Subject<boolean> = new Subject<boolean>();
+
   constructor() { }
 
   openWeaponDeatailsModal(arg: boolean, id): void {

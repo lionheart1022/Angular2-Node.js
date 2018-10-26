@@ -1,5 +1,9 @@
 @import "../../../../../styles/dialog.scss";
 
+.parent_dialog{
+  display: flex;
+  justify-content: center;
+}
 
 .dialog_create_case{
   padding: 35px;

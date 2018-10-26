@@ -6,9 +6,10 @@ import { Observable } from 'rxjs/Observable';
 import { ITargetResponse } from '../interfaces';
 import { ITarget } from '../interfaces/targets';
 import { Subject } from 'rxjs/Subject';
+import {IExport} from "../interfaces/Export/export.interface";
 
 @Injectable()
-export class TargetsService {
+export class TargetsService implements IExport{
   private target: Subject<ITarget> = new BehaviorSubject<ITarget>(null);
   target$ = this.target.asObservable();
 
@@ -16,6 +17,10 @@ export class TargetsService {
 
   addTarget(target: ITarget) {
     this.target.next(target);
+  }
+
+  getTarget() {
+   return this.target;
   }
 
   getTargets({ pageNum, pageSize }: any): Observable<ITargetResponse> {
@@ -38,4 +43,16 @@ export class TargetsService {
     const [targetData = null] = (<any>Object).values(target.targetData);
     return targetData;
   }
+
+  getTextBeforeImage(){
+    //   let target = this.target;
+    //   let result = {};
+    // result['name'] = this.target.targetName;
+    // result.name = this.target.targetName;
+
+  }
+  getItemForExport(){
+    return this.target;
+  }
+
 }

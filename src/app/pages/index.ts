@@ -11,3 +11,4 @@ export * from './user-management/user-management.component';
 export * from './avatars/avatars.component';
 export * from './audit-trail/audit-trail.component';
 export * from './target-detail';
+export * from './target-detail-blockchein';
