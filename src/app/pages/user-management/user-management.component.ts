@@ -184,24 +184,22 @@ export class UserManagementComponent implements OnInit, OnDestroy {
   }
 
 	addUserTOTheCase(){
-		console.log(this.currentUser['cases']);
-  	// this.casesService.addUsertoCase(this.currentUser.username, this.dataCase)
-		// 	.subscribe(resp => {
-		// 		console.log(resp);
-		// 		this.users.map((user => {
-		// 			if(user.username === this.currentUser.username) {
-		// 				user['cases'].push({
-		// 					name: resp['name'],
-		// 					targets: resp['targets'],
-		// 					id: resp['id']
-		// 				});
-		// 				$('.close').click();
-    //         this.dataCase = '';
-		// 			}
-		// 		}))
-		// 	});
-  	// console.log(this.dataCase);
-
+  	this.casesService.addUsertoCase(this.currentUser.username, this.dataCase)
+			.subscribe(resp => {
+				console.log(resp);
+				this.users.map((user => {
+					if(user.username === this.currentUser.username) {
+						user['cases'].push({
+							name: resp['name'],
+							targets: resp['targets'],
+							id: resp['id']
+						});
+						$('.close').click();
+            this.dataCase = '';
+					}
+				}))
+			});
+  	console.log(this.dataCase);
 	}
 
 	deleteUserFromTheCase(user){
