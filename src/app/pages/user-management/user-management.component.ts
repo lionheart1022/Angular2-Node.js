@@ -8,7 +8,9 @@ import { exist } from '../../helpers/exist_item/exist';
 import { User, UserDetail} from '../../interfaces';
 import {Subject} from "rxjs/Rx";
 import {ModalService} from "../../services/modal.service";
-import { PasswordValidation } from "../../directives/passwordValidation.directive";
+import { FormValidation } from "../../directives/formValidation.directive";
+import { NotificationsService } from 'angular2-notifications';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
 	selector: 'app-user-management',
@@ -50,18 +52,21 @@ export class UserManagementComponent implements OnInit, OnDestroy {
   	private casesService: CasesService,
     private modalService: ModalService,
     private auth: AuthenticationService,
-  	private CreateCaseService: CreateCaseService
+		private CreateCaseService: CreateCaseService,
+		private notificationService: NotificationsService,
+		public mattooltip: MatTooltipModule,
   	)
   {
   	this.userEditForm = formBuilder.group({
   		username: ['', [
   			Validators.required,
-  			Validators.minLength(3)
+				Validators.minLength(3),
+				Validators.maxLength(21),
   		]],
   		password: ['', [
   			Validators.required,
-  			Validators.minLength(5),
-  			Validators.maxLength(15)
+  			Validators.minLength(8),
+  			Validators.maxLength(20)
 			]],
   		roles: new FormArray([
   			new FormControl(),
@@ -72,35 +77,27 @@ export class UserManagementComponent implements OnInit, OnDestroy {
 		this.userform = formBuilder.group({
   		username: ['', [
   			Validators.required,
-				Validators.minLength(3)
+				Validators.minLength(3),
+				Validators.maxLength(21)
   		]],
   		password: ['', [
   			Validators.required,
-  			Validators.minLength(5),
-  			Validators.maxLength(15)
+  			Validators.minLength(8),
+  			Validators.maxLength(20)
 			]],
 			confirmpassword: ['', [
   			Validators.required,
-  			Validators.minLength(5),
-  			Validators.maxLength(15)
+  			Validators.minLength(8),
+  			Validators.maxLength(20)
   		]],
   		roles: new FormArray([
   			new FormControl(),
   			new FormControl()
   		])
   	}, {
-			validator: PasswordValidation.MatchPassword
+			validator: FormValidation.MatchForm
 		});
 
-    // this.caseForm = formBuilder.group({
-			// options: ['1', [
-  	// 		Validators.required
-  	// 	]]
-  	// });
-
-  	// this.caseForm.valueChanges.subscribe((form: any) => {
-			// this.dataCase = form.options;
-  	// });
 		this.userform.valueChanges.subscribe((form: any) => {
 			let roles = [];
 			if(form.roles[0]){
@@ -117,8 +114,9 @@ export class UserManagementComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-  	this.getCasesAndFetchUsesrs();
-    this.subscribe();
+		this.getCasesAndFetchUsesrs();
+		this.userform.reset({username: '', password: '', confirmpassword: '', roles: []})
+		this.subscribe();
   }
 
   ngOnDestroy() {
@@ -178,12 +176,18 @@ export class UserManagementComponent implements OnInit, OnDestroy {
 						}
 					);
 					$('.close').click();
+					this.dataNewUser = {};
 				}
 			}
 		)
   }
 
 	addUserTOTheCase(){
+		var caseId = this.dataCase;
+		var currentCase = this.cases.find(function(element) {
+			return element.id == caseId;
+		});
+		
   	this.casesService.addUsertoCase(this.currentUser.username, this.dataCase)
 			.subscribe(resp => {
 				console.log(resp);
@@ -195,6 +199,10 @@ export class UserManagementComponent implements OnInit, OnDestroy {
 							id: resp['id']
 						});
 						$('.close').click();
+						this.notificationService.success(
+							'Success',
+							this.currentUser.username + ' added successfully to ' + currentCase['name'] + ' case',
+						);
             this.dataCase = '';
 					}
 				}))

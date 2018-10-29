@@ -1,2 +1,2 @@
 export * from './googleChart.directive';
-export * from './passwordValidation.directive';
+export * from './formValidation.directive';

@@ -13,6 +13,7 @@ import { AgmCoreModule } from '@agm/core';
 
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { NgxPaginationModule } from 'ngx-pagination';
+import {ToolTipModule} from 'angular2-tooltip';
 import {
   MatButtonModule,
   MatMenuModule,
@@ -91,6 +92,7 @@ import {DisableAvatarService} from "./services/avatar/disableAvatar.service";
   declarations: AppDeclarations,
   imports: [
     SimpleNotificationsModule.forRoot(),
+    ToolTipModule,
     HttpClientModule,
     BrowserModule,
     BrowserAnimationsModule,

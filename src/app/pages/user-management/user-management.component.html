@@ -24,10 +24,19 @@
           <tbody>
             <ng-container *ngFor="let user of users | sortingUsers:path:order | paginate: { id: 'user-page', itemsPerPage: pageSize, currentPage: pageNum, totalItems: length }">
             <tr>
-              <td>
+              <td *ngIf="user['username']?.length < 10; else userTooltipTemplate">
                 <a href (click)="setCurrentUser(user)"
                   data-toggle="modal" data-target="#modal-edit-user">{{user['username'] }}</a>
               </td>
+              <ng-template #userTooltipTemplate>
+                <td>
+                  <a href (click)="setCurrentUser(user)"
+                    data-toggle="modal" data-target="#modal-edit-user" 
+                    tooltip content="{{ user['username'] }}" ngToolTipClass="true">
+                    {{(user['username'] | slice:0:7)+'..'}}
+                  </a>
+                </td>
+              </ng-template>
               <td>
                 <div class="role__labels" *ngIf="user['isAdmin']?.length > 0">
                   <span class="label">{{ user['isAdmin'] }}</span>
@@ -137,6 +146,9 @@
                          placeholder="Username"
                          [(ngModel)]="user.username" formControlName="username" autofocus>
                 </div>
+                <div class="alert alert-danger" *ngIf="userform.controls.username.errors?.WrongUser">Username is wrong. Username can contain only letters and '_'</div>
+                <div class="alert alert-danger" *ngIf="userform.controls.username.errors?.NoInputUser">Username is required and cannot be empty;</div>
+          
                 <div class="modal-create-user__input">
                   <label for="password" class="modal-create-user__label">Password</label>
                   <input id="password" class="input__regular" 
@@ -144,6 +156,8 @@
                          placeholder="Password"
                          [(ngModel)]="user.password" formControlName="password" autofocus>
                 </div>
+                <div class="alert alert-danger" *ngIf="userform.controls.password.errors?.NoInputPassword">Password is required and cannot be empty;</div>
+                <div class="alert alert-danger" *ngIf="userform.controls.password.errors?.WrongPassword">Password must be at least 8 characters. It must contains at least one Uppercase, Lowercase, Number and Special Character. Special Characters are !@#$%,.^_'~</div>
                 <div class="modal-create-user__input">
                     <label for="confirmpassword" class="modal-create-user__label">Confirm Password</label>
                     <input id="confirmpassword" class="input__regular" 
@@ -151,6 +165,7 @@
                            placeholder="Confirm Password"
                            [(ngModel)]="user.confirmpassword" formControlName="confirmpassword" autofocus>
                 </div>
+                <div class="alert alert-danger" *ngIf="userform.controls.confirmpassword.errors?.NoInputCPassword">Confirm Password is required and must match the Password;</div>
                 <div class="alert alert-danger" *ngIf="userform.controls.confirmpassword.errors?.MatchPassword">Password and Confirm Password do not match</div>
                 <div class="alert alert-danger" *ngIf="usercheck == 1">This Username already exist. Please enter a different Username</div>
                 <div class="modal-create-user__checkboxes" formArrayName="roles">
@@ -165,6 +180,8 @@
                     <label for="user">Regular Users</label>
                   </div>
                 </div>
+                <div class="alert alert-danger" *ngIf="userform.controls.roles.errors?.NoRoles">Role is required. Select at least one role</div>
+
                 <div class="modal-create-user__buttons">
                   <button class="button__inactive" data-dismiss="modal">back to list</button>
                   <button class="button__active" type="submit" [disabled]="!userform.valid">add</button>
@@ -289,8 +306,9 @@
              class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5
-                  class="modal-title">Add {{currentUser['username']}} to the case</h5>
+              <h5 class="modal-title">
+                  Add {{currentUser['username']}} to the case
+              </h5>
               <button type="button"
                       data-dismiss="modal"
                       aria-label="Close"
@@ -313,7 +331,7 @@
                       <tbody>
                       <mat-radio-group [(ngModel)]="dataCase"  ngDefaultControl>
                         <ng-container  *ngFor="let case of cases">
-                          <tr *ngIf="caseExistInArray(currentUser['cases'], case); else newcase_template">
+                          <tr *ngIf="currentUser['cases']?.length > 0 && caseExistInArray(currentUser['cases'], case); else newcase_template">
                             <td>
                               <mat-radio-button value="{{case.id}}" disabled></mat-radio-button>
                             </td>
@@ -323,7 +341,7 @@
                                 {{case['name']}}
                               </a>
                             </td>
-                            <td>{{case['targets']?case['targets']?.length:0}}</td>
+                            <td style="width: 100px;">{{case['targets']?case['targets']?.length:0}}</td>
                           </tr>
                           <ng-template #newcase_template>
                             <tr>
@@ -336,7 +354,7 @@
                                   {{case['name']}}
                                 </a>
                               </td>
-                              <td>{{case['targets']?case['targets']?.length:0}}</td>
+                              <td style="width: 100px;">{{case['targets']?case['targets']?.length:0}}</td>
                             </tr>
                           </ng-template>
                         </ng-container>
@@ -345,6 +363,7 @@
                     </table>
                   </div>
                   <div class="modal-add-case__buttons">
+                    <button class="button__inactive" data-dismiss="modal">back to list</button>
                     <button class="button__active" (click)="addUserTOTheCase()">Add</button>
                   </div>
               </div>
@@ -398,7 +417,7 @@
                                 data-dismiss="modal">{{case['name']}}
                               </a>
                             </td>
-                            <td>{{case['targets']?case['targets']?.length:0}}</td>
+                            <td style="width: 100px;">{{case['targets']?case['targets']?.length:0}}</td>
                           </tr>
                         </ng-container>
                       </mat-radio-group>
@@ -406,6 +425,7 @@
                   </table>
                 </div>
                 <div class="modal-add-case__buttons">
+                  <button class="button__inactive" data-dismiss="modal">back to list</button>
                   <button class="button__active" (click)="deleteUserFromTheCase(currentUser)">Delete</button>
                 </div>
               </div>

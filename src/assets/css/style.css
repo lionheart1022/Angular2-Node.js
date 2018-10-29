@@ -17,9 +17,6 @@ app-root,  .content, .wrapper, .container, content{
   display: block;
   position: relative;
 }
-.container, content{
-  /*height:calc(100vh - 80px);*/
-}
 body {
   background-color: #18191d !important;
   color: #425773 !important;
@@ -917,6 +914,15 @@ hr {
   background: transparent url("../img/add_cases.png") no-repeat center;
   opacity: .7;
   width: 20px;
+}
+
+.modal-add-case__buttons > .button__inactive {
+  max-width: 160px;
+}
+
+.modal-add-case__buttons > .button__active {
+  max-width: 100px;
+  float: right;
 }
 
 .buttons__more-tab {
@@ -6936,7 +6942,6 @@ h5 {
   text-transform: uppercase;
   color: #d2d2d3 !important;
   line-height: 36px;
-  vertical-align: middle;
 }
 
 .left_menu ul li.active a,
@@ -7353,10 +7358,6 @@ button.close:hover {
   width: 30%;
 }
 
-.new_dir_button{
-  /*margin-right: 17px;*/
-}
-
 .new_dir_button .button__regular_accept {
   border: 1px solid #fff;
   padding-left: 7px;
@@ -7457,7 +7458,6 @@ button.close:hover {
   color: #d2d2d3 !important;
   background-color: #31373d;
   line-height: 36px;
-  vertical-align: middle;
   padding-left: 20px;
   margin: 3px 0 !important;
   transition: all .15s linear;
