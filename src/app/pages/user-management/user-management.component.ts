@@ -115,7 +115,6 @@ export class UserManagementComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 		this.getCasesAndFetchUsesrs();
-		this.userform.reset({username: '', password: '', confirmpassword: '', roles: []})
 		this.subscribe();
   }
 
@@ -332,6 +331,6 @@ export class UserManagementComponent implements OnInit, OnDestroy {
       .takeUntil(this.ngUnsubscribe)
       .subscribe(data => {
 				$('.create_user').click();
-      });
+		  });
   }
 }

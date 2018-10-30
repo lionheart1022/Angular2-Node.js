@@ -13,13 +13,13 @@
 
                 <mat-form-field>
                     <mat-select matInput [(ngModel)]="type"  placeholder="Select case type">
-                        <mat-option value="TERROR">TERROR</mat-option>
-                        <mat-option value="TERROR">TERROR</mat-option>
+                        <mat-option value="UNDEFINED">UNDEFINED</mat-option>
+                        <mat-option value="UNDEFINED">UNDEFINED</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
         </div>
-      <button *ngIf="closable" (click)="save()" aria-label="Close" class="dialog__save-btn">Save</button>
+      <button *ngIf="closable" (click)="save()" aria-label="Close" class="dialog__save-btn">Add</button>
       <button *ngIf="closable" (click)="close()" aria-label="Close" class="dialog__close-btn">X</button>
     </div>
     <div *ngIf="openModalCreate" class="overlay" (click)="close()"></div>
