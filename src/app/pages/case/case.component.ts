@@ -63,6 +63,7 @@ export class CaseComponent implements OnInit {
       this.casesService.deleteCaseById(this.currentCase.id).subscribe(
         () => {
           this.cases = this.cases.filter(c => c.id !== this.currentCase.id);
+          this.cases.splice(this.currentCase.id, 1);
         },
         err => {
           console.error(err);

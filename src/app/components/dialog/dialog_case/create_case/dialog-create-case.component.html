@@ -1,9 +1,12 @@
 <div class="parent_dialog">
     <div [@dialog] *ngIf="openModalCreate" class="dialog dialog_create_case">
         <div class="weapon-detail-header">
-            <div class="weapon-detail-icons case_header">
+            <h5 class="weapon-detail-icons case_header">
                 Create case
-            </div>
+            </h5>
+            <button *ngIf="closable" (click)="close()" aria-label="Close" class="dialog__close-btn">
+                <span aria-hidden="true">×</span>
+            </button>
         </div>
         <div class="example-container">
             <div class="fields-container">
@@ -17,10 +20,19 @@
                         <mat-option value="UNDEFINED">UNDEFINED</mat-option>
                     </mat-select>
                 </mat-form-field>
+
+                <!-- <mat-form-field>
+                    <mat-select matInput [(ngModel)]="addedusers"  placeholder="Add Case to User" multiple>
+                        <mat-option *ngFor="let user of users" [value]="user">{{user}}</mat-option>
+                    </mat-select>
+                </mat-form-field> -->
+                <mat-checkbox matInput [(ngModel)]="addeduser">Add Case to User</mat-checkbox>
             </div>
         </div>
-      <button *ngIf="closable" (click)="save()" aria-label="Close" class="dialog__save-btn">Add</button>
-      <button *ngIf="closable" (click)="close()" aria-label="Close" class="dialog__close-btn">X</button>
+        <div class="modal-create-case__buttons">
+            <button *ngIf="closable" (click)="close()" class="button__inactive">back to list</button>
+            <button *ngIf="closable" (click)="save()" aria-label="Close" class="button__active">Add</button>
+        </div>
     </div>
     <div *ngIf="openModalCreate" class="overlay" (click)="close()"></div>
 </div>

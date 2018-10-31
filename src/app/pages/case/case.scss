@@ -1,1 +1,26 @@
 
+.table__case_head {
+  font-weight: bold;
+  color: white;
+}
+
+.table__case tr td {
+  text-align: center;
+}
+
+ul li {
+  border-radius: 30px;
+  padding: 0.6em;
+  width: 50%;
+  text-align: center;
+  color: white;
+}
+
+ul li.active {
+  background: #3994db;
+  border-radius: 30px;
+  padding: 0.6em;
+  width: 50%;
+  text-align: center;
+  color: white;
+}

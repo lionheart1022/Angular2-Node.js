@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, OnChanges, EventEmitter, Injectable }
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { CreateCaseService } from '../../../../services/case/createCase.service';
 import { AuthenticationService } from '../../../../services';
+import { FormBuilder, FormGroup, FormArray, FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'dialog-create-case',
@@ -31,15 +32,25 @@ export class DialogCreateCaseComponent implements OnInit {
 
   public name: string;
   public type: string;
+  addeduser: boolean;
+  caseform: FormGroup;
 
   constructor(
     private createCase: CreateCaseService,
     private auth: AuthenticationService,
-
-  ) { }
+    formBuilder: FormBuilder,
+  ) { 
+    this.caseform = formBuilder.group({
+  		name: ['', [
+  			Validators.required
+  		]],
+  		type: ['', [
+  			Validators.required
+			]]
+  	});
+  }
 
   ngOnInit() {
-
   }
 
   /**
@@ -58,10 +69,17 @@ export class DialogCreateCaseComponent implements OnInit {
    * Create case
    */
   save() {
-    this.createCase.handler(this.name, this.auth.username, this.type)
+    var current_username = this.auth.username;
+    if (!this.addeduser) {
+      current_username = '';
+    }
+
+    if (this.name && this.type) {
+      this.createCase.handler(this.name, current_username, this.type)
       .then(res => this.close(res))
       .catch(err => {
         console.error(err);
       });
+    }
   }
 }

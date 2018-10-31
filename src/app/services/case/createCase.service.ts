@@ -21,7 +21,6 @@ export class CreateCaseService {
    */
   handler(name: string, userName: any, type: string): Promise<any> {
     const body = { name, assignedUsers: [userName], caseType: type, caseStatus: 'ACTIVE', targets: []};
-    console.log(body);
     return this.http.post(`${config.url}cases`, body).toPromise();
   }
 }

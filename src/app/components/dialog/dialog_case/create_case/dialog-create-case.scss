@@ -5,15 +5,39 @@
   justify-content: center;
 }
 
+.dialog {
+  z-index: 1000;
+  position: absolute;
+  top:200px;
+  margin-right: auto;
+  margin-left: auto;
+  height: 250px;
+  width: 500px;
+  background-color: $grey;
+  box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2), 0 13px 19px 2px rgba(0, 0, 0, 0.14), 0 5px 24px 4px rgba(0, 0, 0, 0.12);
+}
+
 .dialog_create_case{
   padding: 35px;
   padding-bottom: 20px;
   color: $white;
 }
 
-.dialog__save-btn{
-  color: black;
-  float: right;
+.dialog__close-btn {
+  text-shadow: none;
+  opacity: 1 !important;
+  background: transparent;
+  border: none;
+  padding: 26px;
+  font-weight: 1000 !important;
+  color: #777 !important;
+  text-shadow: none;
+  opacity: 1 !important;
+  font-size: 18px;
+}
+
+.dialog__close-btn:hover {
+  opacity: .7 !important;
 }
 
 .case_header{
@@ -22,4 +46,26 @@
 
 .mat-input-container:nth-child(2){
   margin-left: 25px;
+}
+
+.modal-create-case__buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.modal-create-case__buttons > .button__inactive {
+  max-width: 160px;
+}
+
+.modal-create-case__buttons > .button__active {
+  max-width: 100px;
 }
