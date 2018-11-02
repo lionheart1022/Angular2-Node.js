@@ -11,14 +11,16 @@
         <div class="example-container">
             <div class="fields-container">
                 <mat-form-field>
-                    <input matInput [(ngModel)]="name" placeholder="Name">
+                    <input matInput placeholder="Name" [formControl]="name" required>
+                    <mat-error *ngIf="name.invalid">{{getNameErrorMessage()}}</mat-error>
                 </mat-form-field>
 
                 <mat-form-field>
-                    <mat-select matInput [(ngModel)]="type"  placeholder="Select case type">
+                    <mat-select matInput placeholder="Select case type" [formControl]="type" required>
                         <mat-option value="UNDEFINED">UNDEFINED</mat-option>
                         <mat-option value="UNDEFINED">UNDEFINED</mat-option>
                     </mat-select>
+                    <mat-error *ngIf="type.invalid">{{getTypeErrorMessage()}}</mat-error>
                 </mat-form-field>
 
                 <!-- <mat-form-field>

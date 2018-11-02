@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, OnChanges, EventEmitter, Injectable }
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { CreateCaseService } from '../../../../services/case/createCase.service';
 import { AuthenticationService } from '../../../../services';
-import { FormBuilder, FormGroup, FormArray, FormControl, Validators} from '@angular/forms';
+import {FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'dialog-create-case',
@@ -30,25 +30,26 @@ export class DialogCreateCaseComponent implements OnInit {
   @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() successAdd: EventEmitter<any> = new EventEmitter<any>();
 
-  public name: string;
-  public type: string;
+  name = new FormControl('', [Validators.required]);
+  getNameErrorMessage() {
+    return this.name.hasError('required') ? 'You must enter a value' :
+        this.name.hasError('name') ? 'Not a valid name' :
+        '';
+  }
+
+  type = new FormControl('', [Validators.required]);
+  getTypeErrorMessage() {
+    return this.type.hasError('required') ? 'You must select a type' :
+        this.type.hasError('type') ? 'Not a valid type' :
+        '';
+  }
+
   addeduser: boolean;
-  caseform: FormGroup;
 
   constructor(
     private createCase: CreateCaseService,
     private auth: AuthenticationService,
-    formBuilder: FormBuilder,
-  ) { 
-    this.caseform = formBuilder.group({
-  		name: ['', [
-  			Validators.required
-  		]],
-  		type: ['', [
-  			Validators.required
-			]]
-  	});
-  }
+  ) { }
 
   ngOnInit() {
   }
@@ -75,7 +76,7 @@ export class DialogCreateCaseComponent implements OnInit {
     }
 
     if (this.name && this.type) {
-      this.createCase.handler(this.name, current_username, this.type)
+      this.createCase.handler(this.name.value, current_username, this.type.value)
       .then(res => this.close(res))
       .catch(err => {
         console.error(err);

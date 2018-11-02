@@ -330,6 +330,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
     this.modalService.createUserModal$
       .takeUntil(this.ngUnsubscribe)
       .subscribe(data => {
+				this.userform.reset();
 				$('.create_user').click();
 		  });
   }
