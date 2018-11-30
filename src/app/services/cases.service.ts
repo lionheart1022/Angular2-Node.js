@@ -21,6 +21,10 @@ export class CasesService {
     this.cases$.next(this.cases$.getValue().concat(items));
   }
 
+  changeCaseStatus(caseId: string, caseStatus: string) {
+    return this.http.get(`${config.url}cases/changeCaseStatus/${caseId}/${caseStatus}`);
+  }
+
   addUsertoCase(username: string, caseId: string) {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
