@@ -44,10 +44,16 @@ export class CaseDetailComponent implements OnInit {
 
   ngOnInit() {
     this.getCase();
+    var targetsBlock = this.route.snapshot.paramMap.get('value');
+    if(targetsBlock == 'true') {
+      this.openCase(event, 'results');
+      var casetab = document.getElementsByClassName("case__tab");
+      casetab[1].className = casetab[1].className + " active";
+    }
   }
 
   navigateToTarget(id: number) {
-    this.router.navigate(['/targets', id]);
+    this.router.navigate(['/results', id]);
   }
 
   /**
@@ -78,7 +84,6 @@ export class CaseDetailComponent implements OnInit {
     this.getAllTargets.handler(caseId)
       .then(data => {
         this.targets = data;
-        console.log(data);
         this.targetsBlock = true;
         this.targets.map((i) => {
           this.targetsOnlyItems.push(this.returnTargetData(i));
@@ -128,6 +133,20 @@ export class CaseDetailComponent implements OnInit {
     this.currentTargetId = targetId;
     this.openModalConfirmTarget = true;
     this.titleConfirm = `Delete target ${this.currentTargetId} ?`;
+  }
+
+  openCase(event, mode) {
+    var i, casecontent, casetab;
+    casecontent = document.getElementsByClassName("case-detail");
+    for (i=0; i<casecontent.length; i++) {
+      casecontent[i].style.display = "none";
+    }
+    casetab = document.getElementsByClassName("case__tab");
+    for (i=0; i<casetab.length; i++) {
+      casetab[i].className = casetab[i].className.replace(" active", "");
+    }
+    document.getElementById(mode).style.display = "flex";
+    event.currentTarget.className += " active";
   }
 
   /**

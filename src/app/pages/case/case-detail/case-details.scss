@@ -1,1 +1,16 @@
+ul li {
+  border-radius: 30px;
+  padding: 0.6em;
+  width: 50%;
+  text-align: center;
+  color: white;
+}
 
+ul li.active {
+  background: #3994db;
+  border-radius: 30px;
+  padding: 0.6em;
+  width: 50%;
+  text-align: center;
+  color: white;
+}

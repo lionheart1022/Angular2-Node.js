@@ -4,20 +4,56 @@
     <div class="row">
       <div class="col-12 col-xl-3">
         <ul class="row case__tabs">
-          <li class="case__tab active col-6">Active cases</li>
-          <li class="case__tab col-6">Archived cases</li>
+          <li class="case__tab active col-6" (click)="openCase($event, 'active')">Active cases</li>
+          <li class="case__tab col-6" (click)="openCase($event, 'archived')">Archived cases</li>
         </ul>
       </div>
     </div>
-    <div *ngIf="cases.length" class="case__content">
+    <div id="active" class="case__content">
       <div
-        *ngFor="let case of cases"
+        *ngFor="let case of removeDuplicates(active_cases, 'id')"
         class="case__item">
         <div class="case-item__element">
           <div class="case-item__header">
             <button
               style="background-image: url('img/archive.png')"
-              class="buttons__archive"></button>
+              class="buttons__archive" (click)="archiveCase(case.id, 'ARCHIVED')"></button>
+          </div>
+          <div class="case-item__content">
+            <a (click)="showMore(case)" class="case-item__name">{{case.name}}</a>
+            <table class="table__case">
+              <tbody>
+              <tr>
+                <td class="table__case_head" style="font-weight: bold;">Targets</td>
+                <td class="table__case_cell">
+                  <p>{{case.targets.length}}</p>
+                  <a (click)="showMore(case)">view all</a>
+                </td>
+              </tr>
+              <tr>
+                <td class="table__case_head">Case number</td>
+                <td class="table__case_cell">&nbsp;&nbsp; #{{('0000'+case.id).slice(-5)}}</td>
+              </tr>
+              <tr>
+                <td class="table__case_head">Case type</td>
+                <td class="table__case_cell">{{case.caseType}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="archived" style="display:none;" class="case__content">
+      <div
+        *ngFor="let case of removeDuplicates(archieved_cases, 'id')"
+        class="case__item">
+        <div class="case-item__element">
+          <div class="case-item__header">
+            <button
+              style="background-image: url('img/archive.png');"
+              class="buttons__archive" (click)="archiveCase(case.id, 'ACTIVE')"></button>
             <button
               (click)="openConfirmModale(case['id'])"
               style="background-image: url('img/delete_archive_case.png')"

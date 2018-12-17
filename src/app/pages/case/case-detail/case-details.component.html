@@ -1,18 +1,35 @@
-<app-loading [activated]="loading"></app-loading>
-<div class="results" [hidden]="!targetsBlock">
-  <div class="targets__container">
-    <div
-      *ngFor="let target of targets"
-      class="targets__grid-element">
-      <app-target
-              [target]="target"
-              (onDelete)="openConfirmModaleDeleteTarget($event)"
-      >
-      </app-target>
+<div class="row">
+  <div class="col-12 col-xl-3">
+    <ul class="row case__tabs">
+      <li class="case__tab active col-6" (click)="openCase($event, 'search')">Search</li>
+      <li class="case__tab col-6" (click)="openCase($event, 'results')">Results</li>
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <div class="case-detail" id="search">
+      <query [case]="currentCase"></query>
+    </div>
+    
+    <div class="case-detail" id="results" [hidden]="!targetsBlock" style="display:none;">
+      <app-loading [activated]="loading"></app-loading>
+      <div class="targets__container">
+        <div
+          *ngFor="let target of targets"
+          class="targets__grid-element">
+          <app-target
+                  [target]="target"
+                  (onDelete)="openConfirmModaleDeleteTarget($event)"
+          >
+          </app-target>
+        </div>
+      </div>
     </div>
   </div>
-
 </div>
+
 <confirm-modal
   [openModalConfirm]="openModalConfirmTarget"
   [eventButton]="eventButtonDeleteTarget"
