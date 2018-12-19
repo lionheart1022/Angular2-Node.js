@@ -4,43 +4,46 @@
   </div>
   <div class="audit-trail__search">
     <div class="row">
-      <div class="col-12 col-xl-2 datepicker">
+      <div class="col-md-4 col-sm-12 datepicker">
         <div class="datepicker__container"></div>
         <input id="datepicker"
                type="text"
                class="datepicker__regular">
       </div>
-      <div class="col-12 col-xl-4">
+      <div class="col-md-3 col-sm-12">
         <input type="text"
                placeholder="What are you searching for?"
                class="input__regular">
       </div>
-      <div class="col-12 col-xl-2">
+      <div class="col-md-3 col-sm-12">
         <div class="dropdown">
-          <div class="dropdown__selected">
+          <div class="dropdown__selected" (click)="showList()">
             <input type="text"
                    readonly
-                   value="Lorem Ipsum"
+                   [(ngModel)]="selectedUser"
                    class="dropdown__input">
             <span style="background-image: url('img/arrow.png')"
                   class="dropdown__arrow"></span>
           </div>
-          <ul class="dropdown__list">
+          <ul class="dropdown__list" style="display: none;" id="dropdown__list">
+            <li (click)="selectedUser = 'all users'">all users</li>
+            <li *ngFor="let user of t_users" (click)="selectedUser = user.username">{{user.username}}</li>
           </ul>
         </div>
       </div>
-      <div class="col-12 col-xl-2">
-        <button class="button__regular_search">search</button>
+      <div class="col-md-2 col-sm-12">
+        <button class="button__regular_search" (click)="search()">search</button>
       </div>
     </div>
   </div>
   <div class="audit-trail__tables-container">
     <div class="audit-trail__table">
       <div class="audit-trail__table__table-wrapper">
+        <!-- <app-loading [activated]="loading"></app-loading> -->
         <table>
           <thead>
             <tr>
-              <th>Nr</th>
+              <th>No</th>
               <th>Username</th>
               <th>Date</th>
               <th>Time</th>
@@ -57,47 +60,48 @@
               <td id="audit-time">{{audit.timePerformed}}</td>
               <td>User</td>
               <td>
-                <button data-toggle="modal"
+                <button (click)="setCurrentAudit(audit)"
+                        data-toggle="modal"
                         data-target="#modal-view-target"
                         class="buttons__link">{{audit.actionType}}</button>
               </td>
-                <div class="popup__container">
-                  <div id="modal-view-target"
-                       tabindex="-1"
-                       role="dialog"
-                       aria-labelledby="exampleModalLabel"
-                       aria-hidden="true"
-                       class="modal fade">
-                    <div role="document"
-                         class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 id="modal-view-target"
-                              class="modal-title">{{audit.username}}</h5>
-                          <button type="button"
-                                  data-dismiss="modal"
-                                  aria-label="Close"
-                                  class="close">
-                            <span aria-hidden="true">{{audit.timePerformed}}</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          <div class="modal-view-target">
-                            <div class="modal-view-target__textarea">
-                              <textarea class="textarea__regular"></textarea>
-                            </div>
-                            <div class="modal-view-target__footer">
-                              <button class="button__regular_accept">OK</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
             </tr>
           </tbody>
         </table>
+      </div>
+    </div>
+  </div>
+  <div class="popup__container">
+    <div id="modal-view-target"
+         tabindex="-1"
+         role="dialog"
+         aria-labelledby="exampleModalLabel"
+         aria-hidden="true"
+         class="modal fade" *ngIf="currentAudit">
+      <div role="document"
+           class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 id="modal-view-target"
+                class="modal-title">{{currentAudit.username}}</h5>
+            <button type="button"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                    class="close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="modal-view-target">
+              <div class="modal-view-target__textarea">
+                <textarea class="textarea__regular" readonly>{ {{currentAudit.args | json}} }</textarea>
+              </div>
+              <div class="modal-view-target__footer">
+                <button class="button__regular_accept" data-dismiss="modal">OK</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
