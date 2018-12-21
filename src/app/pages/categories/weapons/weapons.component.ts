@@ -26,10 +26,12 @@ export class WeaponsComponent implements OnInit {
   type: string = 'DreamMarketProductItem';
   public weapons: Weapon[] = [];
   public title: string = 'Weapons';
+  public caseId: number;
   public url: string = '';
   items: any = [];
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private currentSubcatService: CurrentSubcategoriesService,
     private selectedSubcatService: SelectedSubcategoriesService,
     private allSubcatService: AllSubcategoriesService,
@@ -47,6 +49,7 @@ export class WeaponsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.caseId = +this.route.snapshot.paramMap.get('id');
     const subcategories = this.allSubcatService.getSubCat('weapons');
     if(typeof this.title === 'undefined') {
       this.title = 'all';

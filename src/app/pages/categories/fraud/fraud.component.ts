@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { CurrentSubcategoriesService } from '../../../services/subcategory/currentSubcategory.service';
 import { AllSubcategoriesService } from '../../../services/subcategory/allSubcategories.service';
 import { ucFirst } from '../../../helpers/ucFirst/ucFirst';
@@ -14,9 +14,11 @@ import { SelectedSubcategoriesService } from '../../../services/subcategory/sele
 })
 export class FraudComponent implements OnInit {
   public title: string;
+  public caseId: number;
   items: any = [];
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private currentSubcatService: CurrentSubcategoriesService,
     private selectedSubcatService: SelectedSubcategoriesService,
     private allSubcatService: AllSubcategoriesService,
@@ -41,6 +43,7 @@ export class FraudComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.caseId = +this.route.snapshot.paramMap.get('id');
     const subcategories = this.allSubcatService.getSubCat('fraud');
     if(typeof this.title === 'undefined') {
       this.title = 'all';
