@@ -12,6 +12,7 @@
         >
           Create new User
         </a>
+        <!-- <app-loading [activated]="loading"></app-loading> -->
         <table>
           <thead>
             <tr>
@@ -194,7 +195,7 @@
     </form>
   </div>
   <div class="popup__container">
-    <form [formGroup]="userEditForm" *ngIf="currentUser">
+    <form [formGroup]="userEditForm" (ngSubmit)="Save()" *ngIf="currentUser">
       <div
         id="modal-edit-user"
         tabindex="-1"
@@ -227,7 +228,6 @@
                     type="text"
                     placeholder="Username"
                     value="{{currentUser['username']}}"
-                    formControlName="username"
                     disabled
                   >
                 </div>
@@ -236,24 +236,26 @@
                   <input id="password" class="input__regular"
                          type="password"
                          placeholder="Password"
+                         formControlName="password"
                   >
                 </div>
+                <div class="alert alert-danger" *ngIf="userEditForm.controls.password.errors?.NoInputPassword">Password is required and cannot be empty;</div>
+                <div class="alert alert-danger" *ngIf="userEditForm.controls.password.errors?.WrongPassword">Password must be at least 8 characters. It must contains at least one Uppercase, Lowercase, Number and Special Character. Special Characters are !@#$%,.^_'~</div>
                 <div class="modal-create-user__checkboxes" formArrayName="roles">
                   <div class="checkbox">
                     <input type="checkbox"
                            id="adminForm" formControlName="0"
-                           [checked]="currentUser['isAdmin']?.length > 0"
                     >
                     <label for="adminForm">Administrators</label>
                   </div>
                   <div class="checkbox">
                     <input type="checkbox"
                            id="userForm" formControlName="1"
-                           [checked]="currentUser['isUser']?.length > 0"
                     >
                     <label for="userForm">Regular Users</label>
                   </div>
                 </div>
+                <div class="alert alert-danger" *ngIf="userEditForm.controls.roles.errors?.NoRoles">Role is required. Select at least one role</div>
                 <div class="modal-create-user__buttons">
                   <button class="button__inactive" data-dismiss="modal">back to list</button>
                   <button class="button__active" type="submit" [disabled]="!userEditForm.valid">save</button>

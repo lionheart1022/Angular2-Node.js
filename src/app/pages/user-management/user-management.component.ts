@@ -29,7 +29,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
   userEditForm: FormGroup;
   caseForm: FormGroup;
   currentUser:User;
-  public data: string;
+  public data: any;
   public dataNewUser: any;
 	public dataCase = '1';
 	public deletedataCase = '1';
@@ -41,6 +41,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
 	path: string[] = ['username'];
 	order: number = 1; // 1 asc, -1 desc;
 	usercheck: number = 0;
+	loading: boolean = true;
 
   @Input() renderedOnHomePage: boolean = false;
 
@@ -58,11 +59,6 @@ export class UserManagementComponent implements OnInit, OnDestroy {
   	)
   {
   	this.userEditForm = formBuilder.group({
-  		username: ['', [
-  			Validators.required,
-				Validators.minLength(3),
-				Validators.maxLength(21),
-  		]],
   		password: ['', [
   			Validators.required,
   			Validators.minLength(8),
@@ -71,8 +67,10 @@ export class UserManagementComponent implements OnInit, OnDestroy {
   		roles: new FormArray([
   			new FormControl(),
   			new FormControl()
-  		])
-  	});
+			])
+  	}, {
+			validator: FormValidation.MatchEditForm
+		});
 
 		this.userform = formBuilder.group({
   		username: ['', [
@@ -107,15 +105,23 @@ export class UserManagementComponent implements OnInit, OnDestroy {
 				roles.push("ROLE_USER");
 			}
   		this.dataNewUser = { "username": form.username, "password": form.password, "roles":roles};
-  	});
+		});
 		this.userEditForm.valueChanges.subscribe((form: any) => {
-  		this.data = `${form.username}, ${form.password}, ${form.roles}`;
+			let roles = [];
+			if(form.roles[0]){
+				roles.push("ROLE_ADMIN");
+			}
+			if(form.roles[1]){
+				roles.push("ROLE_USER");
+			}
+			this.data = { "username": form.username, "password": form.password, "roles":roles};
   	});
-  }
+	}
 
   ngOnInit() {
 		this.getCasesAndFetchUsesrs();
 		this.subscribe();
+		// this.onChanges();
   }
 
   ngOnDestroy() {
@@ -138,15 +144,24 @@ export class UserManagementComponent implements OnInit, OnDestroy {
   }
 
   Save() {
-  	var result, 
-  		userValue = this.userform.value;
-  	if (userValue.username){
-  		result = this.usersService.updateUser(userValue);
-  	}
-  	else {
-  		result = this.usersService.createUser(userValue);
-  	}
-  	result.subscribe(data=>this.router.navigate(['user-management']));
+  	var result;
+		var userEditValue;
+		userEditValue = {'username': this.currentUser.username, 'password': this.data.password, 'roles': this.data.roles};
+		if (userEditValue.roles.length != 0){
+			result = this.usersService.updateUser(userEditValue);
+		}
+		else {
+			if (this.currentUser.isAdmin) {
+				userEditValue.roles.push('ROLE_ADMIN');
+			}
+			if (this.currentUser.isUser) {
+				userEditValue.roles.push('ROLE_USER');
+			}
+			result = this.usersService.updateUser(userEditValue);
+		}
+		$('.close').click();
+		result.subscribe(data=>this.router.navigate(['user-management']));
+		location.reload();
 	}
 	
 	sortTable(prop: string) {
@@ -290,6 +305,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
 					this.getUsers().subscribe(
 			data => {
 						this.createUsersArray(data);
+						this.loading = false;
 					 },
 			err => console.error(err),
 					);
