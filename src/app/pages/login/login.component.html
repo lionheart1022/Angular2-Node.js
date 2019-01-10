@@ -2,14 +2,14 @@
     ﻿<div class="outer">
     <div class="middle">
         <div class="inner">
-            <div style="" class="login-container">
+            <div class="login-container">
                 <div class="" id="login-form">
                     <div class="row">
                         <div class="signin-container widget">
                             <form name="form" (ngSubmit)="login(loginForm)" autocomplete="off">
                                 <div class="signin-header">{{"Log in"}}</div>
-                                <div class="signin-body">
-                                    <div *ngIf="error.length > 0" class="alert alert-danger">{{error}}</div>
+                                <div *ngIf="error.length > 0" class="alert alert-danger">{{error}}</div>
+                                <div class="signin-body" [ngStyle]="{'padding': error.length > 0 ? '0px 80px 30px' : '50px 80px 30px'}">
                                     <div class="signin-input">
                                         <div class="signin-icon signin-icon-user"></div>
                                         <input type="text" placeholder="{{'User Name' }}" name="username" [(ngModel)]="user.username" required="">
@@ -19,7 +19,6 @@
                                         <input type="password" placeholder="{{'Password' }}" name="password" [(ngModel)]="user.password" required>
                                     </div>
                                     <div class="signin-options">
-                                        <a href="" class="signin-forgot">{{"Forgot password?"}}</a>
                                         <div class="signin-remember">
                                             <div class="checkbox">
                                                 <input id="remember-me" type="checkbox">
@@ -41,8 +40,7 @@
 </div>
     <div class="login-footer footer">
         <div class="footer__copyright">
-            <p ng-if="!customLogo">&copy; 2017 {{"Safezone UI"}} v{{version}}</p>
-            <p ng-if="customLogo">&copy; 2017 {{customLogo | uppercase}} v{{version}}</p>
+            <p>Version 1.0.10</p>
         </div>
     </div>
   <!--<form name="form" [formGroup]="loginForm" (ngSubmit)="login(loginForm)" novalidate>-->

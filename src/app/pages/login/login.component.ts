@@ -51,9 +51,17 @@ export class LoginComponent {
       .then(data => {
         localStorage.setItem('username', name);
         localStorage.setItem('password', pwd);
-        this.router.navigate(['/home']);
+        if(this.authenticationService.isAdmin()) {
+          this.router.navigate(['/home']);
+        }
+        else {
+          this.router.navigate(['/cases']);
+        }
         this.dataLoading = false;
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        this.error = "Username or password is incorrect";
+        console.log(error);
+      });
   }
 }

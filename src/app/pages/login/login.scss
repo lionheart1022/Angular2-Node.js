@@ -10,13 +10,13 @@
   opacity: 0.9;
   z-index: 10000;
   form{
-    width: 40%;
+    // width: 40%;
     margin: 5vw auto;
     border-radius: 10px;
     background-color: #535355;
-    padding: 40px;
     color: $white;
-    min-width: 439px;
+    min-width: 500px;
+    height: 347.53px;
     .form-group{
       margin-bottom: 25px;
       .text-danger {
@@ -456,7 +456,7 @@ a.as-button:hover{
   align-items: center;
 }
 .signin-header{
-  height:52px;
+  height:60px;
   text-align:center;
   background-color:#3994db;
   color:#fff;
@@ -464,7 +464,9 @@ a.as-button:hover{
   text-transform: uppercase;
   font-size:18px;
   justify-content: space-between;
-  padding-top:10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  line-height: 60px;
 }
 .signin-body{
   padding: 50px 80px 30px;
@@ -513,18 +515,17 @@ a.as-button:hover{
   vertical-align: baseline;
   font-size: 16px;
 }
-.signin-options .signin-forgot{
-  display: flex;
-  width: 50%;
-  color: #777;
-}
+
 .signin-options .signin-remember{
   display: flex;
-  width: 50%;
+  width: 100%;
   justify-content: flex-end;
 }
 .signin-footer{
   padding-bottom: 25px;
+}
+.signin-footer .button__regular_accept{
+  border-radius: 1.9em;
 }
 .login-footer{
   position: absolute;
