@@ -42,10 +42,8 @@ export class UsersService {
     let headers = new HttpHeaders();
     headers.append('Host', 'localhost:8080');
     headers.append('Content-Type', 'application/json');
-    headers.append('Cache-Control', 'no-cache');
-    headers.append('Postman-Token', '6ba1745b-1d18-d692-6075-0add7b72d5b7');
 
-    return this.http.put(this.getUserUrl(user.username), JSON.stringify(user), {headers: headers});
+    return this.http.post(`${config.url}users/update`, user, {headers: headers});
   }
 
   deleteUser(username){
