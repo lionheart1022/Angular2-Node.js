@@ -23,7 +23,6 @@ export class GetAllCasesService {
    * @return {Promise<R>|Promise<T>|Promise<void>}
    */
   handler(): Promise<any> {
-    console.log(this.auth.isAdmin(), ' is admin');
     if (this.auth.isAdmin()) {
       return this.http.get(`${config.url}cases`)
         .toPromise()
