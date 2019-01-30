@@ -55,6 +55,14 @@ a:hover{
   min-height: 100%;
 }
 
+.col-12 {
+  padding-right: 5px !important;
+}
+
+.col-12.col-xl-4:last-child {
+  padding-right: 0 !important;
+}
+
 @media screen and (min-width: 1600px) {
   .container {
     max-width: 80% !important;
@@ -100,7 +108,11 @@ label {
 }
 
 .row {
-  margin: 20px 0 !important;
+  margin: 10px 0 !important;
+}
+
+.searching__row {
+  margin: 0 !important;
 }
 
 @media screen and (max-width: 1279px) {
@@ -174,6 +186,9 @@ label {
   .col-6 {
     margin: 15px 0 !important;
     padding: 0 15px !important;
+  }
+  .main_search {
+    margin: 0 !important;
   }
   .col-6 .row {
     margin: 0 !important;
@@ -609,6 +624,10 @@ hr {
 .avatars {
   font-family: 'Open Sans', sans-serif;
   margin: 2em 0;
+}
+
+.login-container .alert {
+  margin: 10px 80px 10px;
 }
 
 @media screen and (max-width: 1279px) {
@@ -1065,6 +1084,10 @@ hr {
   width: 16px;
 }
 
+#archived .buttons__delete-archived {
+  float: right;
+}
+
 .buttons__refresh,
 .buttons__hide,
 .buttons__close {
@@ -1187,8 +1210,21 @@ hr {
   width: 100%;
 }
 
+#archived .case-item__header {
+  display: block;
+}
+
 .case-item__content {
   text-align: center;
+}
+
+#archived .case-item__content {
+  text-align: center;
+  clear: both;
+}
+
+#archived button.buttons__archive:first-child {
+  float: left;
 }
 
 .case-item__name {
@@ -1649,6 +1685,10 @@ hr {
   width: 100%;
 }
 
+.date-picker-wrapper .gap {
+  margin: 0;
+}
+
 .datepicker__calendar .month-wrapper {
   background-color: transparent !important;
   border-radius: 10px !important;
@@ -1657,10 +1697,11 @@ hr {
   position: relative !important;
   text-align: center;
   z-index: 1;
+  width: 398px !important;
 }
 
 .datepicker__calendar .month-wrapper table {
-  float: inherit !important;
+  /* float: inherit !important; */
   margin: auto;
 }
 
@@ -5155,11 +5196,11 @@ hr {
   width: 20%;
 }
 
-@media screen and (max-width: 1366px) {
+/* @media screen and (max-width: 1366px) {
   .targets__grid-element {
     width: 25%;
   }
-}
+} */
 
 @media screen and (max-width: 1279px) {
   .targets__grid-element {
@@ -5186,6 +5227,7 @@ hr {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   margin: 15px 0;
+  width: 100%;
 }
 
 .targets__search {
@@ -7011,9 +7053,9 @@ h5 {
   padding: 30px 10px 0;
 }
 
-.main_search {
+/* .main_search {
   margin: 10px 0;
-}
+} */
 
 .main_search .input__regular {
   width: 75%;
