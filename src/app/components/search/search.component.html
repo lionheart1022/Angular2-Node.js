@@ -39,16 +39,18 @@
     <div class="devider"></div>
     <div class="targets_search_res">
       <div *ngIf="isBlockchain === true">
-        <div
-                *ngFor="let weapon of weapons | limitTo: 12; let ind = index"
-                (click)="openInModal(+ind, weapon)"
-                class="search_res_item">
+        <div *ngFor="let weapon of weapons | limitTo: 12; let ind = index"
+          (click)="openInModal(+ind, weapon)"
+          class="search_res_item">
           <div class="open-target__section">
             <div class="open-target__section__profile">
               <div class="open-target-profile">
                 <div class="open-target-profile__content">
                   <div class="open-target-img">
-                    <img [src]="weapon.qrcode" alt="" class="blockchain_qr"/>
+                    <img *ngIf="weapon.qrcode.length > 0; else noqrcode;" [src]="weapon.qrcode" alt="" class="blockchain_qr"/>
+                    <ng-template #noqrcode>
+                      <img [src]="img/no_qrcode.jpeg" alt="" class="blockchain_qr"/>
+                    </ng-template>
                   </div>
                   <div class="description">
                       <p>Address</p>
@@ -70,20 +72,20 @@
         </div>
       </div>
       <div *ngIf="isBlockchain === false" style="width: 100%;">
-        <div
-                *ngFor="let weapon of weapons | limitTo: 12; let ind = index"
-                (click)="openInModal(+ind, weapon)"
-                class="search_res_item">
+        <div *ngFor="let weapon of weapons | limitTo: 12; let ind = index"
+            (click)="openInModal(+ind, weapon)"
+            class="search_res_item">
           <div class="open-target__section">
             <div class="open-target__section__profile">
               <div class="open-target-profile">
                 <div class="open-target-profile__content">
                   <div class="open-target-img">
-                    <img [src]="weapon.product_photo" alt="" />
+                    <img *ngIf="weapon.product_photo.length > 0; else noimage;" [src]="weapon.product_photo" alt="" />
+                    <ng-template #noimage>
+                      <img [src]="img/no-image.png" alt="" />
+                    </ng-template>
                   </div>
-                  <a
-                          href="javascript:void(0)"
-                          class="open-target-profile__title">{{weapon.product_name}}</a>
+                  <a href="javascript:void(0)" class="open-target-profile__title">{{weapon.product_name}}</a>
                 </div>
               </div>
             </div>
@@ -92,7 +94,7 @@
       </div>
 
 
-      <div *ngIf="errorMessage" [ngClass]="'error'"> {{errorMessage}} </div>
+      <!-- <div *ngIf="errorMessage" [ngClass]="'error'"> {{errorMessage}} </div> -->
 
     </div>
   </div>

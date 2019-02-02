@@ -10,6 +10,7 @@ import { Input } from '@angular/core';
 import {TargetsService} from '../../services/targets.service';
 import {ITarget} from '../../interfaces/targets/target.interface';
 import {QueryService} from '../../services/query.service';
+import { AddToTheCaseService } from '../../services/case/addTotheCase.service';
 
 @Component({
   selector: 'app-search',
@@ -19,6 +20,7 @@ import {QueryService} from '../../services/query.service';
 
 export class SearchComponent implements OnInit, OnDestroy {
   @Input() spider: string;
+  @Input() caseId: number;
   private ngUnsubscribe: Subject<boolean> = new Subject<boolean>();
   activated: boolean = false;
   errorMessage: string;
@@ -36,6 +38,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     private modalService: ModalService,
     private targetService: TargetsService,
     private queryService: QueryService,
+    private addToTheCaseService: AddToTheCaseService
   ) {
   }
 
@@ -69,9 +72,29 @@ export class SearchComponent implements OnInit, OnDestroy {
         wallfilter: '',
       },
     };
+    const spider = this.spider;
+
     this.searchService.createSearchJob(body)
       .then(data => {
         this.searchService.weapons.next(data);
+        data.forEach(search_result => {
+          if(spider == 'blockchain') {
+            this.addToTheCaseService
+            .addbtcTarget(
+              search_result.item_id.toString(),
+              this.caseId.toString(),
+              search_result.customrequestid
+            )
+          }
+          else {
+            this.addToTheCaseService
+            .handler(
+              search_result.product_id.toString(),
+              this.caseId.toString(),
+              search_result.customrequestid
+            )
+          }
+        });
       })
       .catch(error => {
         this.errorMessage = <any>error;
