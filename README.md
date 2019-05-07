@@ -4,8 +4,8 @@
 
 #### Prerequisites
 
-- node >= 6, `node -v`
-- npm >= 3, `npm -v`
+- node >= 8.9.4, `node -v`
+- npm >= 5.6.0, `npm -v`
 - yarn installed `npm install -g yarn`
 
 #### Start it
